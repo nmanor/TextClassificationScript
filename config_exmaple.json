@@ -1,0 +1,9 @@
+{
+  "train":"",
+  "test":"",
+  "output_csv":"",
+  "nargs":"CHLPR",
+  "features":[ngrams_1000_w_tfidf_2_0,],
+  "results":"",
+  "methods":["mlp","svc"]
+}
