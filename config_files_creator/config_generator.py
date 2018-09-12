@@ -37,7 +37,7 @@ def handle_features_input():
 
 def handle_methods_input():
 	methods = []
-	headers = input("Enter first letter of selected methods:\nmlp,svc,rf,lr\nex: msr,srl\n")
+	headers = input("Enter first letter of selected methods:\nmlp(m),svc(s),rf(r),lr(l),mnb(n)\nex: msr,srl\n")
 	headers = headers.lower()
 	if 'm' in headers:
 		methods.append('mlp')
@@ -47,6 +47,8 @@ def handle_methods_input():
 		methods.append('rf')
 	if 'l' in headers:
 		methods.append('lr')
+	if 'n' in headers:
+		methods.append('mnb')
 	return methods
 
 
