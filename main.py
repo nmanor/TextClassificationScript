@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 import traceback
 
 from args import get_args
@@ -55,6 +56,7 @@ def main(cfg):
 		print_results(results)
 		write_results(results)
 		send_work_done(global_parameters.TRAIN_DIR)
+		clean_backup_files()
 	except Exception as e:
 		traceback.print_exc()
 		send_work_done(global_parameters.TRAIN_DIR, "", error=str(e), traceback=str(traceback.format_exc()))
@@ -68,6 +70,12 @@ def get_cfg_files(dir):
 				# keys : train,test='',output_csv,nargs,features.
 				items.append(json.load(f))
 	return items
+
+
+def clean_backup_files():
+	global_parameters.print_message("removing temp files...")
+	folder_path = '\\'.join(global_parameters.RESULTS_PATH.split("\\")[:-1]) + "\\temp_backups"
+	shutil.rmtree(folder_path, ignore_errors=True)
 
 
 if __name__ == '__main__':

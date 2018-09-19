@@ -1,11 +1,12 @@
+# from keras import Sequential
+# from keras.layers import Embedding, LSTM, Dense, SpatialDropout1D, Conv1D, MaxPooling1D
+# from keras.preprocessing import sequence
+# from keras.preprocessing.text import Tokenizer
+import os
 
-#from keras import Sequential
-#from keras.layers import Embedding, LSTM, Dense, SpatialDropout1D, Conv1D, MaxPooling1D
-#from keras.preprocessing import sequence
-#from keras.preprocessing.text import Tokenizer
+import pickle
 
 import global_parameters
-
 
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
@@ -33,8 +34,13 @@ def classify(train, tr_labels, test, ts_labels, num_iteration=1):
 	ts_labels = le.transform(ts_labels)
 	tr_labels = le.transform(tr_labels)
 	print_message("Classifying")
+	temp_file_path = gen_file_path()
+	if os.path.exists(temp_file_path):
+		results = load_backup_file(temp_file_path)
 	for classifier in global_parameters.METHODS:
 		print_message("running " + str(classifier), num_tabs=1)
+		if classifier in results.keys():
+			continue
 		average_acc = 0
 		for i in range(num_iteration):
 			if classifier == 'rnn':
@@ -50,6 +56,7 @@ def classify(train, tr_labels, test, ts_labels, num_iteration=1):
 			del clf
 		average_acc = average_acc / num_iteration
 		results[classifier] = average_acc
+		save_backup_file(results, temp_file_path)
 	return results
 
 
@@ -68,15 +75,40 @@ def get_rnn_model(tr_features):
 	return model
 
 
+def gen_file_path():
+	name = ''
+	for feature in global_parameters.FEATURES:
+		name += feature.upper()
+		name += '@'
+	name += global_parameters.NORMALIZATION + "@"
+	for method in global_parameters.METHODS:
+		name += method.upper()
+		name += '@'
+	folder_path = '\\'.join(global_parameters.RESULTS_PATH.split("\\")[:-1]) + "\\temp_backups"
+	if not os.path.exists(folder_path):
+		os.mkdir(folder_path)
+	return folder_path + "\\" + name + ".pickle"
+
+
+def save_backup_file(data, path):
+	with open(path, 'wb+') as file:
+		pickle.dump(data, file)
+
+
+def load_backup_file(path):
+	with open(path, 'rb') as file:
+		return pickle.load(file)
+
+
 if __name__ == '__main__':
-	#extract data
+	# extract data
 	print("Reading Data...")
-	#train_dir = r"C:\Users\yairi\Desktop\AGs News\dataset\training"
+	# train_dir = r"C:\Users\yairi\Desktop\AGs News\dataset\training"
 	train_dir = r"C:\Personal\Studies\Research\Data_Mining\Datasets\Mini20Newsgroups_processed\Mini-20Newsgroups_processed"
-	#test_dir = r"C:\Users\yairi\Desktop\AGs News\dataset\testing"
+	# test_dir = r"C:\Users\yairi\Desktop\AGs News\dataset\testing"
 	global_parameters.TEST_DIR = ''
 	tr, tr_labels, ts, ts_labels = get_data('', train_dir)
-	#tokenize data
+	# tokenize data
 	print("Tokenizing...")
 	max_words = 1000
 	max_len = 150
@@ -84,17 +116,17 @@ if __name__ == '__main__':
 	tok.fit_on_texts(tr)
 	sequences = tok.texts_to_sequences(tr)
 	sequences_matrix = sequence.pad_sequences(sequences, maxlen=max_len)
-	#process test data
+	# process test data
 	test_sequences = tok.texts_to_sequences(ts)
 	test_sequences_matrix = sequence.pad_sequences(test_sequences, maxlen=max_len)
-	#encode labels
+	# encode labels
 	print("Encoding Labels...")
 	le = LabelEncoder()
 	tr_labels = le.fit_transform(tr_labels)
 	tr_labels = tr_labels.reshape(-1, 1)
 	ts_labels = le.transform(ts_labels)
 	ts_labels = ts_labels.reshape(-1, 1)
-	#create rnn
+	# create rnn
 	print("Creating Rnn...")
 	embedding_vecor_length = 50
 	model = Sequential()
