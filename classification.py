@@ -1,19 +1,19 @@
-import random
 
-from keras.preprocessing import sequence
-from keras.preprocessing.text import Tokenizer
-from sklearn.preprocessing import LabelEncoder
+#from keras import Sequential
+#from keras.layers import Embedding, LSTM, Dense, SpatialDropout1D, Conv1D, MaxPooling1D
+#from keras.preprocessing import sequence
+#from keras.preprocessing.text import Tokenizer
+
 import global_parameters
-from keras import Sequential
-from keras.layers import Embedding, LSTM, Dense, SpatialDropout1D, Conv1D, MaxPooling1D
 
-from scipy import sparse
+
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.preprocessing import LabelEncoder
 
 from features import get_data
 from global_parameters import print_message

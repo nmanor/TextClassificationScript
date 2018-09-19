@@ -4,7 +4,7 @@ import random
 import numpy as np
 
 import global_parameters
-from pickle import dump
+from pickle import dump, load
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
 # region helpful functions
@@ -16,7 +16,7 @@ from skipgrams_vectorizer import SkipGramVectorizer
 def read_dataset(path):
 	data = []
 	for category in os.listdir(path):
-		with open(path + "\\" + category, 'r+', encoding='utf8',errors='ignore') as read:
+		with open(path + "\\" + category, 'r+', encoding='utf8', errors='ignore') as read:
 			for example in read:
 				record = example.rstrip('\n')
 				data.append((record, category))
@@ -77,6 +77,11 @@ def extract_ngrams(train_data, test_data, feature):
 def extract_features(train_dir, test_dir=''):
 	print_message("Extracting Features")
 
+	vals = are_features_saved()
+	if vals[0] is not False:
+		print_message("Found saved features, Loading...")
+		return vals
+
 	train_data, train_labels, test_data, test_labels = get_data(test_dir, train_dir)
 
 	for feature in global_parameters.FEATURES:
@@ -92,7 +97,8 @@ def get_data(test_dir, train_dir):
 	train_data = read_dataset(train_dir)
 	train_data, train_labels = zip(*train_data)
 	if global_parameters.TEST_DIR == '':
-		train_data, train_labels, test_data, test_labels = split_train(system_config.TEST_SPLIT, train_labels, train_data)
+		train_data, train_labels, test_data, test_labels = split_train(system_config.TEST_SPLIT, train_labels,
+																	   train_data)
 	else:
 		test_data = read_dataset(test_dir)
 		test_data, test_labels = zip(*test_data)
@@ -100,6 +106,12 @@ def get_data(test_dir, train_dir):
 
 
 def save_features(data, labels, test):
+	name = gen_file_name(test)
+	with open(global_parameters.OUTPUT_DIR + '\\' + name + ".pickle", 'wb+') as file:
+		dump((data, labels), file)
+
+
+def gen_file_name(test):
 	name = ''
 	for feature in global_parameters.FEATURES:
 		name += feature.upper()
@@ -109,5 +121,19 @@ def save_features(data, labels, test):
 		name += "TEST"
 	else:
 		name += 'TRAIN'
-	with open(global_parameters.OUTPUT_DIR + '\\' + name + ".pickle", 'wb+') as file:
-		dump((data, labels), file)
+	return name
+
+
+def are_features_saved():
+	name = gen_file_name(test=False)
+	test_name = gen_file_name(test=True)
+	file_path = global_parameters.OUTPUT_DIR + '\\' + name + ".pickle"
+	test_file_path = global_parameters.OUTPUT_DIR + '\\' + test_name + ".pickle"
+	if os.path.exists(file_path) and os.path.exists(test_file_path):
+		with open(file_path, 'rb') as file:
+			train_data, train_labels = load(file)
+		with open(test_file_path, 'rb') as file:
+			test_data, test_labels = load(file)
+		return train_data, train_labels, test_data, test_labels
+	return False,
+

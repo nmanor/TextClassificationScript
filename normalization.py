@@ -2,6 +2,7 @@ import json
 import os
 
 import re
+import shutil
 import string
 
 from nltk import WordNetLemmatizer, SnowballStemmer
@@ -288,8 +289,14 @@ def normalize(test=False):
 					write.write(n_file)
 				del n_file
 		else:  # if it does exist
+			print_message("found normalized dataset")
 			# check if both dirs have the same number of files
-			assert len(os.listdir(parent_dir)) == len(os.listdir(i))
+			if not len(os.listdir(parent_dir)) == len(os.listdir(i)):
+				# delete normalized folder and create a new one.
+				print_message("Corrupted normalization found, deleting and starting over...")
+				shutil.rmtree(parent_dir, ignore_errors=True)
+				normalize()
+
 		global_parameters.NORM_PATH = parent_dir
 	else:
 		global_parameters.NORM_PATH = i
