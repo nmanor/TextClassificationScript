@@ -7,11 +7,13 @@ import string
 
 from nltk import WordNetLemmatizer, SnowballStemmer
 
-from global_parameters import print_message
+from global_parameters import print_message,GlobalParameters
 from stopwords import stopwords
 from autocorrect import spell
 from system_config import DICTIONARY_PATH
 
+
+glbs = GlobalParameters()
 
 def init_tools():
 	global dictionary
@@ -263,12 +265,12 @@ def normal(word, nargs):
 
 def normalize(test=False):
 	init_tools()
-	n = global_parameters.NORMALIZATION
+	n = glbs.NORMALIZATION
 	if not test:
-		i = global_parameters.TRAIN_DIR
+		i = glbs.TRAIN_DIR
 		print_message("Normalizing")
 	else:
-		i = global_parameters.TEST_DIR
+		i = glbs.TEST_DIR
 		print_message("Normalizing test dataset")
 	if not is_nargs_empty(n):
 		# the normalized folder
@@ -297,8 +299,8 @@ def normalize(test=False):
 				shutil.rmtree(parent_dir, ignore_errors=True)
 				normalize()
 
-		global_parameters.NORM_PATH = parent_dir
+		glbsNORM_PATH = parent_dir
 	else:
-		global_parameters.NORM_PATH = i
+		glbsNORM_PATH = i
 
-	return global_parameters.NORM_PATH
+	return glbsNORM_PATH

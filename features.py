@@ -3,15 +3,15 @@ import random
 
 import numpy as np
 
-import global_parameters
 from pickle import dump, load
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
 # region helpful functions
 import system_config
-from global_parameters import print_message
+from global_parameters import print_message, GlobalParameters
 from skipgrams_vectorizer import SkipGramVectorizer
 
+glbs = GlobalParameters()
 
 def read_dataset(path):
 	data = []
@@ -84,7 +84,7 @@ def extract_features(train_dir, test_dir=''):
 
 	train_data, train_labels, test_data, test_labels = get_data(test_dir, train_dir)
 
-	for feature in global_parameters.FEATURES:
+	for feature in glbs.FEATURES:
 		if is_ngrams(feature):
 			train_features, test_features = extract_ngrams(train_data, test_data, feature)
 	# add more features here, don't forget to fuse them with fuse_features()
@@ -96,7 +96,7 @@ def extract_features(train_dir, test_dir=''):
 def get_data(test_dir, train_dir):
 	train_data = read_dataset(train_dir)
 	train_data, train_labels = zip(*train_data)
-	if global_parameters.TEST_DIR == '':
+	if glbs.TEST_DIR == '':
 		train_data, train_labels, test_data, test_labels = split_train(system_config.TEST_SPLIT, train_labels,
 																	   train_data)
 	else:
@@ -107,16 +107,16 @@ def get_data(test_dir, train_dir):
 
 def save_features(data, labels, test):
 	name = gen_file_name(test)
-	with open(global_parameters.OUTPUT_DIR + '\\' + name + ".pickle", 'wb+') as file:
+	with open(glbs.OUTPUT_DIR + '\\' + name + ".pickle", 'wb+') as file:
 		dump((data, labels), file)
 
 
 def gen_file_name(test):
 	name = ''
-	for feature in global_parameters.FEATURES:
+	for feature in glbs.FEATURES:
 		name += feature.upper()
 		name += '@'
-	name += global_parameters.NORMALIZATION + "@"
+	name += glbs.NORMALIZATION + "@"
 	if test:
 		name += "TEST"
 	else:
@@ -127,8 +127,8 @@ def gen_file_name(test):
 def are_features_saved():
 	name = gen_file_name(test=False)
 	test_name = gen_file_name(test=True)
-	file_path = global_parameters.OUTPUT_DIR + '\\' + name + ".pickle"
-	test_file_path = global_parameters.OUTPUT_DIR + '\\' + test_name + ".pickle"
+	file_path = glbs.OUTPUT_DIR + '\\' + name + ".pickle"
+	test_file_path = glbs.OUTPUT_DIR + '\\' + test_name + ".pickle"
 	if os.path.exists(file_path) and os.path.exists(test_file_path):
 		with open(file_path, 'rb') as file:
 			train_data, train_labels = load(file)

@@ -6,7 +6,6 @@ import os
 
 import pickle
 
-import global_parameters
 
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
@@ -17,7 +16,9 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.preprocessing import LabelEncoder
 
 from features import get_data
-from global_parameters import print_message
+from global_parameters import print_message, GlobalParameters
+
+glbs = GlobalParameters()
 
 methods = {"svc": LinearSVC(),
 		   "rf": RandomForestClassifier(),
@@ -37,7 +38,7 @@ def classify(train, tr_labels, test, ts_labels, num_iteration=1):
 	temp_file_path = gen_file_path()
 	if os.path.exists(temp_file_path):
 		results = load_backup_file(temp_file_path)
-	for classifier in global_parameters.METHODS:
+	for classifier in glbs.METHODS:
 		print_message("running " + str(classifier), num_tabs=1)
 		if classifier in results.keys():
 			continue
@@ -77,14 +78,14 @@ def get_rnn_model(tr_features):
 
 def gen_file_path():
 	name = ''
-	for feature in global_parameters.FEATURES:
+	for feature in glbs.FEATURES:
 		name += feature.upper()
 		name += '@'
-	name += global_parameters.NORMALIZATION + "@"
-	for method in global_parameters.METHODS:
+	name += glbs.NORMALIZATION + "@"
+	for method in glbs.METHODS:
 		name += method.upper()
 		name += '@'
-	folder_path = '\\'.join(global_parameters.RESULTS_PATH.split("\\")[:-1]) + "\\temp_backups"
+	folder_path = '\\'.join(glbs.RESULTS_PATH.split("\\")[:-1]) + "\\temp_backups"
 	if not os.path.exists(folder_path):
 		os.mkdir(folder_path)
 	return folder_path + "\\" + name + ".pickle"
@@ -106,7 +107,7 @@ if __name__ == '__main__':
 	# train_dir = r"C:\Users\yairi\Desktop\AGs News\dataset\training"
 	train_dir = r"C:\Personal\Studies\Research\Data_Mining\Datasets\Mini20Newsgroups_processed\Mini-20Newsgroups_processed"
 	# test_dir = r"C:\Users\yairi\Desktop\AGs News\dataset\testing"
-	global_parameters.TEST_DIR = ''
+	glbsTEST_DIR = ''
 	tr, tr_labels, ts, ts_labels = get_data('', train_dir)
 	# tokenize data
 	print("Tokenizing...")
