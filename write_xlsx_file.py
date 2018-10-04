@@ -11,10 +11,10 @@ def write_xlsx_file(pickle_file_dir, baseline_index=0):
 	dataset_name = json.loads(list(pickle_file_content.keys())[0])['train'].split("\\")[-3]
 	results_path = json.loads(list(pickle_file_content.keys())[0])['results']
 	pickle_file_content = reformat_data(pickle_file_content, baseline_index)
-	write_file_content(pickle_file_content, dataset_name, results_path)
+	write_file_content(pickle_file_content, dataset_name, results_path, baseline_index)
 
 
-def write_file_content(pickle_file_content, dataset_name, results_path):
+def write_file_content(pickle_file_content, dataset_name, results_path, baseline_index):
 	dataset_name = dataset_name
 	file_path = results_path + "\\" + dataset_name + '.xlsx'
 	print("writing " + file_path)
@@ -30,7 +30,8 @@ def write_file_content(pickle_file_content, dataset_name, results_path):
 	for method in method_names:
 		worksheet.write(rows, cols, method)
 		cols += 1
-	for run in pickle_file_content.keys():
+	content_keys = sort_dict_by_normalization(list(pickle_file_content.keys()), baseline_index)
+	for run in content_keys:
 		rows += 1
 		cols = 0
 		worksheet.write(rows, cols, run)
@@ -99,14 +100,21 @@ def reformat_data(data, baseline_index=0):
 			reformed_data[run][method] = results[0]
 			results.pop(0)
 
-	sorted(reformed_data, key=lambda x:sort_by_length(x,reformed_data,baseline_index), reverse=True)
+	# sorted_keys = sorted(reformed_data, key=lambda x:sort_by_length(x,reformed_data,baseline_index), reverse=True)
 	return reformed_data
 
 
-def sort_by_length(key, data, baseline_index=0):
-	if key == list(data.keys())[baseline_index]:
+def sort_key(key, topkey):
+	if key == topkey:
 		return -1
 	return len(key)
+
+
+def sort_dict_by_normalization(keys, baseline_index=0):
+	top_key = keys[baseline_index]
+	keys = sorted(keys, key=lambda x: x.split('@')[1])
+	keys = sorted(keys, key=lambda x: sort_key(x, top_key))
+	return keys
 
 
 def write_information(worksheet, rows, cols):
