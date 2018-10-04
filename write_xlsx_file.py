@@ -98,7 +98,15 @@ def reformat_data(data, baseline_index=0):
 		for run in reformed_data.keys():
 			reformed_data[run][method] = results[0]
 			results.pop(0)
+
+	sorted(reformed_data, key=lambda x:sort_by_length(x,reformed_data,baseline_index), reverse=True)
 	return reformed_data
+
+
+def sort_by_length(key, data, baseline_index=0):
+	if key == list(data.keys())[baseline_index]:
+		return -1
+	return len(key)
 
 
 def write_information(worksheet, rows, cols):
