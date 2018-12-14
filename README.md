@@ -74,8 +74,7 @@ Supported methods:
 	* **output_csv** - The directory of the output folder: ```<YOUR_PATH>/<DATASET_NAME>/output```
 	* **nargs** - The normalization arguments (ex. ```CHLPR```)
 	* **features** - List of the features you want to extract, for ngrams the template is like this:  ```ngrams_<amount>_<w/c>_<tfidf/tf>_<n>_<skip>```
-	 
-    (ex.  ```ngrams_1000_w_tfidf_2_0 - 1000``` =  word bigrams without skip with tfidf.)
+	 (ex.  ```ngrams_1000_w_tfidf_2_0 - 1000``` =  word bigrams without skip with tfidf.)
 	* **results** - The directory of the results folder: ```<YOUR_PATH>/<DATASET_NAME>/results```
 	* **methods** - List of the classification methods to execute.
 
