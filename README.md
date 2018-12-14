@@ -65,7 +65,7 @@ Supported methods:
 		"test":"your/testing/dataset",
 		"output_csv":"your/output/directory",
 		"nargs":"CHLPR",
-		"features":[ngrams\_1000\_w\_tfidf\_2\_0,],
+		"features":[ngrams_1000_w_tfidf_2_0,],
 		"results":"your/results/folder",
 		"methods":["mlp","svc"]
 	}
