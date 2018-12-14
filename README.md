@@ -80,7 +80,9 @@ Supported methods:
 
 				
 * To run the program, just use the command line as so:
-	```sh python main.py -c "/dataset/cfgs"```
+	```sh 
+    python main.py -c "/dataset/cfgs"
+    ```
 	
 	
 ## Notes
