@@ -1,4 +1,3 @@
-
 # Text Classification Script
 This script is used for **normalizing** text dataset, **extracting features** and **classifying** the text.
 
@@ -81,7 +80,7 @@ Supported methods:
 
 				
 * To run the program, just use the command line as so:
-	`python main.py -c "/dataset/cfgs"`
+	```sh python main.py -c "/dataset/cfgs"```
 	
 	
 ## Notes
