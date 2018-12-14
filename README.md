@@ -81,7 +81,7 @@ Supported methods:
 
 				
 * To run the program, just use the command line as so:
-	```python main.py -c "/dataset/cfgs"```
+	`python main.py -c "/dataset/cfgs"`
 	
 	
 ## Notes
