@@ -60,15 +60,15 @@ Supported methods:
 	   Each classification is defined using a config file (in JSON format).
 	   config file example:
 	```json
-		   {
-				"train":"your/training/dataset",
-				"test":"your/testing/dataset",
-				"output_csv":"your/output/directory",
-				"nargs":"CHLPR",
-				"features":[ngrams_1000_w_tfidf_2_0,],
-				"results":"your/results/folder",
-				"methods":["mlp","svc"]
-			}
+   {
+		"train":"your/training/dataset",
+		"test":"your/testing/dataset",
+		"output_csv":"your/output/directory",
+		"nargs":"CHLPR",
+		"features":[ngrams_1000_w_tfidf_2_0,],
+		"results":"your/results/folder",
+		"methods":["mlp","svc"]
+	}
 	```
 	* **train** - The directory of the training dataset. something like this: ```<YOUR_PATH>/<DATASET_NAME>/dataset/training```
 	* **test** - The directory of the testing dataset. something like this: ```<YOUR_PATH>/<DATASET_NAME>/dataset/testing```
@@ -78,7 +78,10 @@ Supported methods:
 	 (ex.  ```ngrams_1000_w_tfidf_2_0 - 1000``` =  word bigrams without skip with tfidf.)
 	* **results** - The directory of the results folder: ```<YOUR_PATH>/<DATASET_NAME>/results```
 	* **methods** - List of the classification methods to execute.
+
 				
+* To run the program, just use the command line as so:
+	```python main.py -c "/dataset/cfgs"```
 	
 	
 ## Notes
