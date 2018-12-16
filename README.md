@@ -30,23 +30,23 @@ Supported methods:
 #### Before starting:
 * make sure that the folder structure is as shown:
 	```
-	<dataset name>
-				├───results
-				├───output
-				├───cfgs
-				├───dataset
-				│   ├───training
-				│   │   └───<data file>
-				│	│	.
-				│	│	.
-				│	│	.
-				│   │   └───<data file>
-				│	├───testing (optional)
-				│   │   └───<data file>
-				│	│	.
-				│	│	.
-				│	│	.
-				│   │   └───<data file>		
+	<dataset_name>
+		├───cfgs
+		├───output
+		├───results
+		└───dataset
+			├───training
+			│		├─ <data_file>
+			│		│		.
+			│		│		.
+			│		│		.
+			│		└─ <data_file>		
+			└───testing (optional)
+					├─ <data_file>
+					│		.
+					│		.
+					│		.
+					└─ <data_file>	
 	```	
 
 	* **results folder** - the results files (xlsx and data files) will be saved at the end of the run here.
