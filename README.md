@@ -13,6 +13,8 @@ Available normalization:
 * **T** - Stemming
 * **M** - Lemmatizing.
 
+Side note - The normalaized datasets will be created in the training\testing folder and will be named training@<nargs> (ex. training@CHL)
+
 ## Features
 Supported features:
 * N-grams (including skip grams)
