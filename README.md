@@ -37,15 +37,15 @@ Supported methods:
 		└───dataset
 			├───training
 			│		├─ <data_file>
-			│		│		.
-			│		│		.
-			│		│		.
+			│		│       .
+			│		│       .
+			│		│       .
 			│		└─ <data_file>		
 			└───testing (optional)
 					├─ <data_file>
-					│		.
-					│		.
-					│		.
+					│       .
+					│       .
+					│       .
 					└─ <data_file>	
 	```	
 
