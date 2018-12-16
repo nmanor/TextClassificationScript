@@ -50,13 +50,17 @@ Supported methods:
 					│       .
 					└─ <data_file>	
 	```	
-
 	* **results folder** - the results files (xlsx and data files) will be saved at the end of the run here.
 	* **output folder**  - some features data files will be saved here during the run.
 	* **cfgs folder** - it is highly recommended to save here your config files
 	* **dataset folder** - this is where the dataset and the future normalized datasets will be saved.
 	* **\<data file\>** - Each data file is a category, so name it as its category (ex. "Entertainment").  The contents of each file is the examples each in a new line.  So totally, every category examples are in one file in separate lines.
 	
+    **To create that folder structure you can use the scipt `init_env.py` like so:** 
+    ```sh
+    python init_env.py <destination folder>
+    ```
+    
 * To run the program you need to define each classification you want to run.
 	   Each classification is defined using a config file (in JSON format).
 	   config file example:
