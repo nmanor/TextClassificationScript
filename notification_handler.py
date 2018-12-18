@@ -3,7 +3,7 @@ import traceback
 
 import telepot
 
-from system_config import EMAIL_PASSWORD, BOT_TOKEN, YAIR, DANMI, EMAIL_USERNAME
+from system_config import EMAIL_PASSWORD, BOT_TOKEN, USERS, EMAIL_USERNAME
 
 
 def send_email(from_addr, to_addr_list, cc_addr_list, subject, message, login, password,
@@ -39,10 +39,10 @@ def send_notification(dataset, cfg=None, mode="mail"):
 					   password=EMAIL_PASSWORD)
 		elif mode is 'telegram':
 			bot = telepot.Bot(BOT_TOKEN)
-			bot.sendMessage(YAIR, "{0}: {1} has finished extracting features".format(
-				dataset, cfg[cfg.rfind("\\") + 1:] if cfg is not None else ""))
-			bot.sendMessage(DANMI, "{0}: {1} has finished extracting features".format(
-				dataset, cfg[cfg.rfind("\\") + 1:] if cfg is not None else ""))
+			for user in USERS:
+			    bot.sendMessage(user, "{0}: {1} has finished extracting features".format(
+				                dataset, cfg[cfg.rfind("\\") + 1:] if cfg is not None else ""))
+			
 	except Exception as e:
 		print("Failed to send notification", "send_notification")
 		print("Error: " + str(e), "send_notification")
