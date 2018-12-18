@@ -93,3 +93,4 @@ Supported methods:
 ## Notes
 * You can create config files with the config files creator script
 * You can create different xlsx file with the write_xlsx_file script using different baseline than the default (the first one)
+* You can get a telegram message from a bot when the program finishes or crashes, just add your telegram chat id in the `USERS` list in the `system_config.py` file.
