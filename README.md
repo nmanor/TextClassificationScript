@@ -90,7 +90,11 @@ Supported methods:
     ```
 	
 	
-## Notes
-* You can create config files with the config files creator script
-* You can create different xlsx file with the write_xlsx_file script using different baseline than the default (the first one)
-* You can get a telegram message from a bot when the program finishes or crashes, just add your telegram chat id in the `USERS` list in the `system_config.py` file.
+## Creating config files
+You can create alot of config files with the `config_creator.py` script automaticlly.
+
+## Writing to XLSX file
+You can create different xlsx files with the `write_xlsx_file.py` script using different baseline than the default (the first one)
+
+## Notifications
+You can get a telegram message from a bot when the program finishes or crashes, just add your telegram chat id in the `USERS` list in the `system_config.py` file.
