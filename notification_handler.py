@@ -58,8 +58,8 @@ def send_error_notification(dataset, error="", trace="", mode="mail"):
 					   password=EMAIL_USERNAME)
 		elif mode is 'telegram':
 			bot = telepot.Bot(BOT_TOKEN)
-			bot.sendMessage(YAIR, msg)
-		# bot.sendMessage(DANMI, msg)
+			for user in USERS:
+			    bot.sendMessage(user, msg)
 	except Exception as e:
 		print("Failed to send notification", "send_error_notification")
 		print("Error: " + str(e), "send_error_notification")
