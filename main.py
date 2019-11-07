@@ -74,7 +74,8 @@ def divide_results(result):
                   'recall_score': {},
                   'roc_auc_score': {},
                   'confusion_matrix': {},
-                  'roc_curve': {}}
+                  'roc_curve': {},
+                  'precision_recall_curve': {}}
 
     for config_name, dic in result.items():
         for method, score in dic['results'].items():

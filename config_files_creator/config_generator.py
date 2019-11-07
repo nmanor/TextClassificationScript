@@ -57,7 +57,8 @@ def handle_measure_input():
 			   '3': 'recall_score',
 			   '4': 'roc_auc_score',
 			   '5': 'confusion_matrix',
-			   '6': 'roc_curve'}
+			   '6': 'roc_curve',
+			   '7': 'precision_recall_curve'}
 		print("The supported measures in the software is")
 		for key, val in dic.items():
 			print(str(key) + ' - ' + str(val).replace('_', ' '))

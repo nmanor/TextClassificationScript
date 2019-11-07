@@ -16,6 +16,8 @@ def plot_precision_recall_curve(prc, result_path, title=None):
     step_kwargs = ({'step': 'post'}
                    if 'step' in signature(plt.fill_between).parameters
                    else {})
+
+    plt.figure(figsize=(3.5, 3))
     plt.step(recall, precision, color='b', alpha=0.2,
              where='post')
     plt.fill_between(recall, precision, alpha=0.2, color='b', **step_kwargs)

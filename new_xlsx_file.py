@@ -153,6 +153,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     methods = {'svc': 8, 'rf': 9, 'mlp': 10, 'lr': 11, 'mnb': 12, 'rnn': 13}
     maxes = {'svc': [[0, 0, 0]], 'rf': [[0, 0, 0]], 'mlp': [[0, 0, 0]], 'lr': [[0, 0, 0]], 'mnb': [[0, 0, 0]], 'rnn': [[0, 0, 0]]}
     best = [[0, 0, 0]]
+    image_num = 0
     for key in sorted(pickle_file_content):
         value = pickle_file_content[key]
 
@@ -205,7 +206,6 @@ def new_write_file_content(pickle_file_path, measure, results_path):
         worksheet.write(row, 7, stopwords, cell_format)
 
         # ML methods and result data
-        image_num = 0
         for method, result in value['results'].items():
             # confusion matrix
             if not isinstance(result, float):
@@ -219,9 +219,9 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                     worksheet.set_column(methods[method], methods[method], 50)
                     worksheet.set_row(row, 225)
                 elif measure == "precision_recall_curve":
-                    plot_precision_recall_curve(result, results_path, method, title=title)
-                    worksheet.set_column(methods[method], methods[method], 50)
-                    worksheet.set_row(row, 225)
+                    plot_precision_recall_curve(result, results_path, title=title)
+                    worksheet.set_column(methods[method], methods[method], 47)
+                    worksheet.set_row(row, 215)
                 worksheet.insert_image(row, methods[method], results_path + "\\" + title + ".jpg")
                 image_num += 1
                 continue
