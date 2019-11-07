@@ -98,7 +98,7 @@ def classify(train, tr_labels, test, ts_labels, num_iteration=1):
         del clf
 
         results[classifier] = result
-        save_backup_file(results, temp_file_path)
+        # save_backup_file(results, temp_file_path)
     # print(results)
     return results
 

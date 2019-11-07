@@ -122,7 +122,7 @@ def main(cfg):
             generate_word_clouds()
         write_results(divide_results(results))
         send_work_done(glbs.TRAIN_DIR)
-        clean_backup_files()
+        # clean_backup_files()
     except Exception as e:
         traceback.print_exc()
         send_work_done(
