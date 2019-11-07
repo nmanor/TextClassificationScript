@@ -10,6 +10,7 @@ from PIL import Image
 
 from confusion_matrix import plot_confusion_matrix
 from global_parameters import GlobalParameters
+from precision_recall_curve import plot_precision_recall_curve
 from roc_curve import plot_roc_curve
 from stylistic_features import text_language
 
@@ -217,8 +218,8 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                     plot_roc_curve(result, results_path, method, title=title)
                     worksheet.set_column(methods[method], methods[method], 50)
                     worksheet.set_row(row, 225)
-                elif measure == "roc_curve":
-                    plot_roc_curve(result, results_path, method, title=title)
+                elif measure == "precision_recall_curve":
+                    plot_precision_recall_curve(result, results_path, method, title=title)
                     worksheet.set_column(methods[method], methods[method], 50)
                     worksheet.set_row(row, 225)
                 worksheet.insert_image(row, methods[method], results_path + "\\" + title + ".jpg")

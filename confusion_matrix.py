@@ -57,6 +57,8 @@ def plot_confusion_matrix(cm, result_path, normalize=True, title=None, cmap=plt.
     fig.tight_layout()
     plt.savefig(result_path + "\\" + title + '.jpg', bbox_inches='tight')
 
+    plt.close('all')
+
 
 
 if __name__ == "__main__":
