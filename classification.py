@@ -6,143 +6,158 @@ import os
 
 import pickle
 
-
+from array import array
+from keras import Sequential
+from keras.layers import Embedding, SpatialDropout1D, Conv1D, MaxPooling1D, LSTM, Dense, Dropout
+from keras_preprocessing.sequence import pad_sequences
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import f1_score
+from sklearn.metrics import roc_curve
+from sklearn.metrics import roc_auc_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import precision_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.preprocessing import LabelEncoder
+from tensorflow import one_hot
 
 from features import get_data
 from global_parameters import print_message, GlobalParameters
+from help_functions import write_result
+from roc_curve import roc_curve_data
 
 glbs = GlobalParameters()
 
-methods = {"svc": LinearSVC(),
-		   "rf": RandomForestClassifier(),
-		   "mlp": MLPClassifier(),
-		   "lr": LogisticRegression(),
-		   "mnb": MultinomialNB()
-		   }
+methods = {
+    "svc": LinearSVC(),
+    "rf": RandomForestClassifier(),
+    "mlp": MLPClassifier(),
+    "lr": LogisticRegression(),
+    "mnb": MultinomialNB(),
+}
+
+
+def get_results(ts_labels, prediction, decision):
+    # ( "multilabel_confusion_matrix",   multilabel_confusion_matrix(ts_labels, prediction)),
+    measures = {
+        "accuracy_score": accuracy_score(ts_labels, prediction),
+        "f1_score": f1_score(ts_labels, prediction),
+        "precision_score": precision_score(ts_labels, prediction),
+        "recall_score": recall_score(ts_labels, prediction),
+        "roc_auc_score": roc_auc_score(ts_labels, decision),
+        "confusion_matrix": confusion_matrix(ts_labels, prediction),
+        "roc_curve": roc_curve_data(ts_labels, decision)
+    }
+
+    return dict([(i, measures[i]) for i in glbs.MEASURE])
+    # return accuracy_score(ts_labels, prediction)
+    # return stats
 
 
 def classify(train, tr_labels, test, ts_labels, num_iteration=1):
-	results = {}
-	le = LabelEncoder()
-	le.fit(tr_labels)
-	ts_labels = le.transform(ts_labels)
-	tr_labels = le.transform(tr_labels)
-	print_message("Classifying")
-	temp_file_path = gen_file_path()
-	if os.path.exists(temp_file_path):
-		results = load_backup_file(temp_file_path)
-	for classifier in glbs.METHODS:
-		print_message("running " + str(classifier), num_tabs=1)
-		if classifier in results.keys():
-			continue
-		average_acc = 0
-		for i in range(num_iteration):
-			if classifier == 'rnn':
-				clf = get_rnn_model(train)
-				clf.fit(train, tr_labels, epochs=3, batch_size=64)
-				scores = clf.evaluate(test, ts_labels, verbose=0)
-				average_acc += scores[1]
-			else:
-				clf = methods[classifier]
-				clf.fit(train, tr_labels)
-				prediction = clf.predict(test)
-				average_acc += accuracy_score(ts_labels, prediction)
-			del clf
-		average_acc = average_acc / num_iteration
-		results[classifier] = average_acc
-		save_backup_file(results, temp_file_path)
-	return results
+    results = {}
+    result = []
+    le = LabelEncoder()
+    le.fit(tr_labels)
+    ts_labels = le.transform(ts_labels)
+    tr_labels = le.transform(tr_labels)
+    print_message("Classifying")
+    temp_file_path = gen_file_path()
+
+    # if os.path.exists(temp_file_path):
+      #  results = load_backup_file(temp_file_path)
+    for classifier in glbs.METHODS:
+        print_message("running " + str(classifier), num_tabs=1)
+        if classifier in results.keys():
+            continue
+
+        if classifier == "rnn":
+            clf = get_rnn_model(train)
+            clf.fit(train, tr_labels, epochs=3, batch_size=64)
+            scores = clf.evaluate(test, ts_labels, verbose=0)
+            # acc_score += scores[1]
+        else:
+            clf = methods[classifier]
+            clf.fit(train, tr_labels)
+            prediction = clf.predict(test)
+            decision = []
+            try:
+                decision = clf.decision_function(test)
+            except:
+                decision = clf.predict_proba(test)
+                decision = decision[:, 1]
+
+            result = get_results(ts_labels, prediction, decision)
+
+        del clf
+
+        results[classifier] = result
+        save_backup_file(results, temp_file_path)
+    # print(results)
+    return results
 
 
 def get_rnn_model(tr_features):
-	top_words = tr_features.shape[1]
-	# create the model
-	embedding_vecor_length = 32
-	model = Sequential()
-	model.add(Embedding(top_words, embedding_vecor_length, input_length=top_words))
-	model.add(SpatialDropout1D(0.2))
-	model.add(Conv1D(filters=32, kernel_size=3, padding='same', activation='relu'))
-	model.add(MaxPooling1D(pool_size=2))
-	model.add(LSTM(100, recurrent_dropout=0.2, dropout=0.2))
-	model.add(Dense(1, activation='sigmoid'))
-	model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-	return model
+    top_words = tr_features.shape[1]
+    model_lstm = Sequential()
+    model_lstm.add(Embedding(input_dim=top_words, output_dim=256, input_length=top_words))
+    model_lstm.add(SpatialDropout1D(0.3))
+    model_lstm.add(LSTM(256, dropout=0.3, recurrent_dropout=0.3))
+    model_lstm.add(Dense(256, activation='relu'))
+    model_lstm.add(Dropout(0.3))
+    model_lstm.add(Dense(5, activation='softmax'))
+    model_lstm.compile(
+        loss='categorical_crossentropy',
+        optimizer='Adam',
+        metrics=['accuracy']
+    )
+    return model_lstm
+
+
+def get_rnn_model2(tr_features):
+    top_words = tr_features.shape[1]
+    # create the model
+    embedding_vecor_length = 32
+    model = Sequential()
+    model.add(Embedding(top_words, embedding_vecor_length, input_length=top_words))
+    model.add(SpatialDropout1D(0.2))
+    model.add(Conv1D(filters=32, kernel_size=3, padding="same", activation="relu"))
+    model.add(MaxPooling1D(pool_size=2))
+    model.add(LSTM(100, recurrent_dropout=0.2, dropout=0.2))
+    model.add(Dense(1, activation="sigmoid"))
+    model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
+    return model
 
 
 def gen_file_path():
-	name = ''
-	for feature in glbs.FEATURES:
-		name += feature.upper()
-		name += '@'
-	name += glbs.NORMALIZATION + "@"
-	for method in glbs.METHODS:
-		name += method.upper()
-		name += '@'
-	folder_path = '\\'.join(glbs.RESULTS_PATH.split("\\")[:-1]) + "\\temp_backups"
-	if not os.path.exists(folder_path):
-		os.mkdir(folder_path)
-	return folder_path + "\\" + name + ".pickle"
+    name = ""
+    for feature in glbs.FEATURES:
+        name += feature.upper()
+        name += "@"
+    name += glbs.NORMALIZATION + "@"
+    for method in glbs.METHODS:
+        name += method.upper()
+        name += "@"
+    folder_path = "\\".join(glbs.RESULTS_PATH.split("\\")[:-1]) + "\\temp_backups"
+    if not os.path.exists(folder_path):
+        os.mkdir(folder_path)
+    return folder_path + "\\" + name + ".pickle"
 
 
 def save_backup_file(data, path):
-	with open(path, 'wb+') as file:
-		pickle.dump(data, file)
+    with open(path, "wb+") as file:
+        pickle.dump(data, file)
 
 
 def load_backup_file(path):
-	with open(path, 'rb') as file:
-		return pickle.load(file)
+    with open(path, "rb") as file:
+        return pickle.load(file)
 
 
-if __name__ == '__main__':
-	# extract data
-	print("Reading Data...")
-	# train_dir = r"C:\Users\yairi\Desktop\AGs News\dataset\training"
-	train_dir = r"C:\Personal\Studies\Research\Data_Mining\Datasets\Mini20Newsgroups_processed\Mini-20Newsgroups_processed"
-	# test_dir = r"C:\Users\yairi\Desktop\AGs News\dataset\testing"
-	glbsTEST_DIR = ''
-	tr, tr_labels, ts, ts_labels = get_data('', train_dir)
-	# tokenize data
-	print("Tokenizing...")
-	max_words = 1000
-	max_len = 150
-	tok = Tokenizer(num_words=max_words)
-	tok.fit_on_texts(tr)
-	sequences = tok.texts_to_sequences(tr)
-	sequences_matrix = sequence.pad_sequences(sequences, maxlen=max_len)
-	# process test data
-	test_sequences = tok.texts_to_sequences(ts)
-	test_sequences_matrix = sequence.pad_sequences(test_sequences, maxlen=max_len)
-	# encode labels
-	print("Encoding Labels...")
-	le = LabelEncoder()
-	tr_labels = le.fit_transform(tr_labels)
-	tr_labels = tr_labels.reshape(-1, 1)
-	ts_labels = le.transform(ts_labels)
-	ts_labels = ts_labels.reshape(-1, 1)
-	# create rnn
-	print("Creating Rnn...")
-	embedding_vecor_length = 50
-	model = Sequential()
-	model.add(Embedding(max_words, embedding_vecor_length, input_length=max_len))
-	model.add(SpatialDropout1D(0.2))
-	model.add(Conv1D(filters=32, kernel_size=3, padding='same', activation='relu'))
-	model.add(MaxPooling1D(pool_size=2))
-	model.add(LSTM(100, recurrent_dropout=0.2, dropout=0.2))
-	model.add(Dense(1, activation='sigmoid'))
-	model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-	# run rnn
-	print("Running...")
-	rnn = model
-	rnn.fit(sequences_matrix, tr_labels, epochs=100, batch_size=1000)
-	# evalute
-	print("Evaluating...")
-	scores = rnn.evaluate(test_sequences_matrix, ts_labels, verbose=0)
-	print('Test set\n  Loss: {:0.3f}\n  Accuracy: {:0.3f}'.format(scores[0], scores[1]))
+if __name__ == "__main__":
+    # extract data
+    pass

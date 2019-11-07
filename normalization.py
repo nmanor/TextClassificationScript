@@ -9,6 +9,8 @@ from nltk import WordNetLemmatizer, SnowballStemmer
 
 from global_parameters import print_message,GlobalParameters
 from stopwords import stopwords
+from stopwords import hebrew_stopwords
+from stopwords import hebrew_stopwords_ex
 from autocorrect import spell
 from system_config import DICTIONARY_PATH
 
@@ -137,6 +139,32 @@ def remove_stop_words(text):
 		newword += buffer
 	return newword
 
+def remove_stop_words_hebrew(text):
+	text = text.split(' ')
+	newword = []
+	for word in text:
+		for sw in hebrew_stopwords:
+			from wordfreq import top_n_list
+			if word.startswith(sw) and word[len(sw):] in top_n_list('he', 100000):
+				word = word[len(sw):]
+				break
+		if word not in hebrew_stopwords:
+			newword += [word]
+	return " ".join(newword)
+
+def remove_stop_words_hebrew_extended(text):
+	text = text.split(' ')
+	newword = []
+	for word in text:
+		for sw in hebrew_stopwords_ex:
+			from wordfreq import top_n_list
+			if word.startswith(sw) and word[len(sw):] in top_n_list('he', 100000):
+				word = word[len(sw):]
+				break
+		if word not in hebrew_stopwords_ex:
+			newword += [word]
+	return " ".join(newword)
+
 
 def remove_repetition(text):
 	word = ""
@@ -257,6 +285,12 @@ def normal(word, nargs):
 		new_line = lemmatize(new_line)
 	if 'm' in nargs:
 		new_line = stem(new_line)
+
+	# addition: 'b' for Hebrew stopwords and 'x' for extended Hebrew stopwords
+	if 'x' in nargs:
+		new_line = remove_stop_words_hebrew_extended(new_line)
+	if 'b' in nargs:
+		new_line = remove_stop_words_hebrew(new_line)
 
 	return new_line
 

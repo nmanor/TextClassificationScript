@@ -1,3 +1,108 @@
+# the Hebrew stopwords
+hebrew_stopwords = ["את",
+"זה",
+"על",
+"אבל",
+"של",
+"עם",
+"הוא",
+"אם",
+"כי",
+"יש",
+"גם",
+"או",
+"היה",
+"הזה",
+"איך",
+"שהוא",
+"שזה",
+"הייתי",
+"אחרי",
+"הם",
+"וזה",
+"עד",
+"לפני",
+"יהיה",
+"והוא",
+"וגם",
+"אחר",
+"הייתה",
+"היו",
+"ויש",
+"זו",
+"ב",
+"ה",
+"ו",
+"כ",
+"ל",
+"מ",
+"ש",
+"וה",
+"וכ",
+"ול",
+"וש",
+"וכש",
+"כש",
+"שה",
+"ולכש",
+"ולכשה"]
+
+# the extended Hebrew stopwords
+hebrew_stopwords_ex = ["את",
+"זה",
+"על",
+"אבל",
+"של",
+"עם",
+"הוא",
+"אם",
+"כי",
+"יש",
+"גם",
+"או",
+"היה",
+"הזה",
+"איך",
+"שהוא",
+"שזה",
+"הייתי",
+"אחרי",
+"הם",
+"וזה",
+"עד",
+"לפני",
+"יהיה",
+"והוא",
+"וגם",
+"אחר",
+"הייתה",
+"היו",
+"ויש",
+"זו",
+"ב",
+"ה",
+"ו",
+"כ",
+"ל",
+"מ",
+"ש",
+"וה",
+"וכ",
+"ול",
+"וש",
+"וכש",
+"כש",
+"שה",
+"ולכש",
+"ולכשה",
+"לא",
+"היא",
+"שלא",
+"ולא",
+"כן",
+"שהיא"]
+
+# the original English stopwords
 stopwords = ["a",
 			 "about",
 			 "above",
@@ -421,3 +526,58 @@ stopwords = ["a",
 			 "your",
 			 "yours",
 			 "z"]
+
+
+# The following two lists based on: HaCohen-Kerner, Y., & Badash, H. (2016). Positive and negative sentiment words in
+# a blog corpus written in hebrew. Procedia Computer Science, 96, 733-743.‏
+# All rights reserved, do not copy or transmit without the permission of Professor HaCohen-Kerner!
+positive_list_hebrew = ['רגוע', 'אהבה', 'נאה', 'טוב', 'נהדר', 'תקין', 'תודה', 'מבורך', 'שלם', 'ניצח', 'חרוץ', 'מחזק', 'עליזות', 'שמח', 'כיף', 'מוצלח', 'פיקח', 'כדאי', 'נעים', 'אושר', 'תקווה', 'אנרגיות חיוביות', 'בירך', 'יפה', 'חביב', 'יכול', 'נכון', 'נצחון', 'מתקן', 'ברכה', 'מאושר', 'טוב מאוד', 'עניו', 'יציב', 'אוהב', 'השתפר', 'חבל על הזמן', 'נהנה', 'אפשר', 'נפלא', 'בטחון', 'נאמן', 'שיפור', 'אהוב', 'אמון', 'משבח', 'ישר', 'קיווה', 'מתוקן', 'אמת', 'הצלחה', 'התלהבות', 'טעים', 'יופי', 'סוף העולם', 'צודק', 'ניצחון', 'מעולה', 'כיפי', 'יתרון', 'ביטחון', 'תיקון', 'משמח', 'מבין עניין', 'מצוין', 'להצליח', 'אופטימי', 'עליז', 'מותר', 'שיבח', 'מהמם', 'בטוח', 'שלווה']
+negative_list_hebrew = ['דאגה', 'היסוס', 'עצב', 'רע', 'מתלונן', 'גינה', 'ייאוש', 'מדוכדך', 'חיסרון', 'כישלון', 'כשל', 'הפסיד', 'פסימי', 'עצוב', 'איום', 'אסון', 'ייאוש', 'דיכאון', 'סבל', 'זוועה', 'אסור', 'גרוע', 'סבל', 'רע', 'יש מקום לשיפור', 'עצב', 'מפחית', 'שגוי', 'אפאטיות', 'שבור', 'לא יכול', 'עגמימות', 'תלונה', 'מגנה', 'גינה', 'עקום', 'קללה', 'ייאוש', 'מדוכדך', 'חיסרון', 'דאון', 'להיכשל', 'כישלון', 'פחד', 'סכל', 'שנאה', 'שונא', 'קילל', 'חסר', 'עצלן', 'אנרגיות שליליות', 'הפסד', 'הפסיד', 'שקר', 'לא טוב', 'מכשול', 'מקולקל', 'פסימי', 'דוחה', 'עגום', 'עצוב', 'מעציב', 'מתנשא', 'קלקול', 'מקלקל', 'חשוד', 'כעור', 'מכוער', 'מבאס', 'איום', 'רפה', 'נסוג', 'נסיגה', 'חשש', 'שוגה', 'כועס', 'יהיר', 'מקולל', 'תבוסה', 'דחוי', 'ייאוש', 'הרס', 'אכזבה', 'מגעיל', 'זלזול', 'אגואיסט', 'כישלון', 'אסור', 'שנוא', 'בלתי נסבל', 'בלתי אפשרי', 'סבל', 'נורא ואיום', 'גרוע', 'בגידה', 'כיעור', 'על-הפנים', 'לא כדאי', 'לא נעים']
+
+increasing_expressions_hebrew = ['ארוך', 'גאון', 'גדול', 'גם', 'די', 'דגול', 'המון', 'הצטיינות', 'הצלחה', 'הרבה', 'וואחד', 'חזק', 'חכם', 'חמוד', 'הכי טוב', 'חשוב מאוד', 'יפה מאוד', 'טוב מאוד', 'גדול מאוד', 'מאוד חשוב', 'ככל האפשר', 'מבסוט מאוד', 'ממש מדהים', 'סוף הדרך', 'חבל על הזמן']
+increasing_expressions_english = ['long', 'genius', 'big', 'also', 'pretty', 'great', 'lots', 'excellence', 'success', 'much', 'strong', 'smart', 'cute', 'best', 'very important', 'very nice', 'very good', 'very big', 'very important', 'as possible', 'very happy', 'really amazing', 'excellent', 'out of this world']
+
+decreasing_expressions_hebrew = ['בקושי', 'גמד', 'דל ', 'טיפה', 'טיפש', 'לא ', 'לאו', 'מטופש', 'מעט ', 'סתם', 'עלוב', 'קטן', 'רע ', 'רק ', 'לא מוצלח', 'לא מספיק', 'מעט מאוד', 'על הפנים', 'לא כל כך']
+decreasing_expressions_english = ['barely', 'dwarf', 'poor', 'pinch', 'foolish', 'no ', 'negative', 'stupid', 'few', 'simply', 'wretched', 'small', 'bad', 'only', 'not successful', 'not enough', 'very little', 'very bad', 'not so much']
+
+time_expressions_hebrew = ['אחרי', 'אתמול', 'משך', 'מהירות', 'מוקדם', 'איטיות', 'מהלך', 'חודש', 'חודשיים', 'לאחר', 'לאט', 'מהר', 'אחרי זה', 'לפני זה', 'לפני כן', 'אחרי זמן מה']
+time_expressions_english = ['after', 'yesterday', 'duration', 'speed', 'early', 'slowness', 'during', 'month', 'two months', 'slowly', 'fast', 'after that', 'before that', 'beforehand', 'after a while']
+
+doubt_expressions_hebrew = ['בערך', 'אני חושבת', 'למיטב הבנתי', 'אני מאמינה', 'איני בטוחה', 'איני זוכרת', 'אני לא זוכרת', 'אני לא בטוחה']
+doubt_expressions_english = ['about', 'i think', 'as far as i can see', 'i believe', "I'm not sure", "i don't remember", 'i do not remember', 'i am not sure']
+
+emotion_expressions_hebrew = ['אכזבה', 'בכי', 'התאכזב', 'וויכוח', 'חוויה', 'כעס', 'מאוס', 'מדוכא', 'מהמם', 'מעציב', 'מפריע', 'נמאס', 'עצב', 'עצוב', 'ריב', 'שמח']
+emotion_expressions_english = ['disappointment', 'crying', 'disappointed', 'argument', 'experience', 'anger', 'repulsive', 'depressed', 'amazing', 'unfortunate', 'disturb', 'become repulsive', 'sadness', 'sad', 'fight', 'happy']
+
+first_person_expressions_hebrew = ["אני", "אנחנו"]
+first_person_expressions_english = ["i ", "we "]
+
+second_person_expressions_hebrew = ["את ", "אתה ", "אתם", "אתן"]
+second_person_expressions_english = ["you"]
+
+third_person_expressions_hebrew = ["הוא", "היא", "הם", "הן"]
+third_person_expressions_english = ["he", "she", "they"]
+
+inclusion_expressions_hebrew = ['איזה', 'איזהו', 'איזשהו', 'איזושהי', 'וזה', 'כלשהו', 'כלשהי', 'כולם', 'משהו', 'כללי', 'כוללני', 'כל']
+inclusion_expressions_english = ['which', 'who is', 'some', 'and this', 'any', 'everyone', 'something', 'general', 'comprehensive', 'all']
+
+power3_expressions_hebrew = ['התלהבות', 'מצוין ', 'אופטימי', 'מעולה', 'נפלא ', 'שלם', 'חבל על הזמן', 'משמח']
+power3_expressions_english = ['enthusiasm', 'excellent', 'optimistic', 'excellent', 'wonderful', 'whole', 'out of this world', 'to cheer up']
+
+power2_expressions_hebrew = ['יתרון', 'מותר', 'מהמם', 'אושר', 'ביטחון', 'נהנה', 'כיף', 'טוב']
+power2_expressions_english = ['advantage', 'allowed', 'amazing', 'happiness', 'security', 'enjoy', 'fun', 'good']
+
+power1_expressions_hebrew = ['שמחה', 'יכול', 'טוב', 'אפשר', 'יחסית טוב', 'נכון', 'מקפצה']
+power1_expressions_english = ['joy', 'can', 'good', 'possible', 'relatively good', 'correct', 'springboard']
+
+powerm1_expressions_hebrew = ['לא נעים', 'לא כדאי']
+powerm1_expressions_english = ['unpleasant', 'not worth it']
+
+powerm2_expressions_hebrew = ['דאגה', 'היסוס', 'עצב', 'חושש', 'יש מקום לשיפור', 'עצב', 'מפחית']
+powerm2_expressions_english = ['worry', 'hesitation', 'sadness', 'afraid', 'there is room for improvement', 'sadness', 'reduces']
+
+powerm3_expressions_hebrew = ['רע', 'מתלונן', 'מדוכדך ', 'חיסרון', 'כישלון', 'כשל', 'הפסיד ', 'פסימי']
+powerm3_expressions_english = ['bad', 'complainant', 'despondent', 'disadvantage', 'failure', 'mistake', 'lost', 'pessimistic']
+
+powerm4_expressions_hebrew = ['אסון', 'ייאוש', 'דיכאון', 'סבל', 'זוועה', 'אסור', 'גרוע', 'על הפנים']
+powerm4_expressions_english = ['disaster', 'despair', 'depression', 'suffering', 'horror', 'forbidden', 'horrible', 'terrible']

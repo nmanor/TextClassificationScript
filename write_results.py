@@ -1,35 +1,40 @@
 import json
+import os
 import pickle
-
+import shutil
+from os import path
 
 from global_parameters import print_message, GlobalParameters
-from write_xlsx_file import write_xlsx_file
+from new_xlsx_file import new_write_file_content
 
 global method_names
 
 
 def print_results(results):
-	for config in results.keys():
-		current_key = json.loads(config)
-		print("-----------------")
-		print(json.dumps(current_key, indent=4, sort_keys=True))
-		print(json.dumps(results[config], indent=4, sort_keys=True))
-		print("-----------------")
+    for config in results.keys():
+        current_key = json.loads(config)
+        print("-----------------")
+        print(json.dumps(current_key, indent=4, sort_keys=True))
+        print(json.dumps(results[config], indent=4, sort_keys=True))
+        print("-----------------")
 
 
 def write_results(results):
-	glbs = GlobalParameters()
-	name = ''
-	for f in glbs.FEATURES:
-		name += f
-		name += '#'
-	name += glbs.NORMALIZATION
-	for m in glbs.METHODS:
-		name += '#'
-		name += m
-	print_message("Writing results...")
-	with open(glbs.RESULTS_PATH + "\\" + name + ".pickle", 'wb+') as file:
-		pickle.dump(results, file)
-	write_xlsx_file(glbs.RESULTS_PATH + "\\" + name + ".pickle")
+    glbs = GlobalParameters()
+    print_message("Writing results...")
 
+    pickle_path = glbs.RESULTS_PATH + "\\Pickle files"
+    if path.exists(pickle_path):
+        shutil.rmtree(pickle_path, ignore_errors=True)
+    os.makedirs(pickle_path)
+
+    xlsx_path = glbs.RESULTS_PATH + "\\Xlsx files"
+    if path.exists(xlsx_path):
+        shutil.rmtree(xlsx_path, ignore_errors=True)
+    os.makedirs(xlsx_path)
+
+    for key in results.keys():
+        with open(pickle_path + "\\" + key + ".pickle", "wb+") as file:
+            pickle.dump(results[key], file)
+        new_write_file_content(pickle_path + "\\" + key + ".pickle", key, xlsx_path)
 

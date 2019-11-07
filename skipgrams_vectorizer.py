@@ -23,6 +23,6 @@ if __name__ == '__main__':
 	text = ['the rain in Spain falls mainly on the the', 'the rain']
 	n = 1
 	k = 0
-	s = SkipGramVectorizer(n=n, k=k, analyzer='word', max_features=2)
+	s = SkipGramVectorizer(n=n, k=k, analyzer='words', max_features=2)
 	s.fit_transform(text)
 	print(s.get_feature_names())
