@@ -28,6 +28,7 @@ from tensorflow import one_hot
 from features import get_data
 from global_parameters import print_message, GlobalParameters
 from help_functions import write_result
+from precision_recall_curve import precision_recall
 from roc_curve import roc_curve_data
 
 glbs = GlobalParameters()
@@ -50,7 +51,8 @@ def get_results(ts_labels, prediction, decision):
         "recall_score": recall_score(ts_labels, prediction),
         "roc_auc_score": roc_auc_score(ts_labels, decision),
         "confusion_matrix": confusion_matrix(ts_labels, prediction),
-        "roc_curve": roc_curve_data(ts_labels, decision)
+        "roc_curve": roc_curve_data(ts_labels, decision),
+        "precision_recall_curve": precision_recall(ts_labels, decision)
     }
 
     return dict([(i, measures[i]) for i in glbs.MEASURE])

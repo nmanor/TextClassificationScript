@@ -217,6 +217,10 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                     plot_roc_curve(result, results_path, method, title=title)
                     worksheet.set_column(methods[method], methods[method], 50)
                     worksheet.set_row(row, 225)
+                elif measure == "roc_curve":
+                    plot_roc_curve(result, results_path, method, title=title)
+                    worksheet.set_column(methods[method], methods[method], 50)
+                    worksheet.set_row(row, 225)
                 worksheet.insert_image(row, methods[method], results_path + "\\" + title + ".jpg")
                 image_num += 1
                 continue
