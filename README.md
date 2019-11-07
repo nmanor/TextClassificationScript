@@ -18,7 +18,7 @@ Side note - The normalaized datasets will be created in the training\testing fol
 ## Features
 Supported features:
 * N-grams (including skip grams)
-* common stylistic features (see the full list at [`stylistic_features.py`](stylistic_features.py))
+* Common stylistic features (see the full list at [`stylistic_features.py`](stylistic_features.py))
 
 ## Classifiying Methods
 Supported methods:
