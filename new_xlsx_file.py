@@ -2,6 +2,7 @@ import os
 import pickle
 from datetime import datetime
 import sys
+import matplotlib.pyplot as plt
 import xlsxwriter
 
 from os import path
@@ -151,8 +152,15 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     ngrams = {'1': 'Unigrams', '2': 'Bigrams', '3': 'Trigrams'}
     tf = {'tf': 'TF', 'tfidf': 'TF-IDF'}
     methods = {'svc': 8, 'rf': 9, 'mlp': 10, 'lr': 11, 'mnb': 12, 'rnn': 13}
-    maxes = {'svc': [[0, 0, 0]], 'rf': [[0, 0, 0]], 'mlp': [[0, 0, 0]], 'lr': [[0, 0, 0]], 'mnb': [[0, 0, 0]], 'rnn': [[0, 0, 0]]}
-    best = [[0, 0, 0]]
+
+    if measure == "accuracy_&_confusion_matrix":
+        maxes = {'svc': [[0, 0, {"accuracy": 0, "matrix": None}]], 'rf': [[0, 0, {"accuracy": 0, "matrix": None}]], 'mlp': [[0, 0, {"accuracy": 0, "matrix": None}]], 'lr': [[0, 0, {"accuracy": 0, "matrix": None}]], 'mnb': [[0, 0, {"accuracy": 0, "matrix": None}]],
+                 'rnn': [[0, 0, {"accuracy": 0, "matrix": None}]]}
+        best = [[0, 0, {"accuracy": 0, "matrix": None}]]
+    else:
+        maxes = {'svc': [[0, 0, 0]], 'rf': [[0, 0, 0]], 'mlp': [[0, 0, 0]], 'lr': [[0, 0, 0]], 'mnb': [[0, 0, 0]],
+                 'rnn': [[0, 0, 0]]}
+        best = [[0, 0, 0]]
     image_num = 0
     for key in sorted(pickle_file_content):
         value = pickle_file_content[key]
@@ -222,29 +230,25 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                     plot_precision_recall_curve(result, results_path, title=title)
                     worksheet.set_column(methods[method], methods[method], 47)
                     worksheet.set_row(row, 215)
+                elif measure == "accuracy_&_confusion_matrix":
+                    plot_confusion_matrix(result["matrix"], results_path, title=title, accuracy=result["accuracy"], cmap=plt.cm.Greys)
+                    worksheet.set_column(methods[method], methods[method], 40)
+                    worksheet.set_row(row, 140)
+                    best, maxes = find_maxes_best(best, maxes, method, methods, row, result)
                 worksheet.insert_image(row, methods[method], results_path + "\\" + title + ".jpg")
                 image_num += 1
                 continue
 
-            val = float('{0:.4g}'.format(result*100))
+            if isinstance(result, float):
+                val = float('{0:.4g}'.format(result*100))
+            else:
+                val = result
 
             worksheet.write(row, methods[method], val, cell_format)
+
             # Check if val bigger then max
-            new = [row, methods[method], val]
-            for num in maxes[method]:
-                if val > num[2]:
-                    num[0] = row
-                    num[1] = methods[method]
-                    num[2] = val
-                if val == num[2] and new not in maxes[method]:
-                    maxes[method] += [new]
-            for num in best:
-                if val > num[2]:
-                    num[0] = row
-                    num[1] = methods[method]
-                    num[2] = val
-                if val == num[2] and new not in best:
-                    best += [new]
+            best, maxes = find_maxes_best(best, maxes, method, methods, row, val)
+
         row += 1
 
     worksheet.write('A19', 'Colors', bold_gray)
@@ -253,14 +257,33 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     good.set_align('vcenter')
     for _, method in maxes.items():
         for val in method:
-            worksheet.write(val[0], val[1], val[2], good)
+            if isinstance(val[2], dict):
+                if val[2]["accuracy"] != 0:
+                    image_num += 1
+                    title = measure + str(image_num)
+                    plot_confusion_matrix(val[2]["matrix"], results_path, title=title, accuracy=val[2]["accuracy"],
+                                          cmap=plt.cm.Blues, color='blue')
+                    worksheet.insert_image(val[0], val[1], results_path + "\\" + title + ".jpg")
+            else:
+                worksheet.write(val[0], val[1], val[2], good)
+
+
     good = workbook.add_format({'font_color': 'blue'})
     worksheet.write('A20', 'The best result of the learning method', good)
     good = workbook.add_format({'bold': True, 'font_color': 'red'})
     good.set_align('center')
     good.set_align('vcenter')
     for val in best:
-        worksheet.write(val[0], val[1], val[2], good)
+        if isinstance(val[2], dict):
+            if val[2]["accuracy"] != 0:
+                image_num += 1
+                title = measure + str(image_num)
+                plot_confusion_matrix(val[2]["matrix"], results_path, title=title, accuracy=val[2]["accuracy"],
+                                      cmap=plt.cm.Reds, color='red')
+                worksheet.insert_image(val[0], val[1], results_path + "\\" + title + ".jpg")
+        else:
+            worksheet.write(val[0], val[1], val[2], good)
+
     good = workbook.add_format({'font_color': 'red'})
     worksheet.write('A21', 'The best result in all classification', good)
     bold = workbook.add_format({'bold': True})
@@ -290,6 +313,45 @@ def new_write_file_content(pickle_file_path, measure, results_path):
         if file.endswith('.jpg'):
             os.remove(results_path + "\\" + file)
 
+
+def find_maxes_best(best, maxes, method, methods, row, val):
+    if isinstance(val, dict):
+        return find_maxes_best_(best, maxes, method, methods, row, val)
+    new = [row, methods[method], val]
+    for num in maxes[method]:
+        if val > num[2]:
+            num[0] = row
+            num[1] = methods[method]
+            num[2] = val
+        if val == num[2] and new not in maxes[method]:
+            maxes[method] += [new]
+    for num in best:
+        if val > num[2]:
+            num[0] = row
+            num[1] = methods[method]
+            num[2] = val
+        if val == num[2] and new not in best:
+            best += [new]
+    return best, maxes
+
+
+def find_maxes_best_(best, maxes, method, methods, row, val):
+    new = [row, methods[method], val]
+    for num in maxes[method]:
+        if val["accuracy"] > num[2]["accuracy"]:
+            num[0] = row
+            num[1] = methods[method]
+            num[2] = val
+        if val["accuracy"] == num[2]["accuracy"] and new not in maxes[method]:
+            maxes[method] += [new]
+    for num in best:
+        if val["accuracy"] > num[2]["accuracy"]:
+            num[0] = row
+            num[1] = methods[method]
+            num[2] = val
+        if val["accuracy"] == num[2]["accuracy"] and new not in best:
+            best += [new]
+    return best, maxes
 
 
 if __name__ == '__main__':

@@ -75,7 +75,8 @@ def divide_results(result):
                   'roc_auc_score': {},
                   'confusion_matrix': {},
                   'roc_curve': {},
-                  'precision_recall_curve': {}}
+                  'precision_recall_curve': {},
+                  'accuracy_&_confusion_matrix': {}}
 
     for config_name, dic in result.items():
         for method, score in dic['results'].items():
@@ -122,6 +123,7 @@ def main(cfg):
             generate_word_clouds()
         write_results(divide_results(results))
         send_work_done(glbs.TRAIN_DIR)
+        print_message("Done!")
         # clean_backup_files()
     except Exception as e:
         traceback.print_exc()
@@ -147,5 +149,6 @@ def clean_backup_files():
 
 
 if __name__ == "__main__":
-    cfg_dir = r"C:\Users\Mickey\Documents\kerner\textclassificationscript\cfgs"
+    cfg_dir = r"C:\Users\user\Documents\test\cfgs"
+    # cfg_dir = r"C:\Users\Mickey\Documents\kerner\textclassificationscript\cfgs"
     main(cfg_dir)

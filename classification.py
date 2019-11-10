@@ -25,6 +25,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.preprocessing import LabelEncoder
 from tensorflow import one_hot
 
+from confusion_matrix import accuracy_confusion_matrix
 from features import get_data
 from global_parameters import print_message, GlobalParameters
 from help_functions import write_result
@@ -52,7 +53,8 @@ def get_results(ts_labels, prediction, decision):
         "roc_auc_score": roc_auc_score(ts_labels, decision),
         "confusion_matrix": confusion_matrix(ts_labels, prediction),
         "roc_curve": roc_curve_data(ts_labels, decision),
-        "precision_recall_curve": precision_recall(ts_labels, decision)
+        "precision_recall_curve": precision_recall(ts_labels, decision),
+        "accuracy_&_confusion_matrix": accuracy_confusion_matrix(ts_labels, prediction)
     }
 
     return dict([(i, measures[i]) for i in glbs.MEASURE])

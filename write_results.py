@@ -2,6 +2,7 @@ import json
 import os
 import pickle
 import shutil
+import time
 from os import path
 
 from global_parameters import print_message, GlobalParameters
@@ -31,6 +32,7 @@ def write_results(results):
     xlsx_path = glbs.RESULTS_PATH + "\\Xlsx files"
     if path.exists(xlsx_path):
         shutil.rmtree(xlsx_path, ignore_errors=True)
+    time.sleep(0.5)
     os.makedirs(xlsx_path)
 
     for key in results.keys():

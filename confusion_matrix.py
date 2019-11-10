@@ -4,7 +4,7 @@ import pandas as pd
 
 from sklearn import svm, datasets
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, accuracy_score
 from sklearn.utils.multiclass import unique_labels
 
 
@@ -12,7 +12,11 @@ from sklearn.utils.multiclass import unique_labels
 from global_parameters import GlobalParameters
 
 
-def plot_confusion_matrix(cm, result_path, normalize=True, title=None, cmap=plt.cm.Blues):
+def accuracy_confusion_matrix(ts_labels, prediction):
+    return {"accuracy": accuracy_score(ts_labels, prediction), "matrix": confusion_matrix(ts_labels, prediction)}
+
+
+def plot_confusion_matrix(cm, result_path, normalize=True, title=None, accuracy=None, cmap=plt.cm.Blues, color='black'):
     """
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
@@ -55,7 +59,14 @@ def plot_confusion_matrix(cm, result_path, normalize=True, title=None, cmap=plt.
                     ha="center", va="center",
                     color="white" if cm[i, j] > thresh else "black")
     fig.tight_layout()
+
+    if accuracy:
+        accuracy = float('{0:.4g}'.format(accuracy*100))
+        plt.title('Accuracy Score: ' + str(accuracy) + '\nConfusion Matrix:')
+        plt.rcParams.update({"text.color": color})
+
     plt.savefig(result_path + "\\" + title + '.jpg', bbox_inches='tight')
+
 
     plt.close('all')
 
