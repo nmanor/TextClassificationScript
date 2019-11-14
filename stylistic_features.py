@@ -1,5 +1,4 @@
 import re
-
 import numpy
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from scipy.sparse import csr_matrix
@@ -10,6 +9,13 @@ from sklearn.base import TransformerMixin
 
 
 # General help functions
+from sklearn.feature_extraction.text import CountVectorizer
+
+from stopwords import food_family, body_organ_family, fat_family, thin_family, weight_family, vomiting_family, \
+    curse_family, alcohol_family, suicide_family, me_family, ana_family, sick_family, family_family, increasing_family, \
+    decreasing_family, depression_family, sport_family, sleep_family, negative_emotions_family, hunger_family, \
+    pain_family, anorexia_family, exterior_shape_family
+
 
 def text_language(text):
     """
@@ -596,6 +602,30 @@ def topographic(data):
     return result
 
 
+# -----------------------------------------------------------------------------------------
+# Repeated chars features
+
+def repeated_chars(data):
+    # check for any repeated chars
+    def in_word(word):
+        for i in range(len(word) - 1):
+            if word[i] == word[i+1]:
+                return True
+        return False
+
+    # check for the number of words with repeated chars
+    def in_post(post):
+        post = re.findall(r'\b\w[\w-]*\b', post.lower())
+        repeated = 0
+        for word in post:
+            if in_word(word):
+                repeated += 1
+        return repeated / len(post)
+
+    # return the result
+    return [[in_post(post)*100] for post in data]
+
+
 ##################################################################
 class StylisticFeaturesTransformer(TransformerMixin, BaseEstimator):
     def __init__(self, featurizers):
@@ -608,7 +638,8 @@ class StylisticFeaturesTransformer(TransformerMixin, BaseEstimator):
 
     def transform(self, X):
         """Given a list of original data, return a list of feature vectors."""
-        _X = preprocessing.normalize(self.featurizers(X))
+        # _X = preprocessing.normalize(self.featurizers(X))
+        _X = self.featurizers(X)
         for i in range(len(_X)):
             if _X[i][0] < 1:
                 _X[i][0] *= 100
@@ -652,16 +683,47 @@ stylistic_features_dict = {'cc': chars_count,
                            'topa3': topographicA3,
                            'topb1': topographicB1,
                            'topb2': topographicB2,
-                           'topb3': topographicB3}
+                           'topb3': topographicB3,
+                           'rc': repeated_chars,
+                           'fof': food_family,
+                           'bof': body_organ_family,
+                           'faf': fat_family,
+                           'thf': thin_family,
+                           'wef': weight_family,
+                           'vof': vomiting_family,
+                           'cuf': curse_family,
+                           'alf': alcohol_family,
+                           'suf': suicide_family,
+                           'mef': me_family,
+                           'anf': ana_family,
+                           'sif': sick_family,
+                           'fmf': family_family,
+                           'inf': increasing_family,
+                           'def': decreasing_family,
+                           'dpf': depression_family,
+                           'spf': sport_family,
+                           'slf': sleep_family,
+                           'nef': negative_emotions_family,
+                           'huf': hunger_family,
+                           'paf': pain_family,
+                           'axf': anorexia_family,
+                           'esf': exterior_shape_family}
 
 
 def get_stylistic_features_vectorizer(feature):
+    # return the CountVectorizer of lists of words
+    if isinstance(stylistic_features_dict[feature], list):
+        lst = list(set(stylistic_features_dict[feature]))
+        vectorizer = CountVectorizer(max_features=len(lst), vocabulary=lst)
+
     # return the values of the features
-    vectorizer = StylisticFeaturesTransformer(stylistic_features_dict[feature])
+    else:
+        vectorizer = StylisticFeaturesTransformer(stylistic_features_dict[feature])
+
     return vectorizer
 
 
 
 if __name__ == "__main__":
-    dic = {'{"train": "C:\\\\Users\\\\user\\\\Documents\\\\test\\\\dataset\\\\training", "test": "C:\\\\Users\\\\user\\\\Documents\\\\test\\\\dataset\\\\testing", "output_csv": "C:\\\\Users\\\\user\\\\Documents\\\\test\\\\output", "nargs": "", "features": ["ngrams_0_w_tfidf_1_0", "ngrams_2000_c_tf_1_0"], "results": "C:\\\\Users\\\\user\\\\Documents\\\\test\\\\results", "methods": ["mlp", "svc", "rf", "lr", "mnb", "rnn"]}': {'mlp': 0.8121212121212121, 'svc': 0.8121212121212121, 'rf': 0.793939393939394, 'lr': 0.8, 'mnb': 0.8, 'rnn': 0.8000000003612403}}
-    #print(reformat_data(dic))
+    while True:
+        print(stylistic_features_dict[input("enter: ")])

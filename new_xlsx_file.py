@@ -233,7 +233,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                 elif measure == "accuracy_&_confusion_matrix":
                     plot_confusion_matrix(result["matrix"], results_path, title=title, accuracy=result["accuracy"], cmap=plt.cm.Greys)
                     worksheet.set_column(methods[method], methods[method], 40)
-                    worksheet.set_row(row, 140)
+                    worksheet.set_row(row, 170)
                     best, maxes = find_maxes_best(best, maxes, method, methods, row, result)
                 worksheet.insert_image(row, methods[method], results_path + "\\" + title + ".jpg")
                 image_num += 1
@@ -355,4 +355,4 @@ def find_maxes_best_(best, maxes, method, methods, row, val):
 
 
 if __name__ == '__main__':
-    print(open_pickle_content(r"C:\Users\user\Documents\test\results\precision_score.pickle"))
+    print(open_pickle_content(r"C:\Users\user\Documents\test\results\Pickle files\accuracy_&_confusion_matrix.pickle"))
