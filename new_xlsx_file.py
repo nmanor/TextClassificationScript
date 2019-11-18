@@ -353,6 +353,22 @@ def find_maxes_best_(best, maxes, method, methods, row, val):
             best += [new]
     return best, maxes
 
+def write_info_gain(features):
+    file_path = GlobalParameters().RESULTS_PATH + "\\" + "info gain for english dataset" + '.xlsx'
+
+    # Create an new Excel file and add a worksheet.
+    workbook = xlsxwriter.Workbook(file_path)
+    worksheet = workbook.add_worksheet()
+
+    worksheet.write('A2', "unigram/bigram/trigram")
+    worksheet.write('B2',"gain")
+    for i, data in enumerate(features):
+        worksheet.write('A'+str(i+3), data[0])
+        worksheet.write('B'+str(i+3), data[1])
+    workbook.close()
+
+
+
 
 if __name__ == '__main__':
     print(open_pickle_content(r"C:\Users\user\Documents\test\results\Pickle files\accuracy_&_confusion_matrix.pickle"))

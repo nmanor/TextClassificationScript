@@ -10,12 +10,14 @@ from sklearn.feature_extraction.text import (
     TfidfVectorizer,
 )
 from sklearn.pipeline import FeatureUnion
+from sklearn.feature_selection import SelectFromModel
 
 # region helpful functions
 import system_config
 from global_parameters import print_message, GlobalParameters
 from skipgrams_vectorizer import SkipGramVectorizer
 from stylistic_features import get_stylistic_features_vectorizer
+from new_xlsx_file import write_info_gain
 
 glbs = GlobalParameters()
 
@@ -50,10 +52,6 @@ def extract_ngrams_args(feature):
     return count, tfidf, type, n, k
 
 
-def fuse_features(f1, f2):
-    return np.hstack((f1.toarray(), f2.toarray()))
-
-
 def split_train(split, tr_labels, train):
     data = list(zip(train, tr_labels))
     random.shuffle(data)
@@ -64,41 +62,22 @@ def split_train(split, tr_labels, train):
     return train, tr_labels, test, ts_labels
 
 
-# endregion
+def get_featuregain(features, train_features, train_data):
+    methods = {
+    "svc": LinearSVC(),
+    "rf": RandomForestClassifier(),
+    "mlp": MLPClassifier(),
+    "lr": LogisticRegression(),
+    "mnb": MultinomialNB(),
+}
+    for classifier in glbs.METHODS:
+        clf = methods[classifier]
+        gain_list = SelectFromModel(clf,prefit=True)
+        gain_list.
 
-
-def extract_ngrams(train_data, test_data, feature):
-    # data = [(content,label)]
-    # extract ngrams
-    count, tfidf, type, n, k = extract_ngrams_args(feature)
-    if k <= 0:
-        if tfidf is "tfidf":
-            vectorizer = TfidfVectorizer(
-                max_features=count,
-                analyzer=type,
-                ngram_range=(n, n),
-                lowercase=False,
-                use_idf=True,
-            )
-        elif tfidf is "tf":
-            vectorizer = TfidfVectorizer(
-                max_features=count,
-                analyzer=type,
-                ngram_range=(n, n),
-                lowercase=False,
-                use_idf=False,
-            )
-    else:
-        vectorizer = SkipGramVectorizer(
-            max_features=count, analyzer=type, n=n, k=k, lowercase=False
-        )
-    x = vectorizer.fit_transform(train_data)
-    y = vectorizer.transform(test_data)
-    if tfidf == "tfidf":
-        tfidf = TfidfTransformer()
-        x = tfidf.fit_transform(x.toarray())
-        y = tfidf.transform(y.toarray())
-    return x, y
+    feature_list = features.get_feature_names()
+    
+    write_info_gain(zip(feature_list, gain_list))
 
 
 def get_vectorizer(feature):
@@ -111,7 +90,7 @@ def get_vectorizer(feature):
                 ngram_range=(n, n),
                 lowercase=False,
                 use_idf=True,
-                )
+            )
         elif tfidf is "tf":
             vectorizer = TfidfVectorizer(
                 max_features=count,
@@ -157,6 +136,7 @@ def extract_features(train_dir, test_dir=""):
     # convert the list to one vectoriazer using FeatureUnion
     all_features = FeatureUnion(feature_lst)
     train_features = all_features.fit_transform(train_data)
+    #get_featuregain(all_features, train_features, train_data,)
     test_features = all_features.transform(test_data)
 
     return train_features, train_labels, test_features, test_labels
