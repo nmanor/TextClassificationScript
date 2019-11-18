@@ -73,7 +73,7 @@ def get_featuregain(features, train_features, train_data):
     for classifier in glbs.METHODS:
         clf = methods[classifier]
         gain_list = SelectFromModel(clf,prefit=True)
-        gain_list.
+        gain_list.get_support()
 
     feature_list = features.get_feature_names()
     
