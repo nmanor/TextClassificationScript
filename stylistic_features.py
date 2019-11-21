@@ -707,7 +707,8 @@ stylistic_features_dict = {'cc': chars_count,
                            'huf': hunger_family,
                            'paf': pain_family,
                            'axf': anorexia_family,
-                           'esf': exterior_shape_family}
+                           'esf': exterior_shape_family,
+                           'aaf': ana_family + anorexia_family}
 
 
 def get_stylistic_features_vectorizer(feature):

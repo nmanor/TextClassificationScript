@@ -1,6 +1,7 @@
 import json
 import os
 import collections
+import re
 from random import shuffle
 
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
@@ -135,5 +136,16 @@ def extract_50_words(train_data, test_data, feature):
         y = tfidf.transform(y.toarray())
     return x, y
 
+
+def regex():
+    text = open(r"C:\Users\user\Documents\test\dataset\all.txt", 'r', encoding="utf8", errors='ignore').read()
+
+    result = re.findall(r'\w*גר[מם]\w*', text)
+
+    tup = [(word, result.count(word)) for word in set(result)]
+    for word in tup:
+        print(word[0] + ': ' + str(word[1]))
+
+
 if __name__ == "__main__":
-    create_dataset(r"C:\Users\user\Documents\test\כל העברית", r"C:\Users\user\Documents\test\dataset")
+    regex()
