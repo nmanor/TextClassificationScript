@@ -140,7 +140,7 @@ def extract_50_words(train_data, test_data, feature):
 def regex():
     text = open(r"C:\Users\user\Documents\test\dataset\all.txt", 'r', encoding="utf8", errors='ignore').read()
 
-    result = re.findall(r'\w*גר[מם]\w*', text)
+    result = re.findall(r'\w*חרא\w*', text)
 
     tup = [(word, result.count(word)) for word in set(result)]
     for word in tup:

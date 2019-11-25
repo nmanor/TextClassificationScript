@@ -15,7 +15,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.pipeline import FeatureUnion
+from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.feature_selection import SelectFromModel
 
 # region helpful functions
@@ -32,7 +32,7 @@ def read_dataset(path):
     data = []
     for category in os.listdir(path):
         with open(
-            path + "\\" + category, "r+", encoding="utf8", errors="ignore"
+                path + "\\" + category, "r+", encoding="utf8", errors="ignore"
         ) as read:
             for example in read:
                 record = example.rstrip("\n")
@@ -61,15 +61,15 @@ def extract_ngrams_args(feature):
 def split_train(split, tr_labels, train):
     data = list(zip(train, tr_labels))
     random.shuffle(data)
-    test = data[: int(split * len(data))]
-    train = data[int(split * len(data)) :]
+    test = data[: int(split*len(data))]
+    train = data[int(split*len(data)):]
     train, tr_labels = zip(*train)
     test, ts_labels = zip(*test)
     return train, tr_labels, test, ts_labels
 
 
 def get_featuregain(
-    features, train_features, train_data, test_features, test_data, train_labels
+        features, train_features, train_data, test_features, test_data, train_labels
 ):
     methods = {
         "svc": LinearSVC(),
@@ -99,8 +99,43 @@ def get_featuregain(
 
 def get_vectorizer(feature):
     count, tfidf, type, n, k = extract_ngrams_args(feature)
+    if tfidf == "tfidf":
+        tfidf = True
+    else:
+        tfidf = False
+
     if k <= 0:
-        if tfidf is "tfidf":
+        vectorizer = TfidfVectorizer(
+            max_features=count,
+            analyzer=type,
+            ngram_range=(n, n),
+            lowercase=False,
+            use_idf=tfidf)
+
+    # TODO: לבדוק איך משלבים את 2 הוקטורים ביחד
+    else:
+        class combined_vectorizer(TfidfVectorizer, SkipGramVectorizer):
+            def __init__(self):
+                self.tfidf_ = TfidfVectorizer(k=1, max_features=count, analyzer=type, ngram_range=(n, n), lowercase=False, use_idf=tfidf)
+                self.skips_ = SkipGramVectorizer(max_features=count, analyzer=type, n=n, k=k, lowercase=False)
+
+            def fit(self, X, y=None):
+                return self
+
+            def transform(self, raw_documents):
+                X = self.skips_.transform(raw_documents)
+                return self.tfidf_.transform(X, copy=False)
+
+            @property
+            def dtype(self):
+                return self.tfidf_.dtype
+
+        vectorizer = combined_vectorizer()
+
+    return vectorizer, str(n)
+
+    """if k <= 0:
+        if tfidf == "tfidf":
             vectorizer = TfidfVectorizer(
                 max_features=count,
                 analyzer=type,
@@ -108,7 +143,7 @@ def get_vectorizer(feature):
                 lowercase=False,
                 use_idf=True,
             )
-        elif tfidf is "tf":
+        elif tfidf == "tf":
             vectorizer = TfidfVectorizer(
                 max_features=count,
                 analyzer=type,
@@ -125,7 +160,8 @@ def get_vectorizer(feature):
         vectorizer = SkipGramVectorizer(
             max_features=count, analyzer=type, n=n, k=k, lowercase=False
         )
-    return vectorizer, str(n)
+
+    return vectorizer, str(n)"""
 
 
 def add_feature(feature_dict, feature_name, feature):
@@ -154,9 +190,7 @@ def extract_features(train_dir, test_dir=""):
     all_features = FeatureUnion(feature_lst)
     train_features = all_features.fit_transform(train_data)
     test_features = all_features.transform(test_data)
-    get_featuregain(
-        all_features, train_features, train_data, test_features, test_data, train_labels
-    )
+    # get_featuregain(all_features, train_features, train_data, test_features, test_data, train_labels)
 
     return train_features, train_labels, test_features, test_labels
 
@@ -174,4 +208,3 @@ def get_data(test_dir, train_dir):
         random.shuffle(test_data)
         test_data, test_labels = zip(*test_data)
     return train_data, train_labels, test_data, test_labels
-

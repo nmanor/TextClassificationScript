@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b334214f-f085-4185-b9cf-111af0088f3b" name="Default" comment="Now support in classifying by some words groups">
+    <list default="true" id="b334214f-f085-4185-b9cf-111af0088f3b" name="Default" comment="New function for search regex in the corpus">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features.py" beforeDir="false" afterPath="$PROJECT_DIR$/features.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/help_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/help_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stylistic_features.py" beforeDir="false" afterPath="$PROJECT_DIR$/stylistic_features.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,13 +31,49 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/help_functions.py">
+        <entry file="file://$PROJECT_DIR$/features.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="151" selection-start-line="151" selection-end-line="151" />
+            <state relative-caret-position="162">
+              <caret line="114" column="47" selection-start-line="114" selection-start-column="47" selection-end-line="114" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/feature_extraction/text.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="110">
+              <caret line="1525" column="4" selection-start-line="1525" selection-start-column="4" selection-end-line="1525" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/1.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="201">
+              <caret line="153" selection-start-line="153" selection-end-line="153" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/pipeline.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="109">
+              <caret line="613" selection-start-line="613" selection-end-line="613" />
             </state>
           </provider>
         </entry>
@@ -89,14 +126,12 @@
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/NONE.json" />
         <option value="$PROJECT_DIR$/words_cloud.py" />
         <option value="$PROJECT_DIR$/global_parameters.py" />
-        <option value="$PROJECT_DIR$/features.py" />
         <option value="$PROJECT_DIR$/roc_curve.py" />
         <option value="$PROJECT_DIR$/precision_recall_curve.py" />
         <option value="$PROJECT_DIR$/config_files_creator/config_generator.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/classification.py" />
         <option value="$PROJECT_DIR$/write_results.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/confusion_matrix.py" />
         <option value="$PROJECT_DIR$/stopwords.py" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/6.json" />
@@ -122,13 +157,15 @@
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/27.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/24.json" />
         <option value="$PROJECT_DIR$/new_xlsx_file.py" />
-        <option value="$PROJECT_DIR$/../Documents/test/cfgs/1.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/2.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/4.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/3.json" />
         <option value="$PROJECT_DIR$/stylistic_features.py" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/5.json" />
         <option value="$PROJECT_DIR$/help_functions.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/../Documents/test/cfgs/1.json" />
+        <option value="$PROJECT_DIR$/features.py" />
       </list>
     </option>
   </component>
@@ -197,7 +234,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.help_functions">
+  <component name="RunManager" selected="Python.main">
     <configuration name="config_generator" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="TCProg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -304,16 +341,16 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.stylistic_features" />
+      <item itemvalue="Python.new_xlsx_file" />
       <item itemvalue="Python.config_generator" />
       <item itemvalue="Python.help_functions" />
-      <item itemvalue="Python.main" />
-      <item itemvalue="Python.new_xlsx_file" />
-      <item itemvalue="Python.stylistic_features" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.help_functions" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.help_functions" />
         <item itemvalue="Python.config_generator" />
         <item itemvalue="Python.new_xlsx_file" />
         <item itemvalue="Python.stylistic_features" />
@@ -427,7 +464,13 @@
       <option name="presentableId" value="LOCAL‎00015" />
       <updated>1573725835986</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL‎00016" summary="New function for search regex in the corpus">
+      <created>1574322837927</created>
+      <option name="number" value="LOCAL‎00016" />
+      <option name="presentableId" value="LOCAL‎00016" />
+      <updated>1574322837927</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView">
@@ -448,8 +491,8 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.31587562" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.42062193" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31587562" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.41571194" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3289689" />
@@ -503,15 +546,21 @@
     <MESSAGE value="Support for integrated accuracy &amp; confusion matrix" />
     <MESSAGE value="Added lists of words for classification by families of words" />
     <MESSAGE value="Now support in classifying by some words groups" />
-    <option name="LAST_COMMIT_MESSAGE" value="Now support in classifying by some words groups" />
+    <MESSAGE value="New function for search regex in the corpus" />
+    <option name="LAST_COMMIT_MESSAGE" value="New function for search regex in the corpus" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/feature_extraction/text.py</url>
-          <line>1292</line>
-          <option name="timeStamp" value="5" />
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>118</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/features.py</url>
+          <line>134</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -543,26 +592,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/matplotlib/pyplot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="3059" column="4" selection-start-line="3059" selection-start-column="4" selection-end-line="3059" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/roc_curve.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/matplotlib/cm.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/write_results.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
@@ -614,41 +643,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/feature_extraction/text.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="841" column="41" selection-start-line="841" selection-start-column="41" selection-end-line="841" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stopwords.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="608" column="21" selection-start-line="608" selection-end-line="608" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="118" selection-start-line="118" selection-end-line="118" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/re.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="222" selection-start-line="222" selection-end-line="222" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/pipeline.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="668" column="8" selection-start-line="668" selection-start-column="8" selection-end-line="668" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -702,13 +700,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/1.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/4.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -740,30 +731,89 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/features.py">
+    <entry file="file://$PROJECT_DIR$/help_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="161" selection-start-line="161" selection-end-line="161" />
+        <state relative-caret-position="321">
+          <caret line="142" column="26" selection-start-line="142" selection-start-column="26" selection-end-line="142" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stopwords.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="536" selection-start-line="536" selection-end-line="537" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/externals/joblib/parallel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="223" selection-start-line="223" selection-end-line="223" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/skipgrams_vectorizer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="153" selection-start-line="153" selection-end-line="153" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/pipeline.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="613" selection-start-line="613" selection-end-line="613" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-656">
+          <caret line="436" column="6" selection-start-line="436" selection-start-column="6" selection-end-line="436" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/stylistic_features.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="709" column="56" selection-start-line="709" selection-start-column="56" selection-end-line="709" selection-end-column="56" />
+        <state relative-caret-position="170">
+          <caret line="629" column="46" selection-start-line="629" selection-start-column="46" selection-end-line="629" selection-end-column="46" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/help_functions.py">
+    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/feature_extraction/text.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="151" selection-start-line="151" selection-end-line="151" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="110">
+          <caret line="1525" column="4" selection-start-line="1525" selection-start-column="4" selection-end-line="1525" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/1.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/features.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="114" column="47" selection-start-line="114" selection-start-column="47" selection-end-line="114" selection-end-column="47" />
         </state>
       </provider>
     </entry>
