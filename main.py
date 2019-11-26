@@ -68,29 +68,33 @@ def add_results(old_results):
 
 
 def divide_results(result):
-    new_result = {'accuracy_score':{},
-                  'f1_score': {},
-                  'precision_score': {},
-                  'recall_score': {},
-                  'roc_auc_score': {},
-                  'confusion_matrix': {},
-                  'roc_curve': {},
-                  'precision_recall_curve': {},
-                  'accuracy_&_confusion_matrix': {}}
+    new_result = {
+        "accuracy_score": {},
+        "f1_score": {},
+        "precision_score": {},
+        "recall_score": {},
+        "roc_auc_score": {},
+        "confusion_matrix": {},
+        "roc_curve": {},
+        "precision_recall_curve": {},
+        "accuracy_&_confusion_matrix": {},
+    }
 
     for config_name, dic in result.items():
-        for method, score in dic['results'].items():
+        for method, score in dic["results"].items():
             for measure, value in score.items():
                 new_result[measure][config_name] = {}
-                new_result[measure][config_name]['results'] = {}
+                new_result[measure][config_name]["results"] = {}
 
     for config_name, dic in result.items():
-        for method, score in dic['results'].items():
+        for method, score in dic["results"].items():
             for measure, value in score.items():
-                new_result[measure][config_name]['results'][method] = value
-                new_result[measure][config_name]['featurs'] = dic['featurs']
-                new_result[measure][config_name]['normalization'] = dic['normalization']
-                new_result[measure][config_name]['stylistic_features'] = dic['stylistic_features']
+                new_result[measure][config_name]["results"][method] = value
+                new_result[measure][config_name]["featurs"] = dic["featurs"]
+                new_result[measure][config_name]["normalization"] = dic["normalization"]
+                new_result[measure][config_name]["stylistic_features"] = dic[
+                    "stylistic_features"
+                ]
 
     return_results = {}
     for measure, data in new_result.items():
@@ -98,7 +102,6 @@ def divide_results(result):
             return_results[measure] = data
 
     return return_results
-
 
 
 def main(cfg):
@@ -115,7 +118,9 @@ def main(cfg):
             n_train_dir = normalize()
             if glbs.TEST_DIR != "":
                 n_test_dir = normalize(test=True)
-            train, tr_labels, test, ts_labels = extract_features(n_train_dir, n_test_dir)
+            train, tr_labels, test, ts_labels = extract_features(
+                n_train_dir, n_test_dir
+            )
             results[glbs.FILE_NAME] = classify(train, tr_labels, test, ts_labels)
             results = add_results(results)
         if glbs.WORDCLOUD:
@@ -149,6 +154,6 @@ def clean_backup_files():
 
 
 if __name__ == "__main__":
-    cfg_dir = r"C:\Users\user\Documents\test\cfgs"
-    # cfg_dir = r"C:\Users\Mickey\Documents\kerner\textclassificationscript\cfgs"
+    # cfg_dir = r"C:\Users\user\Documents\test\cfgs"
+    cfg_dir = r"C:\Users\Mickey\Documents\kerner\textclassificationscript\cfgs"
     main(cfg_dir)
