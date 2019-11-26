@@ -148,4 +148,28 @@ def regex():
 
 
 if __name__ == "__main__":
-    regex()
+    
+    from sklearn.feature_extraction.text import TfidfVectorizer
+
+    vec = TfidfVectorizer(vocabulary=set(["אני","מה","קורה","אתה"]),norm="l1")
+    print(vec.fit_transform(["אני אתה אני והוא", "אני מה קורה"]))
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.metrics.pairwise import cosine_similarity
+
+    plaintexts =["They are", "plain texts texts amoersand here"]
+    titles = ["And here", "titles ", "wolf dog eagle", "But here plain"]
+
+    vectorizer = TfidfVectorizer()
+    plaintexts_tfidf = vectorizer.fit_transform(plaintexts)
+    vocab = vectorizer.vocabulary_
+    vectorizer = TfidfVectorizer(vocabulary=vocab)
+    titles_tfidf = vectorizer.fit_transform(titles)
+    print('values using vocabulary')
+    print(titles_tfidf)
+    print(vectorizer.get_feature_names())
+    print('Brand new vectorizer')
+    vectorizer = TfidfVectorizer()
+    titles_tfidf = vectorizer.fit_transform(titles)
+    print(titles_tfidf)
+    print(vectorizer.get_feature_names())
+    

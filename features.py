@@ -17,6 +17,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.feature_selection import SelectFromModel
+from sklearn.feature_selection import chi2, mutual_info_classif
 
 # region helpful functions
 import system_config
@@ -32,7 +33,7 @@ def read_dataset(path):
     data = []
     for category in os.listdir(path):
         with open(
-                path + "\\" + category, "r+", encoding="utf8", errors="ignore"
+            path + "\\" + category, "r+", encoding="utf8", errors="ignore"
         ) as read:
             for example in read:
                 record = example.rstrip("\n")
@@ -61,15 +62,15 @@ def extract_ngrams_args(feature):
 def split_train(split, tr_labels, train):
     data = list(zip(train, tr_labels))
     random.shuffle(data)
-    test = data[: int(split*len(data))]
-    train = data[int(split*len(data)):]
+    test = data[: int(split * len(data))]
+    train = data[int(split * len(data)) :]
     train, tr_labels = zip(*train)
     test, ts_labels = zip(*test)
     return train, tr_labels, test, ts_labels
 
 
 def get_featuregain(
-        features, train_features, train_data, test_features, test_data, train_labels
+    features, train_features, train_data, test_features, test_data, train_labels
 ):
     methods = {
         "svc": LinearSVC(),
@@ -78,23 +79,33 @@ def get_featuregain(
         "lr": LogisticRegression(),
         "mnb": MultinomialNB(),
     }
-    for classifier in glbs.METHODS:
-        clf = methods[classifier]
-        clf.fit(train_features, train_labels)
-        coef = []
-        feature_imprtence = []
-        try:
-            coef = clf.coef_
-            print(coef)
-        except:
-            feature_imprtence = clf.feature_importances_()
-            print(feature_imprtence)
-        # gain_list = SelectFromModel(clf, prefit=True)
-        # gain_list.transform(train_features)
-        # gain_list.transform(test_features)
-        # feat_labels = features.get_feature_names()
-        # for feature_list_index in gain_list.get_support(indices=True):
-        #     print(feat_labels[feature_list_index])
+    chi = chi2(train_features, train_labels)
+    print(chi)
+    feat_labels = features.get_feature_names()
+    write_info_gain(zip(feat_labels, chi[0], chi[1]))
+
+    # for classifier in glbs.METHODS:
+    #     clf = methods[classifier]
+    #     clf.fit(train_features, train_labels)
+    #     coef = []
+    #     feature_imprtence = []
+    #     try:
+    #         coef = clf.coef_
+    #         print(str(classifier), coef)
+    #     except:
+    #         try:
+    #             coef = clf.coefs_
+    #             print(str(classifier), coef)
+    #         except:
+    #             feature_imprtence = clf.feature_importances_
+    #             print(str(classifier), feature_imprtence)
+
+    # gain_list = SelectFromModel(clf, prefit=True)
+    # gain_list.transform(train_features)
+    # gain_list.transform(test_features)
+    # feat_labels = features.get_feature_names()
+    # for feature_list_index in gain_list.get_support(indices=True):
+    #     print(feat_labels[feature_list_index])
 
 
 def get_vectorizer(feature):
@@ -110,29 +121,16 @@ def get_vectorizer(feature):
             analyzer=type,
             ngram_range=(n, n),
             lowercase=False,
-            use_idf=tfidf)
+            use_idf=tfidf,
+        )
 
     # TODO: לבדוק איך משלבים את 2 הוקטורים ביחד
     else:
-        class combined_vectorizer(TfidfVectorizer, SkipGramVectorizer):
-            def __init__(self):
-                self.tfidf_ = TfidfVectorizer(k=1, max_features=count, analyzer=type, ngram_range=(n, n), lowercase=False, use_idf=tfidf)
-                self.skips_ = SkipGramVectorizer(max_features=count, analyzer=type, n=n, k=k, lowercase=False)
+        vectorizer = SkipGramVectorizer(
+            max_features=count, analyzer=type, n=n, k=k, lowercase=False
+        )
 
-            def fit(self, X, y=None):
-                return self
-
-            def transform(self, raw_documents):
-                X = self.skips_.transform(raw_documents)
-                return self.tfidf_.transform(X, copy=False)
-
-            @property
-            def dtype(self):
-                return self.tfidf_.dtype
-
-        vectorizer = combined_vectorizer()
-
-    return vectorizer, str(n)
+    return vectorizer
 
     """if k <= 0:
         if tfidf == "tfidf":
@@ -180,7 +178,7 @@ def extract_features(train_dir, test_dir=""):
     # add all the N-Grams feature to the list
     for feature in glbs.FEATURES:
         if is_ngrams(feature):
-            vectorizer, n = get_vectorizer(feature)
+            vectorizer = get_vectorizer(feature)
             feature_lst = add_feature(feature_lst, feature, vectorizer)
     # add all the stylistic features to the list
     for feature in glbs.STYLISTIC_FEATURES:
@@ -190,7 +188,7 @@ def extract_features(train_dir, test_dir=""):
     all_features = FeatureUnion(feature_lst)
     train_features = all_features.fit_transform(train_data)
     test_features = all_features.transform(test_data)
-    # get_featuregain(all_features, train_features, train_data, test_features, test_data, train_labels)
+    # get_featuregain( all_features, train_features, train_data, test_features, test_data, train_labels)
 
     return train_features, train_labels, test_features, test_labels
 
