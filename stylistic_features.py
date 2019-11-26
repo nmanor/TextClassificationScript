@@ -7,9 +7,8 @@ from sklearn import preprocessing
 from sklearn.base import BaseEstimator
 from sklearn.base import TransformerMixin
 
-
 # General help functions
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
 from stopwords import food_family, body_organ_family, fat_family, thin_family, weight_family, vomiting_family, \
     curse_family, alcohol_family, suicide_family, me_family, ana_family, sick_family, family_family, increasing_family, \
@@ -47,10 +46,9 @@ def prevalence_rate(str, lst, length_relation=False):
             length = len(word.split(' '))
         else:
             length = 1
-        num += str.lower().count(word) * length
+        num += str.lower().count(word)*length
         str = str.replace(word, '')
-    return [num / len(re.findall(r'\b\w[\w-]*\b', orginal_str.lower()))]
-
+    return [num/len(re.findall(r'\b\w[\w-]*\b', orginal_str.lower()))]
 
 
 # -----------------------------------------------------------------------------------------
@@ -112,7 +110,7 @@ def special_characters_count(data):
     :param data: the corpus
     :return: list of number of repetitions of special characters normalized by the number of characters in each post
     """
-    result = [0] * len(data)
+    result = [0]*len(data)
     for char in ["@", "#", "$", "&", "*", "%", "^"]:
         for i in range(len(data)):
             result[i] += data[i].count(char)
@@ -125,7 +123,7 @@ def quotation_mark_count(data):
     :param data: the corpus
     :return: list of number of repetitions of " or ' normalized by the number of characters in each post
     """
-    result = [0] * len(data)
+    result = [0]*len(data)
     for char in ["\"", "\'"]:
         for i in range(len(data)):
             result[i] += data[i].count(char)
@@ -142,12 +140,14 @@ def average_letters_word(data):
     :param data: the corpus
     :return: list of the average length of a words per post
     """
+
     def average_per_post(post):
         post = re.findall(r'\b\w[\w-]*\b', post.lower())
         num = 0
         for word in post:
             num += len(word)
-        return num / len(post)
+        return num/len(post)
+
     return [[average_per_post(post)] for post in data]
 
 
@@ -157,12 +157,14 @@ def average_letters_sentence(data):
     :param data: the corpus
     :return: list the estimated average of the length of each sentence (no spaces)
     """
+
     def average_per_post(post):
         post = re.split(r'[.!?]+', post.replace(' ', ''))
         num = 0
         for sentence in post:
             num += len(sentence)
-        return num / len(post)
+        return num/len(post)
+
     return [[average_per_post(post)] for post in data]
 
 
@@ -172,12 +174,14 @@ def average_words_sentence(data):
     :param data: the corpus
     :return: list the estimated average of the num of words in each sentence
     """
+
     def average_per_post(post):
         post = re.split(r'[.!?]+', post)
         num = 0
         for sentence in post:
             num += len(re.findall(r'\b\w[\w-]*\b', sentence.lower()))
-        return num / len(post)
+        return num/len(post)
+
     return [[average_per_post(post)] for post in data]
 
 
@@ -247,6 +251,7 @@ def negative_words(data):
                 if (sid.polarity_scores(word)['compound']) <= -0.5:
                     neg_word_num += 1
             return neg_word_num/len(post)
+
         return [negative_count(post) for post in data]
 
     # Hebrew version: negative words
@@ -256,7 +261,7 @@ def negative_words(data):
 
     if text_language(data[0]) == 'hebrew':
         return hebrew_negative_words(data)
-    #nltk.download('vader_lexicon')
+    # nltk.download('vader_lexicon')
     return english_negative_words(data)
 
 
@@ -278,6 +283,7 @@ def positive_words(data):
                 if (sid.polarity_scores(word)['compound']) >= 0.5:
                     pos_word_num += 1
             return pos_word_num/len(post)
+
         return [positive_count(post) for post in data]
 
     # Hebrew version: positive words
@@ -348,7 +354,8 @@ def first_person_expressions(data):
     """
     from stopwords import first_person_expressions_hebrew
     from stopwords import first_person_expressions_english
-    lst = {"hebrew": first_person_expressions_hebrew, "english": first_person_expressions_english}[text_language(data[0])]
+    lst = {"hebrew": first_person_expressions_hebrew, "english": first_person_expressions_english}[
+        text_language(data[0])]
     return [prevalence_rate(post, lst, False) for post in data]
 
 
@@ -360,7 +367,8 @@ def second_person_expressions(data):
     """
     from stopwords import second_person_expressions_hebrew
     from stopwords import second_person_expressions_english
-    lst = {"hebrew": second_person_expressions_hebrew, "english": second_person_expressions_english}[text_language(data[0])]
+    lst = {"hebrew": second_person_expressions_hebrew, "english": second_person_expressions_english}[
+        text_language(data[0])]
     return [prevalence_rate(post, lst, False) for post in data]
 
 
@@ -372,7 +380,8 @@ def third_person_expressions(data):
     """
     from stopwords import third_person_expressions_hebrew
     from stopwords import third_person_expressions_english
-    lst = {"hebrew": third_person_expressions_hebrew, "english": third_person_expressions_english}[text_language(data[0])]
+    lst = {"hebrew": third_person_expressions_hebrew, "english": third_person_expressions_english}[
+        text_language(data[0])]
     return [prevalence_rate(post, lst, False) for post in data]
 
 
@@ -390,7 +399,6 @@ def inclusion_expressions(data):
     from stopwords import inclusion_expressions_english
     lst = {"hebrew": inclusion_expressions_hebrew, "english": inclusion_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, False) for post in data]
-
 
 
 # -----------------------------------------------------------------------------------------
@@ -514,92 +522,24 @@ def all_powers(data):
 # -----------------------------------------------------------------------------------------
 # Topographic Features
 
-def topographicA1(data):
-    """
-    42
-    :param data: the corpus
-    :return: enable all properties 1-42 on the first trimester of the post
-    """
-    data = [post[:int(len(post)/3)] for post in data]
-    return topographic(data)
+def multiple_repeated_chars(docs):
+    def init_(post, char):
+        return post.count(char)/len(post)
 
+    indptr = [0]
+    indices = []
+    data = []
+    vocabulary = {}
+    for char in ["!", "?", ".", "<", ">", "=", ")", "(", ":", "+", "*", "):", ":(", "(:", ":)"]:
+        for post in docs:
+            if init_(post, char) != 0:
+                index = vocabulary.setdefault(post, len(vocabulary))
+                indices.append(index)
+                data.append(init_(post, char))
+        indptr.append(len(indices))
+    temp = csr_matrix((data, indices, indptr), dtype=float)
+    return temp
 
-def topographicA2(data):
-    """
-    43
-    :param data: the corpus
-    :return: enable all properties 1-42 on the second trimester of the post
-    """
-    data = [post[int(len(post)/3):len(post) - int(len(post)/3)] for post in data]
-    return topographic(data)
-
-
-def topographicA3(data):
-    """
-    44
-    :param data: the corpus
-    :return: enable all properties 1-42 on the third trimester of the post
-    """
-    data = [post[int(len(post)*(2/3)):] for post in data]
-    return topographic(data)
-
-
-def topographicB1(data):
-    """
-    45
-    :param data: the corpus
-    :return: enable all properties 1-42 on the first 10 words of the post
-    """
-    data = [" ".join(re.findall(r'\b\w[\w-]*\b', post.lower())[:10]) for post in data]
-    for i in range(len(data)):
-        if len(data[i]) < 1:
-            data[i] = "NA"
-    return [{True: 0.0, False: value}[value == 11.0] for value in topographic(data)]
-
-
-def topographicB2(data):
-    """
-    46
-    :param data: the corpus
-    :return: enable all properties 1-42 on the first 10 words of the post
-    """
-    data = [" ".join(re.findall(r'\b\w[\w-]*\b', post.lower())[10:-10]) for post in data]
-    for i in range(len(data)):
-        if len(data[i]) < 1:
-            data[i] = "NA"
-    return [{True: 0.0, False: value}[value == 11.0] for value in topographic(data)]
-
-
-def topographicB3(data):
-    """
-    47
-    :param data: the corpus
-    :return: enable all properties 1-42 on the first 10 words of the post
-    """
-    data = [" ".join(re.findall(r'\b\w[\w-]*\b', post.lower())[:-10]) for post in data]
-    for i in range(len(data)):
-        if len(data[i]) < 1:
-            data[i] = "NA"
-    return [{True: 0.0, False: value}[value == 11.0] for value in topographic(data)]
-
-
-def topographic(data):
-    """
-    General topographic function
-    :param data: the corpus after processing
-    :return: enable all properties 1-42 on the corpus
-    """
-    functions = [chars_count, words_count, sentence_count, exclamation_mark_count, question_mark_count, special_characters_count,
-                 quotation_mark_count, average_letters_word, average_letters_sentence, average_words_sentence, average_word_length,
-                 increasing_expressions, decreasing_expressions, positive_words, negative_words, time_expressions, doubt_expressions,
-                 emotion_expressions, first_person_expressions, second_person_expressions, third_person_expressions,
-                 inclusion_expressions, all_powers]
-    result = [0] * len(data)
-    for func in functions:
-        func_re = func(data)
-        for i in range(len(data)):
-            result[i] += func_re[i]
-    return result
 
 
 # -----------------------------------------------------------------------------------------
@@ -609,7 +549,7 @@ def repeated_chars(data):
     # check for any repeated chars
     def in_word(word):
         for i in range(len(word) - 1):
-            if word[i] == word[i+1]:
+            if word[i] == word[i + 1]:
                 return True
         return False
 
@@ -620,10 +560,16 @@ def repeated_chars(data):
         for word in post:
             if in_word(word):
                 repeated += 1
-        return repeated / len(post)
+        return repeated/len(post)
 
     # return the result
     return [[in_post(post)*100] for post in data]
+
+
+# -----------------------------------------------------------------------------------------
+# General list
+def general_list(data, lst):
+    return [prevalence_rate(post, lst, True) for post in data]
 
 
 ##################################################################
@@ -638,11 +584,10 @@ class StylisticFeaturesTransformer(TransformerMixin, BaseEstimator):
 
     def transform(self, X):
         """Given a list of original data, return a list of feature vectors."""
-        # _X = preprocessing.normalize(self.featurizers(X))
+        if isinstance(self.featurizers, list):
+            return csr_matrix(general_list(X, self.featurizers))
+
         _X = self.featurizers(X)
-        for i in range(len(_X)):
-            if _X[i][0] < 1:
-                _X[i][0] *= 100
         return csr_matrix(_X)
 #################################################################
 
@@ -678,12 +623,7 @@ stylistic_features_dict = {'cc': chars_count,
                            'pm3': power_minus3,
                            'pm4': power_minus4,
                            'ap': all_powers,
-                           'topa1': topographicA1,
-                           'topa2': topographicA2,
-                           'topa3': topographicA3,
-                           'topb1': topographicB1,
-                           'topb2': topographicB2,
-                           'topb3': topographicB3,
+                           'mrc': multiple_repeated_chars,
                            'rc': repeated_chars,
                            'fof': food_family,
                            'bof': body_organ_family,
@@ -712,19 +652,21 @@ stylistic_features_dict = {'cc': chars_count,
 
 
 def get_stylistic_features_vectorizer(feature):
+    vectorizers = []
+
     # return the CountVectorizer of lists of words
     if isinstance(stylistic_features_dict[feature], list):
-        lst = list(set(stylistic_features_dict[feature]))
-        vectorizer = CountVectorizer(max_features=len(lst), vocabulary=lst)
+        lst = set(stylistic_features_dict[feature])
+        vectorizers += [TfidfVectorizer(vocabulary=lst)]
+        vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[feature])]
 
     # return the values of the features
     else:
-        vectorizer = StylisticFeaturesTransformer(stylistic_features_dict[feature])
+        vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[feature])]
 
-    return vectorizer
-
+    return vectorizers
 
 
 if __name__ == "__main__":
-    while True:
-        print(stylistic_features_dict[input("enter: ")])
+    vec = get_stylistic_features_vectorizer('mrc')[0]
+    print(vec.fit_transform(["מה קורה??", ":("]))

@@ -184,8 +184,9 @@ def extract_features(train_dir, test_dir=""):
             feature_lst = add_feature(feature_lst, feature, vectorizer)
     # add all the stylistic features to the list
     for feature in glbs.STYLISTIC_FEATURES:
-        vectorizer = get_stylistic_features_vectorizer(feature)
-        feature_lst = add_feature(feature_lst, feature, vectorizer)
+        vectorizers = get_stylistic_features_vectorizer(feature)
+        for i in range(len(vectorizers)):
+            feature_lst = add_feature(feature_lst, feature + str(i), vectorizers[i])
     # convert the list to one vectoriazer using FeatureUnion
     all_features = FeatureUnion(feature_lst)
     train_features = all_features.fit_transform(train_data)
