@@ -8,9 +8,9 @@ import string
 from nltk import WordNetLemmatizer, SnowballStemmer
 
 from global_parameters import print_message,GlobalParameters
-from stopwords import stopwords
-from stopwords import hebrew_stopwords
-from stopwords import hebrew_stopwords_ex
+from stopwords_and_lists import stopwords
+from stopwords_and_lists import hebrew_stopwords
+from stopwords_and_lists import hebrew_stopwords_ex
 from autocorrect import spell
 from system_config import DICTIONARY_PATH
 

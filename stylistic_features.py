@@ -10,10 +10,12 @@ from sklearn.base import TransformerMixin
 # General help functions
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
-from stopwords import food_family, body_organ_family, fat_family, thin_family, weight_family, vomiting_family, \
-    curse_family, alcohol_family, suicide_family, me_family, ana_family, sick_family, family_family, increasing_family, \
-    decreasing_family, depression_family, sport_family, sleep_family, negative_emotions_family, hunger_family, \
-    pain_family, anorexia_family, exterior_shape_family
+from stopwords_and_lists import food_family, fat_family, vomiting_family, \
+    me_family, ana_family, increasing_family, \
+    decreasing_family, sport_family, sleep_family, hunger_family, \
+    pain_family, anorexia_family, anger_family, thinness_family, calories_family, \
+    vulgarity_family, sickness_family, love_family
+from terms_frequency_counts import get_top_n_words
 
 
 def text_language(text):
@@ -210,8 +212,8 @@ def increasing_expressions(data):
     :param data: the corpus
     :return: list the percentage of increasing words out of the total words in each post
     """
-    from stopwords import increasing_expressions_hebrew
-    from stopwords import increasing_expressions_english
+    from stopwords_and_lists import increasing_expressions_hebrew
+    from stopwords_and_lists import increasing_expressions_english
     lst = {"hebrew": increasing_expressions_hebrew, "english": increasing_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -222,8 +224,8 @@ def decreasing_expressions(data):
     :param data: the corpus
     :return: list the percentage of decreasing words out of the total words in each post
     """
-    from stopwords import decreasing_expressions_hebrew
-    from stopwords import decreasing_expressions_english
+    from stopwords_and_lists import decreasing_expressions_hebrew
+    from stopwords_and_lists import decreasing_expressions_english
     lst = {"hebrew": decreasing_expressions_hebrew, "english": decreasing_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -256,7 +258,7 @@ def negative_words(data):
 
     # Hebrew version: negative words
     def hebrew_negative_words(data):
-        from stopwords import negative_list_hebrew
+        from stopwords_and_lists import negative_list_hebrew
         return [prevalence_rate(post, negative_list_hebrew) for post in data]
 
     if text_language(data[0]) == 'hebrew':
@@ -288,7 +290,7 @@ def positive_words(data):
 
     # Hebrew version: positive words
     def hebrew_positive_words(data):
-        from stopwords import positive_list_hebrew
+        from stopwords_and_lists import positive_list_hebrew
         return [prevalence_rate(post, positive_list_hebrew) for post in data]
 
     if text_language(data[0]) == 'hebrew':
@@ -306,8 +308,8 @@ def time_expressions(data):
     :param data: the corpus
     :return: list the percentage of time words out of the total words in each post
     """
-    from stopwords import time_expressions_hebrew
-    from stopwords import time_expressions_english
+    from stopwords_and_lists import time_expressions_hebrew
+    from stopwords_and_lists import time_expressions_english
     lst = {"hebrew": time_expressions_hebrew, "english": time_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -321,8 +323,8 @@ def doubt_expressions(data):
     :param data: the corpus
     :return: list the percentage of doubt words out of the total words in each post
     """
-    from stopwords import doubt_expressions_hebrew
-    from stopwords import doubt_expressions_english
+    from stopwords_and_lists import doubt_expressions_hebrew
+    from stopwords_and_lists import doubt_expressions_english
     lst = {"hebrew": doubt_expressions_hebrew, "english": doubt_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -336,8 +338,8 @@ def emotion_expressions(data):
     :param data: the corpus
     :return: list the percentage of emotion terms out of the total words in each post
     """
-    from stopwords import emotion_expressions_hebrew
-    from stopwords import emotion_expressions_english
+    from stopwords_and_lists import emotion_expressions_hebrew
+    from stopwords_and_lists import emotion_expressions_english
     lst = {"hebrew": emotion_expressions_hebrew, "english": emotion_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -352,8 +354,8 @@ def first_person_expressions(data):
     :param data: the corpus
     :return: list the percentage of first person terms out of the total words in each post
     """
-    from stopwords import first_person_expressions_hebrew
-    from stopwords import first_person_expressions_english
+    from stopwords_and_lists import first_person_expressions_hebrew
+    from stopwords_and_lists import first_person_expressions_english
     lst = {"hebrew": first_person_expressions_hebrew, "english": first_person_expressions_english}[
         text_language(data[0])]
     return [prevalence_rate(post, lst, False) for post in data]
@@ -365,8 +367,8 @@ def second_person_expressions(data):
     :param data: the corpus
     :return: list the percentage of second person terms out of the total words in each post
     """
-    from stopwords import second_person_expressions_hebrew
-    from stopwords import second_person_expressions_english
+    from stopwords_and_lists import second_person_expressions_hebrew
+    from stopwords_and_lists import second_person_expressions_english
     lst = {"hebrew": second_person_expressions_hebrew, "english": second_person_expressions_english}[
         text_language(data[0])]
     return [prevalence_rate(post, lst, False) for post in data]
@@ -378,8 +380,8 @@ def third_person_expressions(data):
     :param data: the corpus
     :return: list the percentage of third person terms out of the total words in each post
     """
-    from stopwords import third_person_expressions_hebrew
-    from stopwords import third_person_expressions_english
+    from stopwords_and_lists import third_person_expressions_hebrew
+    from stopwords_and_lists import third_person_expressions_english
     lst = {"hebrew": third_person_expressions_hebrew, "english": third_person_expressions_english}[
         text_language(data[0])]
     return [prevalence_rate(post, lst, False) for post in data]
@@ -395,8 +397,8 @@ def inclusion_expressions(data):
     :param data: the corpus
     :return: list the percentage of inclusion terms out of the total words in each post
     """
-    from stopwords import inclusion_expressions_hebrew
-    from stopwords import inclusion_expressions_english
+    from stopwords_and_lists import inclusion_expressions_hebrew
+    from stopwords_and_lists import inclusion_expressions_english
     lst = {"hebrew": inclusion_expressions_hebrew, "english": inclusion_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, False) for post in data]
 
@@ -411,8 +413,8 @@ def power1(data):
     :param data: the corpus
     :return: list the percentage of terms from power 1 out of the total words in each post
     """
-    from stopwords import power1_expressions_hebrew
-    from stopwords import power1_expressions_english
+    from stopwords_and_lists import power1_expressions_hebrew
+    from stopwords_and_lists import power1_expressions_english
     lst = {"hebrew": power1_expressions_hebrew, "english": power1_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -423,8 +425,8 @@ def power2(data):
     :param data: the corpus
     :return: list the percentage of terms from power 2 out of the total words in each post
     """
-    from stopwords import power2_expressions_hebrew
-    from stopwords import power2_expressions_english
+    from stopwords_and_lists import power2_expressions_hebrew
+    from stopwords_and_lists import power2_expressions_english
     lst = {"hebrew": power2_expressions_hebrew, "english": power2_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -435,8 +437,8 @@ def power3(data):
     :param data: the corpus
     :return: list the percentage of terms from power 3 out of the total words in each post
     """
-    from stopwords import power3_expressions_hebrew
-    from stopwords import power3_expressions_english
+    from stopwords_and_lists import power3_expressions_hebrew
+    from stopwords_and_lists import power3_expressions_english
     lst = {"hebrew": power3_expressions_hebrew, "english": power3_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -447,8 +449,8 @@ def power_minus1(data):
     :param data: the corpus
     :return: list the percentage of terms from power -1 out of the total words in each post
     """
-    from stopwords import powerm1_expressions_hebrew
-    from stopwords import powerm1_expressions_english
+    from stopwords_and_lists import powerm1_expressions_hebrew
+    from stopwords_and_lists import powerm1_expressions_english
     lst = {"hebrew": powerm1_expressions_hebrew, "english": powerm1_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -459,8 +461,8 @@ def power_minus2(data):
     :param data: the corpus
     :return: list the percentage of terms from power -2 out of the total words in each post
     """
-    from stopwords import powerm2_expressions_hebrew
-    from stopwords import powerm2_expressions_english
+    from stopwords_and_lists import powerm2_expressions_hebrew
+    from stopwords_and_lists import powerm2_expressions_english
     lst = {"hebrew": powerm2_expressions_hebrew, "english": powerm2_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -471,8 +473,8 @@ def power_minus3(data):
     :param data: the corpus
     :return: list the percentage of terms from power -3 out of the total words in each post
     """
-    from stopwords import powerm3_expressions_hebrew
-    from stopwords import powerm3_expressions_english
+    from stopwords_and_lists import powerm3_expressions_hebrew
+    from stopwords_and_lists import powerm3_expressions_english
     lst = {"hebrew": powerm3_expressions_hebrew, "english": powerm3_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -483,8 +485,8 @@ def power_minus4(data):
     :param data: the corpus
     :return: list the percentage of terms from power -4 out of the total words in each post
     """
-    from stopwords import powerm4_expressions_hebrew
-    from stopwords import powerm4_expressions_english
+    from stopwords_and_lists import powerm4_expressions_hebrew
+    from stopwords_and_lists import powerm4_expressions_english
     lst = {"hebrew": powerm4_expressions_hebrew, "english": powerm4_expressions_english}[text_language(data[0])]
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -497,24 +499,24 @@ def all_powers(data):
     """
     lst = []
     if text_language(data[0]) == "hebrew":
-        from stopwords import power1_expressions_hebrew
-        from stopwords import power2_expressions_hebrew
-        from stopwords import power3_expressions_hebrew
+        from stopwords_and_lists import power1_expressions_hebrew
+        from stopwords_and_lists import power2_expressions_hebrew
+        from stopwords_and_lists import power3_expressions_hebrew
         lst += power1_expressions_hebrew + power2_expressions_hebrew + power3_expressions_hebrew
-        from stopwords import powerm1_expressions_hebrew
-        from stopwords import powerm2_expressions_hebrew
-        from stopwords import powerm3_expressions_hebrew
-        from stopwords import powerm4_expressions_hebrew
+        from stopwords_and_lists import powerm1_expressions_hebrew
+        from stopwords_and_lists import powerm2_expressions_hebrew
+        from stopwords_and_lists import powerm3_expressions_hebrew
+        from stopwords_and_lists import powerm4_expressions_hebrew
         lst += powerm1_expressions_hebrew + powerm2_expressions_hebrew + powerm3_expressions_hebrew + powerm4_expressions_hebrew
     else:
-        from stopwords import power1_expressions_english
-        from stopwords import power2_expressions_english
-        from stopwords import power3_expressions_english
+        from stopwords_and_lists import power1_expressions_english
+        from stopwords_and_lists import power2_expressions_english
+        from stopwords_and_lists import power3_expressions_english
         lst += power1_expressions_english + power2_expressions_english + power3_expressions_english
-        from stopwords import powerm1_expressions_english
-        from stopwords import powerm2_expressions_english
-        from stopwords import powerm3_expressions_english
-        from stopwords import powerm4_expressions_english
+        from stopwords_and_lists import powerm1_expressions_english
+        from stopwords_and_lists import powerm2_expressions_english
+        from stopwords_and_lists import powerm3_expressions_english
+        from stopwords_and_lists import powerm4_expressions_english
         lst += powerm1_expressions_english + powerm2_expressions_english + powerm3_expressions_english + powerm4_expressions_english
     return [prevalence_rate(post, lst, True) for post in data]
 
@@ -522,7 +524,11 @@ def all_powers(data):
 # -----------------------------------------------------------------------------------------
 # Topographic Features
 
-def multiple_repeated_chars(docs):
+def known_repeated_chars(docs):
+    """
+    :param docs: the data
+    :return: CSR Matrix with the num of repeation of each char in the list bellow
+    """
     def init_(post, char):
         return post.count(char)/len(post)
 
@@ -545,11 +551,12 @@ def multiple_repeated_chars(docs):
 # -----------------------------------------------------------------------------------------
 # Repeated chars features
 
+# return the normalized number of words with at least 3 repeated chars
 def repeated_chars(data):
     # check for any repeated chars
     def in_word(word):
-        for i in range(len(word) - 1):
-            if word[i] == word[i + 1]:
+        for i in range(len(word) - 2):
+            if word[i] == word[i + 1] == word[i + 2]:
                 return True
         return False
 
@@ -563,13 +570,108 @@ def repeated_chars(data):
         return repeated/len(post)
 
     # return the result
-    return [[in_post(post)*100] for post in data]
+    return [[in_post(post)] for post in data]
+
+
+def doubled_words(data):
+    """
+    :param data: the corpus
+    :return: the num of doubled word normalized in the num f the words in the text
+    """
+    def in_post(post):
+        num = 0
+        post = re.findall(r'\b\w[\w-]*\b', post.lower())
+        for i in range(len(post) - 1):
+            if post[i] == post[i + 1]:
+                num += 1
+        return num/(len(post) - 1)
+    return [[in_post(post)] for post in data]
+
+
+def tripled_words(data):
+    """
+    :param data: the corpus
+    :return: the num of tripled word normalized in the num of the words in the text
+    """
+    def in_post(post):
+        num = 0
+        post = re.findall(r'\b\w[\w-]*\b', post.lower())
+        for i in range(len(post) - 2):
+            if post[i] == post[i + 1] == post[i + 2]:
+                num += 1
+        return num/(len(post) - 2)
+    return [[in_post(post)] for post in data]
+
+
+def doubled_hyphen(data):
+    """
+    :param data: the corpus
+    :return: the num of doubled ! normalized in the num of the letters in the text
+    """
+    return [[post.count('!!')/len(post)] for post in data]
+
+
+def tripled_hyphen(data):
+    """
+    :param data: the corpus
+    :return: the num of doubled !! normalized in the num of the letters in the text
+    """
+    return [[len(re.findall(r'!!!+', post))/len(post)] for post in data]
 
 
 # -----------------------------------------------------------------------------------------
 # General list
 def general_list(data, lst):
     return [prevalence_rate(post, lst, True) for post in data]
+
+
+
+# -----------------------------------------------------------------------------------------
+# Language wealth
+
+def words_wealth(data):
+    """
+    :param data: the corpus
+    :return: list of the number of different types of words normalized in the number of words in the text
+    """
+    def in_post(post):
+        post = re.findall(r'\b\w[\w-]*\b', post.lower())
+        single_words = set(post)
+        return len(single_words) / len(post)
+    return [[in_post(post)] for post in data]
+
+
+def n_word_in_post(post, num):
+    temp = get_top_n_words([post], 1, 1)
+    temp = temp[0][0]
+    unique = [1 for tup in get_top_n_words([post], 1, 1) if tup[1] == num]
+    post = re.findall(r'\b\w[\w-]*\b', post.lower())
+    return len(unique)/len(post)
+
+
+def once_words(data):
+    """
+    :param data: the corpus
+    :return: the number of words that used only once in the post normalized in the number of the words
+    """
+    return [[n_word_in_post(post, 1)] for post in data]
+
+
+def twice_words(data):
+    """
+    :param data: the corpus
+    :return: the number of words that used only twice in the post normalized in the number of the words
+    """
+    return [[n_word_in_post(post, 2)] for post in data]
+
+
+def three_times_words(data):
+    """
+    :param data: the corpus
+    :return: the number of words that used only three times in the post normalized in the number of the words
+    """
+    return [[n_word_in_post(post, 2)] for post in data]
+
 
 
 ##################################################################
@@ -605,7 +707,7 @@ stylistic_features_dict = {'cc': chars_count,
                            'aws': average_words_sentence,
                            'awl': average_word_length,
                            'ie': increasing_expressions,
-                           'de': decreasing_expressions,
+                           'dex': decreasing_expressions,
                            'nw': negative_words,
                            'pw': positive_words,
                            'te': time_expressions,
@@ -623,32 +725,34 @@ stylistic_features_dict = {'cc': chars_count,
                            'pm3': power_minus3,
                            'pm4': power_minus4,
                            'ap': all_powers,
-                           'mrc': multiple_repeated_chars,
+                           'mrc': known_repeated_chars,
                            'rc': repeated_chars,
-                           'fof': food_family,
-                           'bof': body_organ_family,
-                           'faf': fat_family,
-                           'thf': thin_family,
-                           'wef': weight_family,
-                           'vof': vomiting_family,
-                           'cuf': curse_family,
-                           'alf': alcohol_family,
-                           'suf': suicide_family,
-                           'mef': me_family,
+                           'dw': doubled_words,
+                           'tw': tripled_words,
+                           'dh': doubled_hyphen,
+                           'th': tripled_hyphen,
+                           'ww': words_wealth,
+                           'owc': once_words,
+                           'twc': twice_words,
+                           'ttc': three_times_words,
+                           'aof': anorexia_family,
+                           'fdf': food_family,
+                           'ftf': fat_family,
                            'anf': ana_family,
-                           'sif': sick_family,
-                           'fmf': family_family,
-                           'inf': increasing_family,
-                           'def': decreasing_family,
-                           'dpf': depression_family,
-                           'spf': sport_family,
-                           'slf': sleep_family,
-                           'nef': negative_emotions_family,
                            'huf': hunger_family,
-                           'paf': pain_family,
-                           'axf': anorexia_family,
-                           'esf': exterior_shape_family,
-                           'aaf': ana_family + anorexia_family}
+                           'mef': me_family,
+                           'vof': vomiting_family,
+                           'pnf': pain_family,
+                           'agf': anger_family,
+                           'slf': sleep_family,
+                           'spf': sport_family,
+                           'thf': thinness_family,
+                           'caf': calories_family,
+                           'vuf': vulgarity_family,
+                           'def': decreasing_family,
+                           'inf': increasing_family,
+                           'sif': sickness_family,
+                           'lof': love_family}
 
 
 def get_stylistic_features_vectorizer(feature):
@@ -668,5 +772,5 @@ def get_stylistic_features_vectorizer(feature):
 
 
 if __name__ == "__main__":
-    vec = get_stylistic_features_vectorizer('mrc')[0]
-    print(vec.fit_transform(["מה קורה??", ":("]))
+    vec = get_stylistic_features_vectorizer('uw')[0]
+    print(vec.fit_transform(["שלום ביי שלום שלום", "שלום לכם"]))

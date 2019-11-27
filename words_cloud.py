@@ -6,7 +6,7 @@ from os import path
 import matplotlib.pyplot as plt
 
 from global_parameters import GlobalParameters
-from stopwords import hebrew_stopwords, stopwords
+from stopwords_and_lists import hebrew_stopwords, stopwords
 from stylistic_features import text_language
 from wordcloud import WordCloud
 from terms_frequency_counts import get_top_n_words
