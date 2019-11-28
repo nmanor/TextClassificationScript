@@ -532,19 +532,15 @@ def known_repeated_chars(docs):
     def init_(post, char):
         return post.count(char)/len(post)
 
-    indptr = [0]
-    indices = []
+    row_ind = []
+    col_ind = []
     data = []
     vocabulary = {}
-    for char in ["!", "?", ".", "<", ">", "=", ")", "(", ":", "+", "*", "):", ":(", "(:", ":)"]:
-        for post in docs:
-            if init_(post, char) != 0:
-                index = vocabulary.setdefault(post, len(vocabulary))
-                indices.append(index)
-                data.append(init_(post, char))
-        indptr.append(len(indices))
-    temp = csr_matrix((data, indices, indptr), dtype=float)
-    return temp
+    for i, char in enumerate(["!", "?", ".", "<", ">", "=", ")", "(", ":", "+", "*", "):", ":(", "(:", ":)"]):
+        for j, post in enumerate(docs):
+            pass
+
+    return 123
 
 
 
@@ -603,7 +599,7 @@ def tripled_words(data):
     return [[in_post(post)] for post in data]
 
 
-def doubled_hyphen(data):
+def doubled_exclamation(data):
     """
     :param data: the corpus
     :return: the num of doubled ! normalized in the num of the letters in the text
@@ -611,12 +607,27 @@ def doubled_hyphen(data):
     return [[post.count('!!')/len(post)] for post in data]
 
 
-def tripled_hyphen(data):
+def tripled_exclamation(data):
     """
     :param data: the corpus
     :return: the num of doubled !! normalized in the num of the letters in the text
     """
     return [[len(re.findall(r'!!!+', post))/len(post)] for post in data]
+
+
+def doubled_hyphen(data):
+    """
+    :param data: the corpus
+    :return: the num of the words that contain at least 2 '-' normalized in the num of the words
+    """
+    def in_post(post):
+        num = 0
+        post = re.findall(r'\b\w[\w-]*\b', post.lower())
+        for word in post:
+            if word.count('-') >= 2:
+                num += 1
+        return num / len(post)
+    return [[in_post(post)] for post in data]
 
 
 # -----------------------------------------------------------------------------------------
@@ -725,12 +736,13 @@ stylistic_features_dict = {'cc': chars_count,
                            'pm3': power_minus3,
                            'pm4': power_minus4,
                            'ap': all_powers,
-                           'mrc': known_repeated_chars,
+                           'krc': known_repeated_chars,
                            'rc': repeated_chars,
                            'dw': doubled_words,
                            'tw': tripled_words,
                            'dh': doubled_hyphen,
-                           'th': tripled_hyphen,
+                           'dx': doubled_exclamation,
+                           'tx': tripled_exclamation,
                            'ww': words_wealth,
                            'owc': once_words,
                            'twc': twice_words,
@@ -772,5 +784,5 @@ def get_stylistic_features_vectorizer(feature):
 
 
 if __name__ == "__main__":
-    vec = get_stylistic_features_vectorizer('uw')[0]
-    print(vec.fit_transform(["שלום ביי שלום שלום", "שלום לכם"]))
+    vec = get_stylistic_features_vectorizer('krc')[0]
+    print(vec.fit_transform(["ש--ל-ום ביי של-ו-ם שלום", "שלום ל-כ-ם"]))
