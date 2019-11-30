@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b334214f-f085-4185-b9cf-111af0088f3b" name="Default" comment="New stylistic feater">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/normalization.py" beforeDir="false" afterPath="$PROJECT_DIR$/normalization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stopwords.py" beforeDir="false" afterPath="$PROJECT_DIR$/stopwords_and_lists.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/help_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/help_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stylistic_features.py" beforeDir="false" afterPath="$PROJECT_DIR$/stylistic_features.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/words_cloud.py" beforeDir="false" afterPath="$PROJECT_DIR$/words_cloud.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,11 +30,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/scipy/sparse/csr.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="37" column="43" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/stylistic_features.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="730" column="23" selection-start-line="730" selection-start-column="23" selection-end-line="730" selection-end-column="23" />
+            <state relative-caret-position="2945">
+              <caret line="752" column="28" lean-forward="true" selection-start-line="752" selection-start-column="28" selection-end-line="752" selection-end-column="28" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -44,10 +52,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stopwords_and_lists.py">
+        <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="595" column="12" selection-start-line="595" selection-start-column="12" selection-end-line="595" selection-end-column="12" />
+            <state relative-caret-position="232">
+              <caret line="156" column="4" lean-forward="true" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classification.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-715">
+              <caret line="88" selection-start-line="88" selection-end-line="88" />
             </state>
           </provider>
         </entry>
@@ -93,12 +113,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/נורמליות/1568.json" />
-        <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/נורמליות/1570.json" />
-        <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/נורמליות/1573.json" />
-        <option value="$PROJECT_DIR$/terms_frequency_counts.py" />
-        <option value="$PROJECT_DIR$/write_xlsx_file.py" />
-        <option value="$PROJECT_DIR$/readme.txt" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/NONE.json" />
         <option value="$PROJECT_DIR$/words_cloud.py" />
@@ -111,6 +125,24 @@
         <option value="$PROJECT_DIR$/write_results.py" />
         <option value="$PROJECT_DIR$/confusion_matrix.py" />
         <option value="$PROJECT_DIR$/stopwords.py" />
+        <option value="$PROJECT_DIR$/../Documents/test/cfgs/25.json" />
+        <option value="$PROJECT_DIR$/../Documents/test/cfgs/26.json" />
+        <option value="$PROJECT_DIR$/../Documents/test/cfgs/27.json" />
+        <option value="$PROJECT_DIR$/new_xlsx_file.py" />
+        <option value="$PROJECT_DIR$/features.py" />
+        <option value="$PROJECT_DIR$/stopwords_and_lists.py" />
+        <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1121.json" />
+        <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1127.json" />
+        <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1196.json" />
+        <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1210.json" />
+        <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1187.json" />
+        <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1194.json" />
+        <option value="$PROJECT_DIR$/help_functions.py" />
+        <option value="$PROJECT_DIR$/../Documents/test/cfgs/1.json" />
+        <option value="$PROJECT_DIR$/../Documents/test/cfgs/2.json" />
+        <option value="$PROJECT_DIR$/../Documents/test/cfgs/3.json" />
+        <option value="$PROJECT_DIR$/../Documents/test/cfgs/4.json" />
+        <option value="$PROJECT_DIR$/../Documents/test/cfgs/5.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/6.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/7.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/8.json" />
@@ -129,20 +161,8 @@
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/21.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/22.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/23.json" />
-        <option value="$PROJECT_DIR$/../Documents/test/cfgs/25.json" />
-        <option value="$PROJECT_DIR$/../Documents/test/cfgs/26.json" />
-        <option value="$PROJECT_DIR$/../Documents/test/cfgs/27.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/24.json" />
-        <option value="$PROJECT_DIR$/new_xlsx_file.py" />
-        <option value="$PROJECT_DIR$/../Documents/test/cfgs/2.json" />
-        <option value="$PROJECT_DIR$/../Documents/test/cfgs/4.json" />
-        <option value="$PROJECT_DIR$/../Documents/test/cfgs/3.json" />
-        <option value="$PROJECT_DIR$/../Documents/test/cfgs/5.json" />
-        <option value="$PROJECT_DIR$/help_functions.py" />
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/features.py" />
-        <option value="$PROJECT_DIR$/../Documents/test/cfgs/1.json" />
-        <option value="$PROJECT_DIR$/stopwords_and_lists.py" />
         <option value="$PROJECT_DIR$/stylistic_features.py" />
       </list>
     </option>
@@ -154,10 +174,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="675" />
-    <option name="y" value="-8" />
-    <option name="width" value="699" />
-    <option name="height" value="744" />
+    <option name="x" value="-7" />
+    <option name="width" value="697" />
+    <option name="height" value="371" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -213,7 +232,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.stylistic_features">
+  <component name="RunManager" selected="Python.main">
     <configuration name="config_generator" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="TCProg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -328,8 +347,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.stylistic_features" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.stylistic_features" />
         <item itemvalue="Python.help_functions" />
         <item itemvalue="Python.config_generator" />
         <item itemvalue="Python.new_xlsx_file" />
@@ -461,7 +480,13 @@
       <option name="presentableId" value="LOCAL‎00018" />
       <updated>1574796186078</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL‎00019" summary="New stylistic feater">
+      <created>1574850294212</created>
+      <option name="number" value="LOCAL‎00019" />
+      <option name="presentableId" value="LOCAL‎00019" />
+      <updated>1574850294212</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TodoView">
@@ -477,7 +502,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1875" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1875" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -585,62 +610,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/classification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="92" column="39" selection-start-line="92" selection-start-column="39" selection-end-line="92" selection-end-column="39" />
-          <folding>
-            <element signature="e#213#222#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/linear_model/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="234" column="8" selection-start-line="234" selection-start-column="8" selection-end-line="234" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/re.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="222" selection-start-line="222" selection-end-line="222" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/preprocessing/data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-522">
-          <caret line="1512" column="4" selection-start-line="1512" selection-start-column="4" selection-end-line="1512" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/‏‏1 - עותק (2).json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/6.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/7.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/8.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/9.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/‏‏13 - עותק (4).json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/10.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/11.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/12.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/13.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/14.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/15.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/16.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/‏‏17 - עותק.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/19.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/20.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/21.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/22.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/23.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/25.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/26.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/27.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/17.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/18.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/24.json" />
     <entry file="file://$PROJECT_DIR$/new_xlsx_file.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5355">
@@ -652,34 +621,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/123/config1.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/2.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/4.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/3.json" />
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/5.json" />
-    <entry file="file://$PROJECT_DIR$/help_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="142" column="26" selection-start-line="142" selection-start-column="26" selection-end-line="142" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/externals/joblib/parallel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="94">
           <caret line="223" selection-start-line="223" selection-end-line="223" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2130">
-          <caret line="153" selection-start-line="153" selection-end-line="153" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -711,27 +656,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/1.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/scipy/sparse/compressed.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2415">
-          <caret line="161" selection-start-line="161" selection-end-line="161" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/scipy/sparse/csr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1845">
-          <caret line="123" column="8" selection-start-line="123" selection-start-column="8" selection-end-line="123" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/feature_extraction/text.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="113">
@@ -749,13 +673,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="463" selection-start-line="463" selection-end-line="463" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config_files_creator/config_generator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1145">
@@ -766,17 +683,292 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1187.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1196.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="58" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1210.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="59" selection-start-line="8" selection-start-column="59" selection-end-line="8" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1121.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="58" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1127.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="21" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1194.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/‏‏1 - עותק.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/help_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2145">
+          <caret line="143" lean-forward="true" selection-start-line="143" selection-end-line="143" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/stopwords_and_lists.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
+        <state relative-caret-position="530">
           <caret line="595" column="12" selection-start-line="595" selection-start-column="12" selection-end-line="595" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/1.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/3.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/4.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/5.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/6.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/7.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/8.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/10.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/11.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/12.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/13.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/14.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/15.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/16.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/18.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/23.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/24.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="156" column="4" lean-forward="true" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="463" selection-start-line="463" selection-end-line="463" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="309" selection-start-line="309" selection-end-line="309" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/scipy/sparse/compressed.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="94" selection-start-line="94" selection-end-line="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/scipy/sparse/csr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="37" column="43" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/scipy/sparse/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="406" column="8" selection-start-line="406" selection-start-column="8" selection-end-line="406" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/9.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/2.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/22.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/21.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="49" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/20.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="33" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/19.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/17.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classification.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-715">
+          <caret line="88" selection-start-line="88" selection-end-line="88" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/stylistic_features.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="730" column="23" selection-start-line="730" selection-start-column="23" selection-end-line="730" selection-end-column="23" />
+        <state relative-caret-position="2945">
+          <caret line="752" column="28" lean-forward="true" selection-start-line="752" selection-start-column="28" selection-end-line="752" selection-end-column="28" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

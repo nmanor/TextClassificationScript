@@ -148,4 +148,6 @@ def regex():
 
 
 if __name__ == "__main__":
-    pass
+    create_dataset(dir=r"C:\Users\user\Documents\מחקר - ד''ר קרנר\מחקר הפרעות נפשיות\עברית\temp",
+                   output=r"C:\Users\user\Documents\test\dataset")
+    
