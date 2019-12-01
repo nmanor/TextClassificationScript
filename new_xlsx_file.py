@@ -353,20 +353,22 @@ def find_maxes_best_(best, maxes, method, methods, row, val):
             best += [new]
     return best, maxes
 
-def write_info_gain(features):
-    file_path = GlobalParameters().RESULTS_PATH + "\\" + "Chi^2 for english dataset" + '.xlsx'
+def write_info_gain(features, name):
+    file_path = GlobalParameters().RESULTS_PATH + "\\" + name + " for hebrew dataset" + '.xlsx'
 
     # Create an new Excel file and add a worksheet.
     workbook = xlsxwriter.Workbook(file_path)
     worksheet = workbook.add_worksheet()
 
-    worksheet.write('A2', "unigram/bigram/trigram")
-    worksheet.write('B2',"chi2")
-    worksheet.write('C2',"P-value")
+    row=0
     for i, data in enumerate(features):
         worksheet.write('A'+str(i+3), data[0].split('_')[-1])
         worksheet.write('B'+str(i+3), data[1])
-        worksheet.write('C'+str(i+3), data[2])
+        row = i
+
+    worksheet.add_table("A2:N" + str(row), {'columns': [{'header': 'uni/bi/tri gram'},
+                                                {'header': name}],
+                                              'style': 'Table Style Light 8'})
     workbook.close()
 
 

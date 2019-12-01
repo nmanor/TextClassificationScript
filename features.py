@@ -17,7 +17,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.feature_selection import SelectFromModel
-from sklearn.feature_selection import chi2, mutual_info_classif
+from sklearn.feature_selection import chi2, mutual_info_classif, f_classif, RFE
 
 # region helpful functions
 import system_config
@@ -69,43 +69,17 @@ def split_train(split, tr_labels, train):
     return train, tr_labels, test, ts_labels
 
 
-def get_featuregain(
-    features, train_features, train_data, test_features, test_data, train_labels
-):
-    methods = {
-        "svc": LinearSVC(),
-        "rf": RandomForestClassifier(),
-        "mlp": MLPClassifier(),
-        "lr": LogisticRegression(),
-        "mnb": MultinomialNB(),
-    }
-    chi = chi2(train_features, train_labels)
-    print(chi)
+def get_featuregain(features, train_features, train_labels):
     feat_labels = features.get_feature_names()
-    write_info_gain(zip(feat_labels, chi[0], chi[1]))
 
-    # for classifier in glbs.METHODS:
-    #     clf = methods[classifier]
-    #     clf.fit(train_features, train_labels)
-    #     coef = []
-    #     feature_imprtence = []
-    #     try:
-    #         coef = clf.coef_
-    #         print(str(classifier), coef)
-    #     except:
-    #         try:
-    #             coef = clf.coefs_
-    #             print(str(classifier), coef)
-    #         except:
-    #             feature_imprtence = clf.feature_importances_
-    #             print(str(classifier), feature_imprtence)
+    chi = chi2(train_features, train_labels)
+    write_info_gain(zip(feat_labels, chi[0]), "chi^2")
 
-    # gain_list = SelectFromModel(clf, prefit=True)
-    # gain_list.transform(train_features)
-    # gain_list.transform(test_features)
-    # feat_labels = features.get_feature_names()
-    # for feature_list_index in gain_list.get_support(indices=True):
-    #     print(feat_labels[feature_list_index])
+    mic = mutual_info_classif(train_features, train_labels, n_neighbors=10)
+    write_info_gain(zip(feat_labels, mic), "mutual_info")
+
+    anova = f_classif(train_features, train_labels)
+    write_info_gain(zip(feat_labels, anova[0]), "ANOVA F-value")
 
 
 def get_vectorizer(feature):
@@ -189,7 +163,7 @@ def extract_features(train_dir, test_dir=""):
     all_features = FeatureUnion(feature_lst)
     train_features = all_features.fit_transform(train_data)
     test_features = all_features.transform(test_data)
-    # get_featuregain( all_features, train_features, train_data, test_features, test_data, train_labels)
+    #get_featuregain(all_features, train_features, train_labels)
 
     return train_features, train_labels, test_features, test_labels
 
