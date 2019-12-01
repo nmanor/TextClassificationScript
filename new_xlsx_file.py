@@ -355,18 +355,18 @@ def find_maxes_best_(best, maxes, method, methods, row, val):
 
 def write_info_gain(features, name):
     file_path = GlobalParameters().RESULTS_PATH + "\\" + name + " for hebrew dataset" + '.xlsx'
-
+    dic = {"1": "U- ", "2": "B- ", "3": "T- "}
     # Create an new Excel file and add a worksheet.
     workbook = xlsxwriter.Workbook(file_path)
     worksheet = workbook.add_worksheet()
 
     row=0
     for i, data in enumerate(features):
-        worksheet.write('A'+str(i+3), data[0].split('_')[-1])
+        worksheet.write('A'+str(i+3),dic[data[0].split('_')[-4]] + data[0].split('_')[-1])
         worksheet.write('B'+str(i+3), data[1])
         row = i
 
-    worksheet.add_table("A2:N" + str(row), {'columns': [{'header': 'uni/bi/tri gram'},
+    worksheet.add_table("A2:B" + str(row + 3), {'columns': [{'header': 'uni/bi/tri gram'},
                                                 {'header': name}],
                                               'style': 'Table Style Light 8'})
     workbook.close()
