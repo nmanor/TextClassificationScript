@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b334214f-f085-4185-b9cf-111af0088f3b" name="Default" comment="New stylistic feater">
+    <list default="true" id="b334214f-f085-4185-b9cf-111af0088f3b" name="Default" comment="Known Repeated Chars now working properly">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stopwords_and_lists.py" beforeDir="false" afterPath="$PROJECT_DIR$/stopwords_and_lists.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stylistic_features.py" beforeDir="false" afterPath="$PROJECT_DIR$/stylistic_features.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,7 +28,17 @@
     <SUITE FILE_PATH="coverage/TCProg$main.coverage" NAME="main Coverage Results" MODIFIED="1536746757928" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/stylistic_features.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="137">
+              <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -86,7 +96,6 @@
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/27.json" />
         <option value="$PROJECT_DIR$/new_xlsx_file.py" />
         <option value="$PROJECT_DIR$/features.py" />
-        <option value="$PROJECT_DIR$/stopwords_and_lists.py" />
         <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1121.json" />
         <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1127.json" />
         <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1196.json" />
@@ -94,11 +103,8 @@
         <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1187.json" />
         <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/עברית/אנרוקסיות/1194.json" />
         <option value="$PROJECT_DIR$/help_functions.py" />
-        <option value="$PROJECT_DIR$/../Documents/test/cfgs/2.json" />
-        <option value="$PROJECT_DIR$/stylistic_features.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/3.json" />
-        <option value="$PROJECT_DIR$/../Documents/test/cfgs/1.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/8.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/20.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/9.json" />
@@ -120,6 +126,10 @@
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/22.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/21.json" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/24.json" />
+        <option value="$PROJECT_DIR$/stopwords_and_lists.py" />
+        <option value="$PROJECT_DIR$/stylistic_features.py" />
+        <option value="$PROJECT_DIR$/../Documents/test/cfgs/2.json" />
+        <option value="$PROJECT_DIR$/../Documents/test/cfgs/1.json" />
       </list>
     </option>
   </component>
@@ -142,6 +152,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -158,7 +169,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -448,7 +458,13 @@
       <option name="presentableId" value="LOCAL‎00020" />
       <updated>1574965965511</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL‎00021" summary="Known Repeated Chars now working properly">
+      <created>1575201146460</created>
+      <option name="number" value="LOCAL‎00021" />
+      <option name="presentableId" value="LOCAL‎00021" />
+      <updated>1575201146460</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TodoView">
@@ -462,6 +478,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1875" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -526,7 +543,8 @@
     <MESSAGE value="New function for search regex in the corpus" />
     <MESSAGE value="Problem with TF-IDF normalize fixed" />
     <MESSAGE value="New stylistic feater" />
-    <option name="LAST_COMMIT_MESSAGE" value="New stylistic feater" />
+    <MESSAGE value="Known Repeated Chars now working properly" />
+    <option name="LAST_COMMIT_MESSAGE" value="Known Repeated Chars now working properly" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -557,16 +575,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/new_xlsx_file.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5355">
-          <caret line="357" column="116" selection-start-line="357" selection-start-column="116" selection-end-line="357" selection-end-column="116" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/123/config1.json" />
     <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/externals/joblib/parallel.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -659,23 +667,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/‏‏1 - עותק.json" />
-    <entry file="file://$PROJECT_DIR$/help_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2145">
-          <caret line="143" lean-forward="true" selection-start-line="143" selection-end-line="143" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stopwords_and_lists.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="595" column="12" selection-start-line="595" selection-start-column="12" selection-end-line="595" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
@@ -732,13 +723,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/2.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="11" lean-forward="true" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="335">
@@ -749,30 +733,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stylistic_features.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="808" column="41" selection-start-line="808" selection-start-column="41" selection-end-line="808" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/3.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/1.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/3.json" />
     <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/9.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -780,13 +741,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/8.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/8.json" />
     <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/7.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -917,6 +872,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stopwords_and_lists.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="739" column="24" selection-start-line="739" selection-end-line="739" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/help_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="127" column="29" selection-start-line="127" selection-start-column="29" selection-end-line="128" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../AppData/Local/Temp/Temp1_cfgs hebrew.zip/cfgs hebrew/7.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="489" lean-forward="true" selection-start-column="489" selection-end-column="571" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/2.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/1.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stylistic_features.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
         </state>
       </provider>
     </entry>
