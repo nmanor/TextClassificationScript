@@ -9,6 +9,7 @@ from sklearn.base import TransformerMixin
 
 # General help functions
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.pipeline import FeatureUnion
 
 from stopwords_and_lists import food_family, fat_family, vomiting_family, \
     me_family, ana_family, increasing_family, \
@@ -524,23 +525,36 @@ def all_powers(data):
 # -----------------------------------------------------------------------------------------
 # Topographic Features
 
-def known_repeated_chars(docs):
+def known_repeated_chars():
     """
     :param docs: the data
     :return: CSR Matrix with the num of repeation of each char in the list bellow
     """
-    def init_(post, char):
-        return post.count(char)/len(post)
 
-    row_ind = []
-    col_ind = []
-    data = []
-    vocabulary = {}
-    for i, char in enumerate(["!", "?", ".", "<", ">", "=", ")", "(", ":", "+", "*", "):", ":(", "(:", ":)"]):
-        for j, post in enumerate(docs):
-            pass
+    class InitTransformer(TransformerMixin, BaseEstimator):
+        def __init__(self, char):
+            self.char = char
 
-    return 123
+        def fit(self, X, y=None):
+            """All SciKit-Learn compatible transformers and classifiers have the
+            same interface. `fit` always returns the same object."""
+            return self
+
+        def transform(self, X):
+
+            def init_(post, char):
+                return post.count(char)/len(post)
+
+            X = [[init_(post, self.char)] for post in X]
+            return csr_matrix(X)
+
+
+    feature_lst = []
+    for char in ["!", "?", ".", "<", ">", "=", ")", "(", ":", "+", "*", "):", ":(", "(:", ":)"]:
+        feature_lst += [("KRC_" + char, InitTransformer(char))]
+
+
+    return FeatureUnion(feature_lst)
 
 
 
@@ -764,7 +778,11 @@ stylistic_features_dict = {'cc': chars_count,
                            'def': decreasing_family,
                            'inf': increasing_family,
                            'sif': sickness_family,
-                           'lof': love_family}
+                           'lof': love_family,
+                           'aoanf': anorexia_family + ana_family,
+                           'aothf': anorexia_family + thinness_family,
+                           'anthf': ana_family + thinness_family,
+                           'aoanthf': anorexia_family + ana_family + thinness_family}
 
 
 def get_stylistic_features_vectorizer(feature):
@@ -776,6 +794,9 @@ def get_stylistic_features_vectorizer(feature):
         vectorizers += [TfidfVectorizer(vocabulary=lst)]
         vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[feature])]
 
+    elif feature.lower() == 'krc':
+        return [stylistic_features_dict[feature]()]
+
     # return the values of the features
     else:
         vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[feature])]
@@ -785,4 +806,4 @@ def get_stylistic_features_vectorizer(feature):
 
 if __name__ == "__main__":
     vec = get_stylistic_features_vectorizer('krc')[0]
-    print(vec.fit_transform(["ש--ל-ום ביי של-ו-ם שלום", "שלום ל-כ-ם"]))
+    print(vec.fit_transform([")(", "היייי", "איזה כיף = היום <<"]))
