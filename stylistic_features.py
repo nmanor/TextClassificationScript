@@ -15,7 +15,8 @@ from stopwords_and_lists import food_family, fat_family, vomiting_family, \
     me_family, ana_family, increasing_family, \
     decreasing_family, sport_family, sleep_family, hunger_family, \
     pain_family, anorexia_family, anger_family, thinness_family, calories_family, \
-    vulgarity_family, sickness_family, love_family
+    vulgarity_family, sickness_family, love_family, export_50_terms_he, \
+    export_50_terms_en, export_50_terms_trans_he, export_50_terms_trans_en
 from terms_frequency_counts import get_top_n_words
 
 
@@ -779,10 +780,10 @@ stylistic_features_dict = {'cc': chars_count,
                            'inf': increasing_family,
                            'sif': sickness_family,
                            'lof': love_family,
-                           'aoanf': anorexia_family + ana_family,
-                           'aothf': anorexia_family + thinness_family,
-                           'anthf': ana_family + thinness_family,
-                           'aoanthf': anorexia_family + ana_family + thinness_family}
+                           'e50th': export_50_terms_he,
+                           'e50te': export_50_terms_en,
+                           'e50tth': export_50_terms_trans_he,
+                           'e50tte': export_50_terms_trans_en}
 
 
 def get_stylistic_features_vectorizer(feature):
