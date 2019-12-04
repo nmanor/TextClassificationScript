@@ -17,29 +17,16 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.feature_selection import SelectFromModel
-from sklearn.feature_selection import (
-    chi2,
-    mutual_info_classif,
-    f_classif,
-    RFECV,
-    mutual_info_regression,
-)
-from sklearn.preprocessing import LabelEncoder
+
 
 # region helpful functions
 import system_config
 from global_parameters import print_message, GlobalParameters
 from skipgrams_vectorizer import SkipGramVectorizer
 from stylistic_features import get_stylistic_features_vectorizer
-from new_xlsx_file import write_info_gain
+
 
 glbs = GlobalParameters()
-methods = {
-    "svc": LinearSVC(),
-    "rf": RandomForestClassifier(),
-    "lr": LogisticRegression(),
-    "mnb": MultinomialNB(),
-}
 
 
 def read_dataset(path):
@@ -80,31 +67,6 @@ def split_train(split, tr_labels, train):
     train, tr_labels = zip(*train)
     test, ts_labels = zip(*test)
     return train, tr_labels, test, ts_labels
-
-
-def get_featuregain(features, train_features, train_labels):
-    feat_labels = features.get_feature_names()
-    le = LabelEncoder()
-    le.fit(train_labels)
-    train_labels = le.transform(train_labels)
-
-    chi = chi2(train_features, train_labels)
-    write_info_gain(zip(feat_labels, chi[0]), "chi^2")
-
-    mir = mutual_info_regression(train_features, train_labels)
-    write_info_gain(zip(feat_labels, mir), "mutual_info_regresson")
-
-    recursive = []
-    for key, method in methods.items():
-        recursive = RFECV(method)
-        recursive.fit_transform(train_features, train_labels)
-        write_info_gain(zip(feat_labels, recursive.ranking_), "rfevc " + key)
-
-    # mic = mutual_info_classif(train_features, train_labels)
-    # write_info_gain(zip(feat_labels, mic), "mutual_info")
-
-    # anova = f_classif(train_features, train_labels)
-    # write_info_gain(zip(feat_labels, anova[0]), "ANOVA F-value")
 
 
 def get_vectorizer(feature):
@@ -188,9 +150,8 @@ def extract_features(train_dir, test_dir=""):
     all_features = FeatureUnion(feature_lst)
     train_features = all_features.fit_transform(train_data)
     test_features = all_features.transform(test_data)
-    get_featuregain(all_features, train_features, train_labels)
 
-    return train_features, train_labels, test_features, test_labels
+    return train_features, train_labels, test_features, test_labels, all_features
 
 
 def get_data(test_dir, train_dir):
