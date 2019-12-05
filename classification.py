@@ -17,6 +17,7 @@ from keras.layers import (
     Dense,
     Dropout,
 )
+import matplotlib.pyplot as plt
 from keras_preprocessing.sequence import pad_sequences
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
@@ -47,6 +48,7 @@ from sklearn.feature_selection import (
     mutual_info_regression,
     SelectKBest,
 )
+from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import LabelEncoder
 from new_xlsx_file import write_info_gain
 
@@ -84,7 +86,7 @@ def get_featuregain(features, train_features, train_labels, test_featurs, test_l
         del clf
 
         results[classifier] = result
-    return results
+    # return results
     # feat_labels = features.get_feature_names()
 
     # chi = chi2(train_features, train_labels)
@@ -97,11 +99,18 @@ def get_featuregain(features, train_features, train_labels, test_featurs, test_l
     for key, method in methods.items():
         if key == "mlp":
             continue
-        recursive = RFECV(method)
-        train_features = recursive.fit_transform(train_features, train_labels)
-        test_features = recursive.transform(test_features)
+        recursive = RFECV(method, step=1, cv=StratifiedKFold(2), scoring="accuracy")
+        train_features = recursive.fit(glbs.ALL_DATA, glbs.LABELS)
 
-    #write_info_gain(zip(feat_labels, recursive.ranking_), "rfevc " + key)
+        print("Optimal number of features : %d" % recursive.n_features_)
+
+        # Plot number of features VS. cross-validation scores
+        plt.figure()
+        plt.xlabel("Number of features selected")
+        plt.ylabel("accuracy score" + key + " (nb of correct classifications)")
+        plt.plot(range(1, len(recursive.grid_scores_) + 1), recursive.grid_scores_)
+        plt.savefig(glbs.RESULTS_PATH + "\\" + key + ".jpg", bbox_inches="tight")
+    # write_info_gain(zip(feat_labels, recursive.ranking_), "rfevc " + key)
 
     # mic = mutual_info_classif(train_features, train_labels)
     # write_info_gain(zip(feat_labels, mic), "mutual_info")
@@ -138,7 +147,7 @@ def classify(train, tr_labels, test, ts_labels, all_features, num_iteration=1):
     tr_labels = le.transform(tr_labels)
     print_message("Classifying")
 
-    return get_featuregain(all_features, train, tr_labels, test, ts_labels)
+    # return get_featuregain(all_features, train, tr_labels, test, ts_labels)
     # if os.path.exists(temp_file_path):
     #  results = load_backup_file(temp_file_path)
     for classifier in glbs.METHODS:

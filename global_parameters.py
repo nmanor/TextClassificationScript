@@ -21,11 +21,12 @@ class GlobalParameters(metaclass=Singleton):
         self.TEST_DIR = ""
         self.NORM_PATH = ""
         self.RESULTS_PATH = ""
-        self.TRAIN_DATA = ['1']
+        self.TRAIN_DATA = ["1"]
         self.LABELS = []
         self.MEASURE = []
         self.STYLISTIC_FEATURES = []
         self.WORDCLOUD = False
+        self.ALL_DATA = []
 
 
 def print_message(msg, num_tabs=0):

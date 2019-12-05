@@ -134,6 +134,7 @@ def extract_features(train_dir, test_dir=""):
     train_data, train_labels, test_data, test_labels = get_data(test_dir, train_dir)
     glbs.LABELS = train_labels + test_labels
     glbs.TRAIN_DATA = train_data
+    glbs.ALL_DATA = train_data + test_data
 
     feature_lst = []
     # add all the N-Grams feature to the list
@@ -147,7 +148,9 @@ def extract_features(train_dir, test_dir=""):
         for i in range(len(vectorizers)):
             feature_lst = add_feature(feature_lst, feature + str(i), vectorizers[i])
     # convert the list to one vectoriazer using FeatureUnion
+
     all_features = FeatureUnion(feature_lst)
+    # glbs.ALL_DATA = all_features.fit_transform(glbs.ALL_DATA)
     train_features = all_features.fit_transform(train_data)
     test_features = all_features.transform(test_data)
 
