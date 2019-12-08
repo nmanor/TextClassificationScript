@@ -371,7 +371,19 @@ def write_info_gain(features, name):
                                               'style': 'Table Style Light 8'})
     workbook.close()
 
+def write_sfm(score):
+    file_path = GlobalParameters().RESULTS_PATH + "\\" + "sfm" + " for hebrew dataset" + '.xlsx'
+    # Create an new Excel file and add a worksheet.
+    workbook = xlsxwriter.Workbook(file_path)
+    worksheet = workbook.add_worksheet()
 
+    row=1
+    for key , value in score.items():
+        worksheet.write('A'+str(row), key)
+        worksheet.write('B'+str(row), value)
+        row +=1
+
+    workbook.close()
 
 
 if __name__ == '__main__':

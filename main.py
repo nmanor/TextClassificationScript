@@ -10,6 +10,7 @@ from normalization import normalize
 from notification_handler import send_work_done
 from words_cloud import generate_word_clouds
 from write_results import write_results
+from feature_selction import get_selected_features
 
 
 def set_global_parameters(configs):
@@ -25,6 +26,7 @@ def set_global_parameters(configs):
     glbls.RESULTS_PATH = config["results"]
     glbls.MEASURE = config["measure"]
     glbls.STYLISTIC_FEATURES = config["stylistic_features"]
+    glbls.SELECTION = config["selection"].items()
 
 
 def print_run_details():
@@ -121,7 +123,16 @@ def main(cfg):
             train, tr_labels, test, ts_labels, all_features = extract_features(
                 n_train_dir, n_test_dir
             )
-            results[glbs.FILE_NAME] = classify(train, tr_labels, test, ts_labels, all_features)
+            for selection in glbs.SELECTION:
+                try:
+                    train, test = get_selected_features(
+                        selection, train, tr_labels, test, ts_labels, all_features
+                    )
+                except:
+                    pass
+            results[glbs.FILE_NAME] = classify(
+                train, tr_labels, test, ts_labels, all_features
+            )
             results = add_results(results)
         if glbs.WORDCLOUD:
             print_message("Generating word clouds (long processes)")

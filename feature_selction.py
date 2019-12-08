@@ -2,6 +2,7 @@ import os
 import pickle
 from array import array
 from keras import Sequential
+from scipy.sparse import hstack, vstack
 from keras.layers import (
     Embedding,
     SpatialDropout1D,
@@ -41,17 +42,17 @@ from sklearn.feature_selection import (
     RFECV,
     mutual_info_regression,
     SelectKBest,
+    SelectFromModel,
 )
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import LabelEncoder
-from new_xlsx_file import write_info_gain
+from new_xlsx_file import write_info_gain, write_sfm
 
 glbs = GlobalParameters()
 
 methods = {
     "svc": LinearSVC(),
     "rf": RandomForestClassifier(),
-    "mlp": MLPClassifier(),
     "lr": LogisticRegression(),
     "mnb": MultinomialNB(),
 }
@@ -61,10 +62,12 @@ selection_type = {
     "mir": mutual_info_regression,
     "mic": mutual_info_classif,
     "fc": f_classif,
+    "rfecv": RFECV,
+    "sfm": SelectFromModel,
 }
 
 
-def get_selection(selection, features, labels):
+def get_selection_list(selection, features, labels):
     return selection_type[selection](features, labels)
 
 
@@ -72,57 +75,58 @@ def select_k_best(selection, k):
     return SelectKBest(selection_type[selection], k=k)
 
 
-def get_featuregain(features, train_features, train_labels, test_featurs, test_labels):
-    results = {}
-    result = []
-    select = SelectKBest(mutual_info_regression, k=125)
-    select.fit(train_features, train_labels)
-    train_features = select.transform(train_features)
-    test_featurs = select.transform(test_featurs)
-    for classifier in glbs.METHODS:
-        clf = methods[classifier]
-        clf.fit(train_features, train_labels)
-        prediction = clf.predict(test_featurs)
-        decision = []
-        try:
-            decision = clf.decision_function(test_featurs)
-        except:
-            decision = clf.predict_proba(test_featurs)
-            decision = decision[:, 1]
-        result = get_results(test_labels, prediction, decision)
+def get_recursive(features, labels):
+    ranking = {}
+    for key, method in methods.items():
+        recursive = RFECV(
+            method, step=1, cv=[(range(134), range(134, 200))], scoring="accuracy"
+        )
+        train_features = recursive.fit(features, labels)
+        ranking[key] = train_features.ranking_
+    return ranking
 
-        del clf
 
-        results[classifier] = result
-    # return results
+def select_rfecv_sfm(selection, features, labels):
+    if selection[0] == "rfecv":
+        for key, method in methods.items():
+            recursive = RFECV(
+                method, step=1, cv=[(range(134), range(134, 200))], scoring="accuracy"
+            )
+            recursive.fit(features, labels)
+            # Plot number of features VS. cross-validation scores
+            plt.figure()
+            plt.xlabel("Number of features selected")
+            plt.ylabel("accuracy score" + key + " (nb of correct classifications)")
+            plt.plot(range(1, len(recursive.grid_scores_) + 1), recursive.grid_scores_)
+            plt.savefig(glbs.RESULTS_PATH + "\\" + key + ".jpg", bbox_inches="tight")
+    if selection[0] == "sfm":
+        score = {}
+        for key, method in methods.items():
+            sfm = SelectFromModel(method, max_features=int(selection[1]))
+            train_new = sfm.fit_transform(features[0], labels[0])
+            test_new = sfm.transform(features[1])
+            clf = method
+            clf.fit(train_new, labels[0])
+            pred = clf.predict(test_new)
+            acc = accuracy_score(labels[1], pred)
+            score[key] = acc
+        write_sfm(score)
+
+
+def get_selected_features(selection, train, tr_labels, test, ts_labels, all_features):
+    if selection[0] in selection_type.keys():
+        if selection[0] == "rfecv":
+            features = vstack((train, test))
+            select_rfecv_sfm(selection, features, glbs.LABELS)
+        elif selection[0] == "sfm":
+            select_rfecv_sfm(selection, (train, test), (tr_labels, ts_labels))
+        else:
+            select = select_k_best(selection[0], int(selection[1]))
+            return select.fit_transform(train, tr_labels), select.transform(test)
+
+    # write_info_gain(zip(feat_labels, recursive.ranking_), "rfevc " + key)
     # feat_labels = features.get_feature_names()
 
-    # chi = chi2(train_features, train_labels)
-    # write_info_gain(zip(feat_labels, chi[0]), "chi^2")
 
-    # mir = mutual_info_regression(train_features, train_labels)
-    # write_info_gain(zip(feat_labels, mir), "mutual_info_regresson")
-
-    recursive = []
-    for key, method in methods.items():
-        if key == "mlp":
-            continue
-        recursive = RFECV(method, step=1, cv=StratifiedKFold(2), scoring="accuracy")
-        train_features = recursive.fit(glbs.ALL_DATA, glbs.LABELS)
-
-        print("Optimal number of features : %d" % recursive.n_features_)
-
-        # Plot number of features VS. cross-validation scores
-        plt.figure()
-        plt.xlabel("Number of features selected")
-        plt.ylabel("accuracy score" + key + " (nb of correct classifications)")
-        plt.plot(range(1, len(recursive.grid_scores_) + 1), recursive.grid_scores_)
-        plt.savefig(glbs.RESULTS_PATH + "\\" + key + ".jpg", bbox_inches="tight")
-    # write_info_gain(zip(feat_labels, recursive.ranking_), "rfevc " + key)
-
-    # mic = mutual_info_classif(train_features, train_labels)
-    # write_info_gain(zip(feat_labels, mic), "mutual_info")
-
-    # anova = f_classif(train_features, train_labels)
-    # write_info_gain(zip(feat_labels, anova[0]), "ANOVA F-value")
-
+if __name__ == "__main__":
+    pass
