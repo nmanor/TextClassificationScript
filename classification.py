@@ -63,62 +63,6 @@ methods = {
 }
 
 
-def get_featuregain(features, train_features, train_labels, test_featurs, test_labels):
-    results = {}
-    result = []
-    select = SelectKBest(mutual_info_regression, k=125)
-    select.fit(train_features, train_labels)
-    train_features = select.transform(train_features)
-    test_featurs = select.transform(test_featurs)
-    for classifier in glbs.METHODS:
-        clf = methods[classifier]
-        clf.fit(train_features, train_labels)
-        prediction = clf.predict(test_featurs)
-        decision = []
-        try:
-            decision = clf.decision_function(test_featurs)
-        except:
-            decision = clf.predict_proba(test_featurs)
-            decision = decision[:, 1]
-
-        result = get_results(test_labels, prediction, decision)
-
-        del clf
-
-        results[classifier] = result
-    # return results
-    # feat_labels = features.get_feature_names()
-
-    # chi = chi2(train_features, train_labels)
-    # write_info_gain(zip(feat_labels, chi[0]), "chi^2")
-
-    # mir = mutual_info_regression(train_features, train_labels)
-    # write_info_gain(zip(feat_labels, mir), "mutual_info_regresson")
-
-    recursive = []
-    for key, method in methods.items():
-        if key == "mlp":
-            continue
-        recursive = RFECV(method, step=1, cv=StratifiedKFold(2), scoring="accuracy")
-        train_features = recursive.fit(glbs.ALL_DATA, glbs.LABELS)
-
-        print("Optimal number of features : %d" % recursive.n_features_)
-
-        # Plot number of features VS. cross-validation scores
-        plt.figure()
-        plt.xlabel("Number of features selected")
-        plt.ylabel("accuracy score" + key + " (nb of correct classifications)")
-        plt.plot(range(1, len(recursive.grid_scores_) + 1), recursive.grid_scores_)
-        plt.savefig(glbs.RESULTS_PATH + "\\" + key + ".jpg", bbox_inches="tight")
-    # write_info_gain(zip(feat_labels, recursive.ranking_), "rfevc " + key)
-
-    # mic = mutual_info_classif(train_features, train_labels)
-    # write_info_gain(zip(feat_labels, mic), "mutual_info")
-
-    # anova = f_classif(train_features, train_labels)
-    # write_info_gain(zip(feat_labels, anova[0]), "ANOVA F-value")
-
-
 def get_results(ts_labels, prediction, decision):
     # ( "multilabel_confusion_matrix",   multilabel_confusion_matrix(ts_labels, prediction)),
     measures = {
@@ -146,8 +90,7 @@ def classify(train, tr_labels, test, ts_labels, all_features, num_iteration=1):
     ts_labels = le.transform(ts_labels)
     tr_labels = le.transform(tr_labels)
     print_message("Classifying")
-
-    # return get_featuregain(all_features, train, tr_labels, test, ts_labels)
+    
     # if os.path.exists(temp_file_path):
     #  results = load_backup_file(temp_file_path)
     for classifier in glbs.METHODS:
