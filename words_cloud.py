@@ -4,11 +4,11 @@ import shutil
 from os import path
 
 import matplotlib.pyplot as plt
+from wordcloud import WordCloud
 
 from global_parameters import GlobalParameters
 from stopwords_and_lists import hebrew_stopwords, stopwords
 from stylistic_features import text_language
-from wordcloud import WordCloud
 from terms_frequency_counts import get_top_n_words
 
 
@@ -22,6 +22,10 @@ def generate_word_clouds(max_words=200):
     training_path = glbs.TRAIN_DIR
     testing_path = glbs.TEST_DIR
     result_path = glbs.RESULTS_PATH + r"\Words Clouds"
+
+    if path.exists(result_path):
+        shutil.rmtree(result_path, ignore_errors=True)
+    os.makedirs(result_path)
 
     training = {}
     for file in os.listdir(training_path):
@@ -77,11 +81,8 @@ def generate_and_save(freq, max_words, result_path, stop_words, title):
     plt.axis("off")
     plt.tight_layout(pad=0)
 
-    if path.exists(result_path):
-        shutil.rmtree(result_path, ignore_errors=True)
-    os.makedirs(result_path)
-
     plt.savefig(result_path + "\\" + title + '.jpg', format='jpg')
+    plt.close('all')
 
 
 if __name__ == "__main__":

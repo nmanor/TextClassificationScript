@@ -1,5 +1,3 @@
-import os
-
 from sklearn.feature_extraction.text import CountVectorizer
 
 
@@ -71,10 +69,11 @@ def word_freq(corpus_path, out_path, ngrams, show_amaount=True):
 
     # collect the words in order of importance
     result = ''
+    i = 1
     for tup in lower_bound_test(get_top_n_words([text.replace('\n', ' ').lower()], ngrams, ngrams), text)[:1000]:
-        result += '\n' + tup[0]
+        result += '\n' + str(i) + ":" + tup[0]
         if show_amaount:
-            result += ': ' + str(tup[1])
+            result += ' - ' + str(tup[1])
 
     # save the words into the output path
     title = "\\" + corpus_path.split('\\')[-1].split('.')[0] + " most freq words " + {2:"bigrams", 1:"unigrams", 3:"trigrams"}[ngrams] + ".txt"
@@ -83,9 +82,11 @@ def word_freq(corpus_path, out_path, ngrams, show_amaount=True):
 
 
 if __name__ == '__main__':
-    path = r"C:\Users\user\Documents\test\קבצי txt"
-    for file in os.listdir(path):
-        if file.endswith('.txt'):
-            print(file)
-            word_freq(path + "\\" + file, r"C:\Users\user\Documents\test\קבצי txt\מאגרי שכיחויות", 2)
-            word_freq(path + "\\" + file, r"C:\Users\user\Documents\test\קבצי txt\מאגרי שכיחויות", 1)
+    path = r"C:\Users\user\Documents\test\קבצי txt\Training Normal in English.txt"
+    result = ''
+    text = open(path, "r", encoding="utf8", errors='replace').read()
+    for i, tup in enumerate(get_top_n_words([text], 1, 1, 2000)):
+        result += '\n' + str(i + 1) + ": " + tup[0] + ' - ' + str(tup[1])
+    print(result)
+    with open(r'C:\Users\user\Documents\test\קבצי txt\r.txt', "w", encoding="utf8", errors='replace') as file:
+        file.write(result[1:])

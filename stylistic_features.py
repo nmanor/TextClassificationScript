@@ -1,14 +1,11 @@
 import re
-import numpy
+
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from scipy.sparse import csr_matrix
-from scipy.sparse.compressed import _cs_matrix
-from sklearn import preprocessing
 from sklearn.base import BaseEstimator
 from sklearn.base import TransformerMixin
-
 # General help functions
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import FeatureUnion
 
 from stopwords_and_lists import food_family, fat_family, vomiting_family, \
@@ -65,6 +62,9 @@ def chars_count(data):
     :param data: the corpus
     :return: list the number of characters in each post
     """
+    if data == 'get feature names':
+        return ['chars count']
+
     return [[len(post)] for post in data]
 
 
@@ -74,6 +74,9 @@ def words_count(data):
     :param data: the corpus
     :return: list the number of words in each post
     """
+    if data == 'get feature names':
+        return ['words count']
+
     return [[len(re.findall(r'\b\w[\w-]*\b', post.lower()))] for post in data]
 
 
@@ -83,6 +86,9 @@ def sentence_count(data):
     :param data: the corpus
     :return: list the estimated number of sentences in each post
     """
+    if data == 'get feature names':
+        return ['sentence count']
+
     for post in data:
         post.replace('...', '.').replace('..', '.')
         post.replace('!!!', '!').replace('!!', '!')
@@ -96,6 +102,9 @@ def exclamation_mark_count(data):
     :param data: the corpus
     :return: list of number of repetitions of ! normalized by the number of characters in each post
     """
+    if data == 'get feature names':
+        return ['exclamation mark count']
+
     return [[post.count('!')/len(post)] for post in data]
 
 
@@ -105,6 +114,9 @@ def question_mark_count(data):
     :param data: the corpus
     :return: list of number of repetitions of ? normalized by the number of characters in each post
     """
+    if data == 'get feature names':
+        return ['question mark count']
+
     return [[post.count('?')/len(post)] for post in data]
 
 
@@ -114,6 +126,9 @@ def special_characters_count(data):
     :param data: the corpus
     :return: list of number of repetitions of special characters normalized by the number of characters in each post
     """
+    if data == 'get feature names':
+        return ['special characters count']
+
     result = [0]*len(data)
     for char in ["@", "#", "$", "&", "*", "%", "^"]:
         for i in range(len(data)):
@@ -127,6 +142,9 @@ def quotation_mark_count(data):
     :param data: the corpus
     :return: list of number of repetitions of " or ' normalized by the number of characters in each post
     """
+    if data == 'get feature names':
+        return ['quotation mark count']
+
     result = [0]*len(data)
     for char in ["\"", "\'"]:
         for i in range(len(data)):
@@ -144,13 +162,15 @@ def average_letters_word(data):
     :param data: the corpus
     :return: list of the average length of a words per post
     """
-
     def average_per_post(post):
         post = re.findall(r'\b\w[\w-]*\b', post.lower())
         num = 0
         for word in post:
             num += len(word)
         return num/len(post)
+
+    if data == 'get feature names':
+        return ['average letters word']
 
     return [[average_per_post(post)] for post in data]
 
@@ -161,13 +181,15 @@ def average_letters_sentence(data):
     :param data: the corpus
     :return: list the estimated average of the length of each sentence (no spaces)
     """
-
     def average_per_post(post):
         post = re.split(r'[.!?]+', post.replace(' ', ''))
         num = 0
         for sentence in post:
             num += len(sentence)
         return num/len(post)
+
+    if data == 'get feature names':
+        return ['average letters sentence']
 
     return [[average_per_post(post)] for post in data]
 
@@ -178,13 +200,15 @@ def average_words_sentence(data):
     :param data: the corpus
     :return: list the estimated average of the num of words in each sentence
     """
-
     def average_per_post(post):
         post = re.split(r'[.!?]+', post)
         num = 0
         for sentence in post:
             num += len(re.findall(r'\b\w[\w-]*\b', sentence.lower()))
         return num/len(post)
+
+    if data == 'get feature names':
+        return ['average words sentence']
 
     return [[average_per_post(post)] for post in data]
 
@@ -194,6 +218,9 @@ def average_word_length(data):
     :param data: the corpus
     :return: list the average words length in each post
     """
+    if data == 'get feature names':
+        return ['average word length']
+
     new_list = []
     for post in data:
         post = re.findall(r'\b\w[\w-]*\b', post.lower())
@@ -217,6 +244,10 @@ def increasing_expressions(data):
     from stopwords_and_lists import increasing_expressions_hebrew
     from stopwords_and_lists import increasing_expressions_english
     lst = {"hebrew": increasing_expressions_hebrew, "english": increasing_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['increasing expressions']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -229,6 +260,10 @@ def decreasing_expressions(data):
     from stopwords_and_lists import decreasing_expressions_hebrew
     from stopwords_and_lists import decreasing_expressions_english
     lst = {"hebrew": decreasing_expressions_hebrew, "english": decreasing_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['decreasing expressions']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -263,6 +298,9 @@ def negative_words(data):
         from stopwords_and_lists import negative_list_hebrew
         return [prevalence_rate(post, negative_list_hebrew) for post in data]
 
+    if data == 'get feature names':
+        return ['negative words']
+
     if text_language(data[0]) == 'hebrew':
         return hebrew_negative_words(data)
     # nltk.download('vader_lexicon')
@@ -295,6 +333,9 @@ def positive_words(data):
         from stopwords_and_lists import positive_list_hebrew
         return [prevalence_rate(post, positive_list_hebrew) for post in data]
 
+    if data == 'get feature names':
+        return ['positive words']
+
     if text_language(data[0]) == 'hebrew':
         return hebrew_positive_words(data)
     # nltk.download('vader_lexicon')
@@ -313,6 +354,10 @@ def time_expressions(data):
     from stopwords_and_lists import time_expressions_hebrew
     from stopwords_and_lists import time_expressions_english
     lst = {"hebrew": time_expressions_hebrew, "english": time_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['time expressions']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -328,6 +373,10 @@ def doubt_expressions(data):
     from stopwords_and_lists import doubt_expressions_hebrew
     from stopwords_and_lists import doubt_expressions_english
     lst = {"hebrew": doubt_expressions_hebrew, "english": doubt_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['doubt expressions']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -343,6 +392,10 @@ def emotion_expressions(data):
     from stopwords_and_lists import emotion_expressions_hebrew
     from stopwords_and_lists import emotion_expressions_english
     lst = {"hebrew": emotion_expressions_hebrew, "english": emotion_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['emotion expressions']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -360,6 +413,10 @@ def first_person_expressions(data):
     from stopwords_and_lists import first_person_expressions_english
     lst = {"hebrew": first_person_expressions_hebrew, "english": first_person_expressions_english}[
         text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['first person expressions']
+
     return [prevalence_rate(post, lst, False) for post in data]
 
 
@@ -373,6 +430,10 @@ def second_person_expressions(data):
     from stopwords_and_lists import second_person_expressions_english
     lst = {"hebrew": second_person_expressions_hebrew, "english": second_person_expressions_english}[
         text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['second person expressions']
+
     return [prevalence_rate(post, lst, False) for post in data]
 
 
@@ -386,6 +447,10 @@ def third_person_expressions(data):
     from stopwords_and_lists import third_person_expressions_english
     lst = {"hebrew": third_person_expressions_hebrew, "english": third_person_expressions_english}[
         text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['third person expressions']
+
     return [prevalence_rate(post, lst, False) for post in data]
 
 
@@ -402,6 +467,10 @@ def inclusion_expressions(data):
     from stopwords_and_lists import inclusion_expressions_hebrew
     from stopwords_and_lists import inclusion_expressions_english
     lst = {"hebrew": inclusion_expressions_hebrew, "english": inclusion_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['inclusion expressions']
+
     return [prevalence_rate(post, lst, False) for post in data]
 
 
@@ -418,6 +487,10 @@ def power1(data):
     from stopwords_and_lists import power1_expressions_hebrew
     from stopwords_and_lists import power1_expressions_english
     lst = {"hebrew": power1_expressions_hebrew, "english": power1_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['power 1']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -430,6 +503,10 @@ def power2(data):
     from stopwords_and_lists import power2_expressions_hebrew
     from stopwords_and_lists import power2_expressions_english
     lst = {"hebrew": power2_expressions_hebrew, "english": power2_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['power 2']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -442,6 +519,10 @@ def power3(data):
     from stopwords_and_lists import power3_expressions_hebrew
     from stopwords_and_lists import power3_expressions_english
     lst = {"hebrew": power3_expressions_hebrew, "english": power3_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['power 3']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -454,6 +535,10 @@ def power_minus1(data):
     from stopwords_and_lists import powerm1_expressions_hebrew
     from stopwords_and_lists import powerm1_expressions_english
     lst = {"hebrew": powerm1_expressions_hebrew, "english": powerm1_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['power -1']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -466,6 +551,10 @@ def power_minus2(data):
     from stopwords_and_lists import powerm2_expressions_hebrew
     from stopwords_and_lists import powerm2_expressions_english
     lst = {"hebrew": powerm2_expressions_hebrew, "english": powerm2_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['power -2']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -478,6 +567,10 @@ def power_minus3(data):
     from stopwords_and_lists import powerm3_expressions_hebrew
     from stopwords_and_lists import powerm3_expressions_english
     lst = {"hebrew": powerm3_expressions_hebrew, "english": powerm3_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['power -3']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -490,6 +583,10 @@ def power_minus4(data):
     from stopwords_and_lists import powerm4_expressions_hebrew
     from stopwords_and_lists import powerm4_expressions_english
     lst = {"hebrew": powerm4_expressions_hebrew, "english": powerm4_expressions_english}[text_language(data[0])]
+
+    if data == 'get feature names':
+        return ['power -4']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -520,6 +617,10 @@ def all_powers(data):
         from stopwords_and_lists import powerm3_expressions_english
         from stopwords_and_lists import powerm4_expressions_english
         lst += powerm1_expressions_english + powerm2_expressions_english + powerm3_expressions_english + powerm4_expressions_english
+
+    if data == 'get feature names':
+        return ['all powers']
+
     return [prevalence_rate(post, lst, True) for post in data]
 
 
@@ -549,13 +650,17 @@ def known_repeated_chars():
             X = [[init_(post, self.char)] for post in X]
             return csr_matrix(X)
 
+        def get_feature_names(self):
+            """Array mapping from feature integer indices to feature name"""
+            return [self.char]
+
 
     feature_lst = []
     for char in ["!", "?", ".", "<", ">", "=", ")", "(", ":", "+", "*", "):", ":(", "(:", ":)"]:
         feature_lst += [("KRC_" + char, InitTransformer(char))]
 
-
     return FeatureUnion(feature_lst)
+
 
 
 
@@ -580,6 +685,9 @@ def repeated_chars(data):
                 repeated += 1
         return repeated/len(post)
 
+    if data == 'get feature names':
+        return ['repeated chars']
+
     # return the result
     return [[in_post(post)] for post in data]
 
@@ -596,6 +704,10 @@ def doubled_words(data):
             if post[i] == post[i + 1]:
                 num += 1
         return num/(len(post) - 1)
+
+    if data == 'get feature names':
+        return ['doubled words']
+
     return [[in_post(post)] for post in data]
 
 
@@ -611,6 +723,10 @@ def tripled_words(data):
             if post[i] == post[i + 1] == post[i + 2]:
                 num += 1
         return num/(len(post) - 2)
+
+    if data == 'get feature names':
+        return ['tripled words']
+
     return [[in_post(post)] for post in data]
 
 
@@ -619,6 +735,9 @@ def doubled_exclamation(data):
     :param data: the corpus
     :return: the num of doubled ! normalized in the num of the letters in the text
     """
+    if data == 'get feature names':
+        return ['doubled exclamation']
+
     return [[post.count('!!')/len(post)] for post in data]
 
 
@@ -627,6 +746,9 @@ def tripled_exclamation(data):
     :param data: the corpus
     :return: the num of doubled !! normalized in the num of the letters in the text
     """
+    if data == 'get feature names':
+        return ['tripled exclamation']
+
     return [[len(re.findall(r'!!!+', post))/len(post)] for post in data]
 
 
@@ -642,6 +764,10 @@ def doubled_hyphen(data):
             if word.count('-') >= 2:
                 num += 1
         return num / len(post)
+
+    if data == 'get feature names':
+        return ['doubled hyphen']
+
     return [[in_post(post)] for post in data]
 
 
@@ -664,6 +790,10 @@ def words_wealth(data):
         post = re.findall(r'\b\w[\w-]*\b', post.lower())
         single_words = set(post)
         return len(single_words) / len(post)
+
+    if data == 'get feature names':
+        return ['words wealth']
+
     return [[in_post(post)] for post in data]
 
 
@@ -680,6 +810,9 @@ def once_words(data):
     :param data: the corpus
     :return: the number of words that used only once in the post normalized in the number of the words
     """
+    if data == 'get feature names':
+        return ['once words']
+
     return [[n_word_in_post(post, 1)] for post in data]
 
 
@@ -688,6 +821,9 @@ def twice_words(data):
     :param data: the corpus
     :return: the number of words that used only twice in the post normalized in the number of the words
     """
+    if data == 'get feature names':
+        return ['twice words']
+
     return [[n_word_in_post(post, 2)] for post in data]
 
 
@@ -696,14 +832,18 @@ def three_times_words(data):
     :param data: the corpus
     :return: the number of words that used only three times in the post normalized in the number of the words
     """
+    if data == 'get feature names':
+        return ['three times words']
+
     return [[n_word_in_post(post, 2)] for post in data]
 
 
 
 ##################################################################
 class StylisticFeaturesTransformer(TransformerMixin, BaseEstimator):
-    def __init__(self, featurizers):
+    def __init__(self, featurizers, feature):
         self.featurizers = featurizers
+        self.feature_name = feature
 
     def fit(self, X, y=None):
         """All SciKit-Learn compatible transformers and classifiers have the
@@ -717,6 +857,13 @@ class StylisticFeaturesTransformer(TransformerMixin, BaseEstimator):
 
         _X = self.featurizers(X)
         return csr_matrix(_X)
+
+    def get_feature_names(self):
+        """Array mapping from feature integer indices to feature name"""
+        if isinstance(self.featurizers, list):
+            return [self.feature_name]
+        return self.featurizers('get feature names')
+
 #################################################################
 
 
@@ -793,18 +940,30 @@ def get_stylistic_features_vectorizer(feature):
     if isinstance(stylistic_features_dict[feature], list):
         lst = set(stylistic_features_dict[feature])
         vectorizers += [TfidfVectorizer(vocabulary=lst)]
-        vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[feature])]
+        vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[feature], feature)]
 
     elif feature.lower() == 'krc':
         return [stylistic_features_dict[feature]()]
 
     # return the values of the features
     else:
-        vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[feature])]
+        vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[feature], feature)]
 
     return vectorizers
 
 
 if __name__ == "__main__":
-    vec = get_stylistic_features_vectorizer('krc')[0]
-    print(vec.fit_transform([")(", "היייי", "איזה כיף = היום <<"]))
+    paragraph = "לפני שאת נכנסת לזה כדאי לך לוודאות שאת באמת רוצה להיות אנה ואת חזקה מספיק אם לא אז אין לך מה לעשות פה."
+    import requests
+
+    request = {
+        'token': 'J3cPRb90K5W0P53',
+        'readable': False,
+        'paragraph': paragraph
+    }
+
+    result = requests.post('https://hebrew-nlp.co.il/service/Morphology/Analyze', json=request).json()
+    for sentence in result:
+        for word in sentence:
+            best_option = word[0]
+            print(f"{best_option['baseWord']} - {best_option['partOfSpeech']}")
