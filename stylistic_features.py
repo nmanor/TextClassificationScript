@@ -704,7 +704,6 @@ def three_times_words(data):
 class StylisticFeaturesTransformer(TransformerMixin, BaseEstimator):
     def __init__(self, featurizers):
         self.featurizers = featurizers
-
     def fit(self, X, y=None):
         """All SciKit-Learn compatible transformers and classifiers have the
         same interface. `fit` always returns the same object."""

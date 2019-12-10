@@ -150,7 +150,9 @@ def extract_features(train_dir, test_dir=""):
 
     all_features = FeatureUnion(feature_lst)
     train_features = all_features.fit_transform(train_data)
+
     test_features = all_features.transform(test_data)
+
     return train_features, train_labels, test_features, test_labels, all_features
 
 
