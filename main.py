@@ -4,13 +4,13 @@ import shutil
 import traceback
 
 from classification import classify
+from feature_selction import get_selected_features
 from features import extract_features
 from global_parameters import GlobalParameters, print_message
 from normalization import normalize
 from notification_handler import send_work_done
 from words_cloud import generate_word_clouds
 from write_results import write_results
-from feature_selction import get_selected_features
 
 
 def set_global_parameters(configs):
@@ -165,6 +165,6 @@ def clean_backup_files():
 
 
 if __name__ == "__main__":
-    # cfg_dir = r"C:\Users\user\Documents\test\cfgs"
-    cfg_dir = r"C:\Users\Mickey\Documents\kerner\textclassificationscript\cfgs"
+    cfg_dir = r"C:\Users\user\Documents\test\cfgs"
+    # cfg_dir = r"C:\Users\Mickey\Documents\kerner\textclassificationscript\cfgs"
     main(cfg_dir)
