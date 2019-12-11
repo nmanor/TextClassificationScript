@@ -90,7 +90,7 @@ def classify(train, tr_labels, test, ts_labels, all_features, num_iteration=1):
     ts_labels = le.transform(ts_labels)
     tr_labels = le.transform(tr_labels)
     print_message("Classifying")
-    
+
     # if os.path.exists(temp_file_path):
     #  results = load_backup_file(temp_file_path)
     for classifier in glbs.METHODS:
@@ -101,8 +101,8 @@ def classify(train, tr_labels, test, ts_labels, all_features, num_iteration=1):
         if classifier == "rnn":
             clf = get_rnn_model(train)
             clf.fit(train, tr_labels, epochs=3, batch_size=64)
-            scores = clf.evaluate(test, ts_labels, verbose=0)
-            # acc_score += scores[1]
+        # scores = clf.evaluate(test, ts_labels, verbose=0)
+        # acc_score += scores[1]
         else:
             clf = methods[classifier]
             clf.fit(train, tr_labels)
