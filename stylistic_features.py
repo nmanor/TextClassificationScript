@@ -4,10 +4,10 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from scipy.sparse import csr_matrix
 from sklearn.base import BaseEstimator
 from sklearn.base import TransformerMixin
-# General help functions
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import FeatureUnion
 
+from pos_tags import get_pos_transformer
 from stopwords_and_lists import food_family, fat_family, vomiting_family, \
     me_family, ana_family, increasing_family, \
     decreasing_family, sport_family, sleep_family, hunger_family, \
@@ -17,6 +17,7 @@ from stopwords_and_lists import food_family, fat_family, vomiting_family, \
 from terms_frequency_counts import get_top_n_words
 
 
+# General help functions
 def text_language(text):
     """
     Determine if the language of the text is Hebrew or English
@@ -162,6 +163,7 @@ def average_letters_word(data):
     :param data: the corpus
     :return: list of the average length of a words per post
     """
+
     def average_per_post(post):
         post = re.findall(r'\b\w[\w-]*\b', post.lower())
         num = 0
@@ -181,6 +183,7 @@ def average_letters_sentence(data):
     :param data: the corpus
     :return: list the estimated average of the length of each sentence (no spaces)
     """
+
     def average_per_post(post):
         post = re.split(r'[.!?]+', post.replace(' ', ''))
         num = 0
@@ -200,6 +203,7 @@ def average_words_sentence(data):
     :param data: the corpus
     :return: list the estimated average of the num of words in each sentence
     """
+
     def average_per_post(post):
         post = re.split(r'[.!?]+', post)
         num = 0
@@ -643,7 +647,6 @@ def known_repeated_chars():
             return self
 
         def transform(self, X):
-
             def init_(post, char):
                 return post.count(char)/len(post)
 
@@ -654,14 +657,11 @@ def known_repeated_chars():
             """Array mapping from feature integer indices to feature name"""
             return [self.char]
 
-
     feature_lst = []
     for char in ["!", "?", ".", "<", ">", "=", ")", "(", ":", "+", "*", "):", ":(", "(:", ":)"]:
         feature_lst += [("KRC_" + char, InitTransformer(char))]
 
     return FeatureUnion(feature_lst)
-
-
 
 
 # -----------------------------------------------------------------------------------------
@@ -697,6 +697,7 @@ def doubled_words(data):
     :param data: the corpus
     :return: the num of doubled word normalized in the num f the words in the text
     """
+
     def in_post(post):
         num = 0
         post = re.findall(r'\b\w[\w-]*\b', post.lower())
@@ -716,6 +717,7 @@ def tripled_words(data):
     :param data: the corpus
     :return: the num of tripled word normalized in the num of the words in the text
     """
+
     def in_post(post):
         num = 0
         post = re.findall(r'\b\w[\w-]*\b', post.lower())
@@ -757,13 +759,14 @@ def doubled_hyphen(data):
     :param data: the corpus
     :return: the num of the words that contain at least 2 '-' normalized in the num of the words
     """
+
     def in_post(post):
         num = 0
         post = re.findall(r'\b\w[\w-]*\b', post.lower())
         for word in post:
             if word.count('-') >= 2:
                 num += 1
-        return num / len(post)
+        return num/len(post)
 
     if data == 'get feature names':
         return ['doubled hyphen']
@@ -777,7 +780,6 @@ def general_list(data, lst):
     return [prevalence_rate(post, lst, True) for post in data]
 
 
-
 # -----------------------------------------------------------------------------------------
 # Language wealth
 
@@ -786,10 +788,11 @@ def words_wealth(data):
     :param data: the corpus
     :return: list of the number of different types of words normalized in the number of words in the text
     """
+
     def in_post(post):
         post = re.findall(r'\b\w[\w-]*\b', post.lower())
         single_words = set(post)
-        return len(single_words) / len(post)
+        return len(single_words)/len(post)
 
     if data == 'get feature names':
         return ['words wealth']
@@ -838,7 +841,6 @@ def three_times_words(data):
     return [[n_word_in_post(post, 2)] for post in data]
 
 
-
 ##################################################################
 class StylisticFeaturesTransformer(TransformerMixin, BaseEstimator):
     def __init__(self, featurizers, feature):
@@ -863,6 +865,7 @@ class StylisticFeaturesTransformer(TransformerMixin, BaseEstimator):
         if isinstance(self.featurizers, list):
             return [self.feature_name]
         return self.featurizers('get feature names')
+
 
 #################################################################
 
@@ -899,6 +902,7 @@ stylistic_features_dict = {'cc': chars_count,
                            'pm4': power_minus4,
                            'ap': all_powers,
                            'krc': known_repeated_chars,
+                           'pos': get_pos_transformer,
                            'rc': repeated_chars,
                            'dw': doubled_words,
                            'tw': tripled_words,
@@ -942,7 +946,7 @@ def get_stylistic_features_vectorizer(feature):
         vectorizers += [TfidfVectorizer(vocabulary=lst)]
         vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[feature], feature)]
 
-    elif feature.lower() == 'krc':
+    elif feature.lower() == 'krc' or feature.lower() == 'pos':
         return [stylistic_features_dict[feature]()]
 
     # return the values of the features
@@ -953,17 +957,7 @@ def get_stylistic_features_vectorizer(feature):
 
 
 if __name__ == "__main__":
-    paragraph = "לפני שאת נכנסת לזה כדאי לך לוודאות שאת באמת רוצה להיות אנה ואת חזקה מספיק אם לא אז אין לך מה לעשות פה."
-    import requests
-
-    request = {
-        'token': 'J3cPRb90K5W0P53',
-        'readable': False,
-        'paragraph': paragraph
-    }
-
-    result = requests.post('https://hebrew-nlp.co.il/service/Morphology/Analyze', json=request).json()
-    for sentence in result:
-        for word in sentence:
-            best_option = word[0]
-            print(f"{best_option['baseWord']} - {best_option['partOfSpeech']}")
+    vec = get_stylistic_features_vectorizer('pos')[0]
+    cor = ["hey, whats up up up? do you want to build a snow man?", "whats going on?"]
+    print(vec.fit_transform(cor))
+    print(vec.get_feature_names())
