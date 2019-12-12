@@ -355,19 +355,25 @@ def find_maxes_best_(best, maxes, method, methods, row, val):
 
 def write_info_gain(features, name):
     file_path = GlobalParameters().RESULTS_PATH + "\\" + name + " for hebrew dataset" + '.xlsx'
-    dic = {"1": "U- ", "2": "B- ", "3": "T- "}
     # Create an new Excel file and add a worksheet.
     workbook = xlsxwriter.Workbook(file_path)
     worksheet = workbook.add_worksheet()
 
     row=0
     for i, data in enumerate(features):
-        worksheet.write('A'+str(i+3),dic[data[0].split('_')[-4]] + data[0].split('_')[-1])
-        worksheet.write('B'+str(i+3), data[1])
+        print(data)
+
+        worksheet.write('A'+str(i+3),data[0].split('_')[0] )
+        worksheet.write('B'+str(i+3),  data[0].split('_')[-1])
+        worksheet.write('C'+str(i+3), str(data[1]))
+        try:
+            worksheet.write('D'+str(i+3), str(data[2]))
+        except:
+            pass
         row = i
 
-    worksheet.add_table("A2:B" + str(row + 3), {'columns': [{'header': 'uni/bi/tri gram'},
-                                                {'header': name}],
+    worksheet.add_table("A2:D" + str(row + 3), {'columns': [{'header': 'selection type'},
+                                                {'header': "feture name"}, {'header': name}, {'header': "p-value"}],
                                               'style': 'Table Style Light 8'})
     workbook.close()
 

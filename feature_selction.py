@@ -114,6 +114,21 @@ def select_rfecv_sfm(selection, features, labels):
 
 
 def get_selected_features(selection, train, tr_labels, test, ts_labels, all_features):
+    le = LabelEncoder()
+    le.fit(tr_labels)
+    ts_labels = le.transform(ts_labels)
+    tr_labels = le.transform(tr_labels)
+    if selection[1] == "0":
+        selection_list = get_selection_list(selection[0], train, tr_labels)
+        ziped = []
+        try:
+            ziped = zip(
+                all_features.get_feature_names(), selection_list[0], selection_list[1]
+            )
+        except:
+            ziped = zip(all_features.get_feature_names(), selection_list)
+        write_info_gain(ziped, str(selection[0]))
+        return train, test
     if selection[0] in selection_type.keys():
         if selection[0] == "rfecv":
             features = vstack((train, test))
