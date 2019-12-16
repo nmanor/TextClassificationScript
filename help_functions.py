@@ -126,6 +126,5 @@ def regex():
 
 
 if __name__ == "__main__":
-    create_dataset(dir=r"C:\Users\Mickey\Documents\kerner\english\allposts 100_100",
-                   output=r"C:\Users\Mickey\Documents\kerner\textclassificationscript\dataset")
-    
+    create_dataset(dir=r"C:\Users\user\Documents\מחקר - ד''ר קרנר\מחקר הפרעות נפשיות\אנגלית\temp",
+                   output=r"C:\Users\user\Documents\test\100 מול 100 אנגלית")

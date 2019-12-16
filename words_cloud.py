@@ -30,38 +30,42 @@ def generate_word_clouds(max_words=200):
     training = {}
     for file in os.listdir(training_path):
         if file.endswith('.txt'):
-            training[file.replace('.txt', '')] = open(training_path + "\\" + file, "r", encoding="utf8", errors='replace').read().replace('\n', ' ').lower()
+            training[file.replace('.txt', '')] = open(training_path + "\\" + file, "r", encoding="utf8",
+                                                      errors='replace').readlines()
 
     testing = {}
     for file in os.listdir(testing_path):
         if file.endswith('.txt'):
-            testing[file.replace('.txt', '')] = open(testing_path + "\\" + file, "r", encoding="utf8", errors='replace').read().replace('\n', ' ').lower()
+            testing[file.replace('.txt', '')] = open(testing_path + "\\" + file, "r", encoding="utf8",
+                                                     errors='replace').readlines()
 
-    if text_language(testing[list(testing.keys())[0]]) == 'hebrew':
+    if text_language(testing[list(testing.keys())[0]][0]) == 'hebrew':
         for key, value in training.items():
-            training[key] = value[::-1]
+            for post in range(len(value)):
+                training[key][post] = training[key][post][::-1]
         for key, value in testing.items():
-            testing[key] = value[::-1]
+            for post in range(len(value)):
+                testing[key][post] = testing[key][post][::-1]
         stop_words = hebrew_stopwords
     else:
         stop_words = stopwords
 
     for name, text in training.items():
         title = "training " + name + " unigrams"
-        freq = dict(get_top_n_words([text], 1, 1))
+        freq = dict(get_top_n_words(text, 1, 1))
         generate_and_save(freq, max_words, result_path, stop_words, title)
 
         title = "training " + name + " bigrams"
-        freq = dict(get_top_n_words([text], 2, 2))
+        freq = dict(get_top_n_words(text, 2, 2))
         generate_and_save(freq, max_words, result_path, stop_words, title)
 
     for name, text in testing.items():
         title = "testing " + name + " unigrams"
-        freq = dict(get_top_n_words([text], 1, 1))
+        freq = dict(get_top_n_words(text, 1, 1))
         generate_and_save(freq, max_words, result_path, stop_words, title)
 
         title = "testing " + name + " bigrams"
-        freq = dict(get_top_n_words([text], 2, 2))
+        freq = dict(get_top_n_words(text, 2, 2))
         generate_and_save(freq, max_words, result_path, stop_words, title)
 
 

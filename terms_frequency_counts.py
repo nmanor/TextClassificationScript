@@ -1,8 +1,11 @@
+import os
+
 from sklearn.feature_extraction.text import CountVectorizer
 
 
-def get_top_n_words(corpus, ngrams1=2, ngrams2=2, n=None):
+def get_top_n_words(corpus, ngrams1=2, ngrams2=2, n=None, filtering=True):
     """
+    :param filtering: filter the words by the 3% filter before returning the result
     :param n: [the number of words needed]
     :param ngrams2: [ngrams upper bound]
     :param corpus: list of strings
@@ -25,10 +28,10 @@ def get_top_n_words(corpus, ngrams1=2, ngrams2=2, n=None):
     sum_words = bag_of_words.sum(axis=0)
     words_freq = [(word, sum_words[0, idx]) for word, idx in vec.vocabulary_.items()]
     words_freq = sorted(words_freq, key=lambda x: x[1], reverse=True)
-    return words_freq[:n]
+    return lower_bound_test(words_freq, corpus)[:n] if filtering else words_freq[:n]
 
 
-def lower_bound_test(top_words, corpus, threshold = 0.03, minimum_posts = 3):
+def lower_bound_test(top_words, corpus, threshold=0.03, minimum_posts=3):
     """
     :param top_words: list of most common words in the corpus in order
     :param corpus: the corpus itself
@@ -39,7 +42,7 @@ def lower_bound_test(top_words, corpus, threshold = 0.03, minimum_posts = 3):
     """
 
     # split the corpus from string to list
-    corpus = str(corpus).split('\n')
+    # corpus = str(corpus).split('\n')
 
     # the list of words to return
     new_list = []
@@ -65,15 +68,16 @@ def lower_bound_test(top_words, corpus, threshold = 0.03, minimum_posts = 3):
 
 def word_freq(corpus_path, out_path, ngrams, show_amaount=True):
     # read the content of the file
-    text = open(corpus_path, "r", encoding="utf8", errors='replace').read()
+    text = open(corpus_path, "r", encoding="utf8", errors='replace').readlines()
 
     # collect the words in order of importance
     result = ''
     i = 1
-    for tup in lower_bound_test(get_top_n_words([text.replace('\n', ' ').lower()], ngrams, ngrams), text)[:1000]:
-        result += '\n' + str(i) + ":" + tup[0]
+    for tup in lower_bound_test(get_top_n_words(text, ngrams, ngrams), text)[:200]:
+        result += '\n' + str(i) + ": " + tup[0]
         if show_amaount:
             result += ' - ' + str(tup[1])
+        i += 1
 
     # save the words into the output path
     title = "\\" + corpus_path.split('\\')[-1].split('.')[0] + " most freq words " + {2:"bigrams", 1:"unigrams", 3:"trigrams"}[ngrams] + ".txt"
@@ -82,11 +86,7 @@ def word_freq(corpus_path, out_path, ngrams, show_amaount=True):
 
 
 if __name__ == '__main__':
-    path = r"C:\Users\user\Documents\test\קבצי txt\Training Normal in English.txt"
-    result = ''
-    text = open(path, "r", encoding="utf8", errors='replace').read()
-    for i, tup in enumerate(get_top_n_words([text], 1, 1, 2000)):
-        result += '\n' + str(i + 1) + ": " + tup[0] + ' - ' + str(tup[1])
-    print(result)
-    with open(r'C:\Users\user\Documents\test\קבצי txt\r.txt', "w", encoding="utf8", errors='replace') as file:
-        file.write(result[1:])
+    dir = r"C:\Users\user\Documents\test\dataset\training"
+    for file in os.listdir(dir):
+        for i in [1, 2]:
+            word_freq(dir + '\\' + file, r'C:\Users\user\Documents\test\results\Words Clouds', i)
