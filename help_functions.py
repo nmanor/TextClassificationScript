@@ -4,11 +4,14 @@ import re
 from random import shuffle
 
 
-# dir = the directory with all the files (txt & json of anorexia and normal)
-# output = where to put the merged files
-# split = the ratio of the split (default: 1/3)
 def create_dataset(dir, output, split = 0.33):
+    """
+    :param dir: the directory with all the files (txt & json of anorexia and normal)
+    :param output: where to put the merged files
+    :param split: the ratio of the split (default: 1/3)
+    """
     # get all the data and put it in the right list
+    print('Reading files...')
     anorexia = []
     normal = []
     for file in os.listdir(dir):
@@ -24,6 +27,7 @@ def create_dataset(dir, output, split = 0.33):
     shuffle(normal)
 
     # split the anorexia files
+    print('Split the anorexia files...')
     test = anorexia[:int(split*len(anorexia))]
     train = anorexia[int(split*len(anorexia)):]
 
@@ -45,7 +49,10 @@ def create_dataset(dir, output, split = 0.33):
     with open(output + "\\training\\anorexia.txt", "w", encoding="utf8", errors='replace') as file:
         file.write(text[1:])
 
+    print('Done saving the anorexia files')
+
     # split the normal files
+    print('Split the normal files...')
     test = normal[:int(split*len(normal))]
     train = normal[int(split*len(normal)):]
 
@@ -66,6 +73,9 @@ def create_dataset(dir, output, split = 0.33):
             text += '\n' + open(dir + "\\" + dic["file_id"], "r", errors='replace', encoding='utf8').read().replace('\n', ' ')
     with open(output + "\\training\\normal.txt", "w", encoding="utf8", errors='replace') as file:
         file.write(text[1:])
+
+    print('Done saving the normal files')
+    print('Process done')
 
 
 
@@ -126,5 +136,5 @@ def regex():
 
 
 if __name__ == "__main__":
-    create_dataset(dir=r"C:\Users\user\Documents\מחקר - ד''ר קרנר\מחקר הפרעות נפשיות\אנגלית\temp",
-                   output=r"C:\Users\user\Documents\test\100 מול 100 אנגלית")
+    path = r"C:\Users\user\Documents\מחקר - ד''ר קרנר\מחקר הפרעות נפשיות\אנגלית\all"
+    create_dataset(path, output=r"C:\Users\user\Documents\test\100 מול 100 אנגלית")

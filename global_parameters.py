@@ -26,7 +26,7 @@ class GlobalParameters(metaclass=Singleton):
         self.MEASURE = []
         self.STYLISTIC_FEATURES = []
         self.SELECTION = []
-        self.WORDCLOUD = True
+        self.WORDCLOUD = False
 
 
 def print_message(msg, num_tabs=0):

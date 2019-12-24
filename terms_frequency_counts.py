@@ -73,7 +73,7 @@ def word_freq(corpus_path, out_path, ngrams, show_amaount=True):
     # collect the words in order of importance
     result = ''
     i = 1
-    for tup in lower_bound_test(get_top_n_words(text, ngrams, ngrams), text)[:200]:
+    for tup in lower_bound_test(get_top_n_words(text, ngrams, ngrams), text)[:1000]:
         result += '\n' + str(i) + ": " + tup[0]
         if show_amaount:
             result += ' - ' + str(tup[1])
@@ -86,7 +86,8 @@ def word_freq(corpus_path, out_path, ngrams, show_amaount=True):
 
 
 if __name__ == '__main__':
-    dir = r"C:\Users\user\Documents\test\dataset\training"
-    for file in os.listdir(dir):
-        for i in [1, 2]:
-            word_freq(dir + '\\' + file, r'C:\Users\user\Documents\test\results\Words Clouds', i)
+    in_path = r"C:\Users\user\Documents\test\dataset\training"
+    out_path = r"C:\Users\user\Documents\test\מילים"
+    for file in os.listdir(in_path):
+        for num in [1, 2]:
+            word_freq(in_path + '\\' + file, out_path, num)

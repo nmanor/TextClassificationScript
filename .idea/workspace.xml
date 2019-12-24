@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b334214f-f085-4185-b9cf-111af0088f3b" name="Default" comment="POS Tags (not fully functioning yet)">
+    <list default="true" id="b334214f-f085-4185-b9cf-111af0088f3b" name="Default" comment="Words cloud correction">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/global_parameters.py" beforeDir="false" afterPath="$PROJECT_DIR$/global_parameters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/help_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/help_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/terms_frequency_counts.py" beforeDir="false" afterPath="$PROJECT_DIR$/terms_frequency_counts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/words_cloud.py" beforeDir="false" afterPath="$PROJECT_DIR$/words_cloud.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,14 +30,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/help_functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="109" column="4" selection-start-line="109" selection-start-column="4" selection-end-line="109" selection-end-column="85" />
+            <state relative-caret-position="485">
+              <caret line="140" selection-start-line="140" selection-end-line="140" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/terms_frequency_counts.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="89" column="61" selection-start-line="89" selection-start-column="61" selection-end-line="89" selection-end-column="61" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2265">
+              <caret line="163" column="34" selection-start-line="163" selection-start-column="34" selection-end-line="163" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/global_parameters.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="215">
+              <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -77,6 +105,7 @@
       <find>get_feature_names</find>
       <find>krc</find>
       <find>gen</find>
+      <find>אנורקסיה</find>
     </findStrings>
     <replaceStrings>
       <replace>glbs</replace>
@@ -131,15 +160,15 @@
         <option value="$PROJECT_DIR$/stopwords_and_lists.py" />
         <option value="$PROJECT_DIR$/stylistic_features.py" />
         <option value="$PROJECT_DIR$/pos_tags.py" />
-        <option value="$PROJECT_DIR$/global_parameters.py" />
         <option value="$PROJECT_DIR$/../Documents/test/cfgs/8.json" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/words_cloud.py" />
-        <option value="$PROJECT_DIR$/terms_frequency_counts.py" />
         <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/אנגלית/אנרוקסיות/1709.json" />
         <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/אנגלית/אנרוקסיות/1761.json" />
         <option value="$PROJECT_DIR$/../Documents/מחקר - ד''ר קרנר/מחקר הפרעות נפשיות/אנגלית/אנרוקסיות/1643.json" />
         <option value="$PROJECT_DIR$/help_functions.py" />
+        <option value="$PROJECT_DIR$/terms_frequency_counts.py" />
+        <option value="$PROJECT_DIR$/global_parameters.py" />
       </list>
     </option>
   </component>
@@ -150,7 +179,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="676" />
+    <option name="x" value="-7" />
     <option name="width" value="697" />
     <option name="height" value="735" />
   </component>
@@ -162,7 +191,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -174,6 +202,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -203,7 +232,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.help_functions">
+  <component name="RunManager" selected="Python.main">
     <configuration name="help_functions" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="TCProg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -318,9 +347,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.help_functions" />
-        <item itemvalue="Python.terms_frequency_counts" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.terms_frequency_counts" />
+        <item itemvalue="Python.help_functions" />
         <item itemvalue="Python.pos_tags (1)" />
         <item itemvalue="Python.pos_tags" />
       </list>
@@ -487,7 +516,13 @@
       <option name="presentableId" value="LOCAL‎00024" />
       <updated>1576152485958</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL‎00025" summary="Words cloud correction">
+      <created>1576490937295</created>
+      <option name="number" value="LOCAL‎00025" />
+      <option name="presentableId" value="LOCAL‎00025" />
+      <updated>1576490937347</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TodoView">
@@ -508,7 +543,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.35679215" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.35679215" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.41571194" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -570,7 +605,8 @@
     <MESSAGE value="Export's 50 terms feater added" />
     <MESSAGE value="Every stylistic feature had get_feature_name now" />
     <MESSAGE value="POS Tags (not fully functioning yet)" />
-    <option name="LAST_COMMIT_MESSAGE" value="POS Tags (not fully functioning yet)" />
+    <MESSAGE value="Words cloud correction" />
+    <option name="LAST_COMMIT_MESSAGE" value="Words cloud correction" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -580,12 +616,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/terms_frequency_counts.py</url>
-          <line>44</line>
+          <line>45</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/words_cloud.py</url>
-          <line>46</line>
+          <line>48</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
@@ -625,7 +661,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/3.json" />
     <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/9.json" />
     <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/7.json" />
     <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/6.json" />
@@ -711,13 +746,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="309" selection-start-line="309" selection-end-line="309" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/site-packages/sklearn/feature_extraction/dict_vectorizer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -766,13 +794,6 @@
     <entry file="file://$PROJECT_DIR$/stylistic_features.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/8.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/genericpath.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-240">
@@ -791,23 +812,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="219">
           <caret line="46" selection-start-line="46" selection-end-line="46" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/global_parameters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="28" column="29" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/terms_frequency_counts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="88" column="57" selection-start-line="88" selection-start-column="57" selection-end-line="88" selection-end-column="57" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -835,20 +839,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../Anaconda3/envs/textclassificationscript/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="311" selection-start-line="311" selection-end-line="311" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/re.pyi">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1395" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="168" column="34" selection-start-line="168" selection-start-column="34" selection-end-line="168" selection-end-column="34" />
+        <state relative-caret-position="2265">
+          <caret line="163" column="34" selection-start-line="163" selection-start-column="34" selection-end-line="163" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/help_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="109" column="4" selection-start-line="109" selection-start-column="4" selection-end-line="109" selection-end-column="85" />
+        <state relative-caret-position="485">
+          <caret line="140" selection-start-line="140" selection-end-line="140" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/terms_frequency_counts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="89" column="61" selection-start-line="89" selection-start-column="61" selection-end-line="89" selection-end-column="61" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documents/test/cfgs/8.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/global_parameters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
         </state>
       </provider>
     </entry>
