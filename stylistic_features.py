@@ -7,15 +7,21 @@ from sklearn.base import TransformerMixin
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import FeatureUnion
 
+from global_parameters import GlobalParameters
 from pos_tags import get_pos_transformer
 from stopwords_and_lists import food_family, fat_family, vomiting_family, \
     me_family, ana_family, increasing_family, \
     decreasing_family, sport_family, sleep_family, hunger_family, \
     pain_family, anorexia_family, anger_family, thinness_family, calories_family, \
     vulgarity_family, sickness_family, love_family, export_50_terms_he, \
-    export_50_terms_en, export_50_terms_trans_he, export_50_terms_trans_en
+    export_50_terms_en, export_50_terms_trans_he, export_50_terms_trans_en, anorexia_family_en, food_family_en, \
+    fat_family_en, ana_family_en, hunger_family_en, me_family_en, vomiting_family_en, pain_family_en, anger_family_en, \
+    sleep_family_en, sport_family_en, thinness_family_en, calories_family_en, vulgarity_family_en, decreasing_family_en, \
+    increasing_family_en, sickness_family_en, love_family_en, noun_family, sex_family_en, cursing_family_en, \
+    alcohol_family_en, smoke_family_en
 from terms_frequency_counts import get_top_n_words
 
+glbs = GlobalParameters()
 
 # General help functions
 def text_language(text):
@@ -293,7 +299,7 @@ def negative_words(data):
             for word in post:
                 if (sid.polarity_scores(word)['compound']) <= -0.5:
                     neg_word_num += 1
-            return neg_word_num/len(post)
+            return [neg_word_num/len(post)]
 
         return [negative_count(post) for post in data]
 
@@ -328,7 +334,7 @@ def positive_words(data):
             for word in post:
                 if (sid.polarity_scores(word)['compound']) >= 0.5:
                     pos_word_num += 1
-            return pos_word_num/len(post)
+            return [pos_word_num/len(post)]
 
         return [positive_count(post) for post in data]
 
@@ -801,9 +807,7 @@ def words_wealth(data):
 
 
 def n_word_in_post(post, num):
-    temp = get_top_n_words([post], 1, 1)
-    temp = temp[0][0]
-    unique = [1 for tup in get_top_n_words([post], 1, 1) if tup[1] == num]
+    unique = [1 for tup in get_top_n_words([post], 1, 1, filtering=False) if tup[1] == num]
     post = re.findall(r'\b\w[\w-]*\b', post.lower())
     return len(unique)/len(post)
 
@@ -901,7 +905,7 @@ stylistic_features_dict = {'cc': chars_count,
                            'pm3': power_minus3,
                            'pm4': power_minus4,
                            'ap': all_powers,
-                           'krc': known_repeated_chars,
+                           'frc': known_repeated_chars,
                            'pos': get_pos_transformer,
                            'rc': repeated_chars,
                            'dw': doubled_words,
@@ -913,24 +917,29 @@ stylistic_features_dict = {'cc': chars_count,
                            'owc': once_words,
                            'twc': twice_words,
                            'ttc': three_times_words,
-                           'aof': anorexia_family,
-                           'fdf': food_family,
-                           'ftf': fat_family,
-                           'anf': ana_family,
-                           'huf': hunger_family,
-                           'mef': me_family,
-                           'vof': vomiting_family,
-                           'pnf': pain_family,
-                           'agf': anger_family,
-                           'slf': sleep_family,
-                           'spf': sport_family,
-                           'thf': thinness_family,
-                           'caf': calories_family,
-                           'vuf': vulgarity_family,
-                           'def': decreasing_family,
-                           'inf': increasing_family,
-                           'sif': sickness_family,
-                           'lof': love_family,
+                           'aof': anorexia_family if glbs.LANGUAGE == 'hebrew' else anorexia_family_en,
+                           'fdf': food_family if glbs.LANGUAGE == 'hebrew' else food_family_en,
+                           'ftf': fat_family if glbs.LANGUAGE == 'hebrew' else fat_family_en,
+                           'anf': ana_family if glbs.LANGUAGE == 'hebrew' else ana_family_en,
+                           'huf': hunger_family if glbs.LANGUAGE == 'hebrew' else hunger_family_en,
+                           'mef': me_family if glbs.LANGUAGE == 'hebrew' else me_family_en,
+                           'vof': vomiting_family if glbs.LANGUAGE == 'hebrew' else vomiting_family_en,
+                           'pnf': pain_family if glbs.LANGUAGE == 'hebrew' else pain_family_en,
+                           'agf': anger_family if glbs.LANGUAGE == 'hebrew' else anger_family_en,
+                           'slf': sleep_family if glbs.LANGUAGE == 'hebrew' else sleep_family_en,
+                           'spf': sport_family if glbs.LANGUAGE == 'hebrew' else sport_family_en,
+                           'thf': thinness_family if glbs.LANGUAGE == 'hebrew' else thinness_family_en,
+                           'caf': calories_family if glbs.LANGUAGE == 'hebrew' else calories_family_en,
+                           'vuf': vulgarity_family if glbs.LANGUAGE == 'hebrew' else vulgarity_family_en,
+                           'def': decreasing_family if glbs.LANGUAGE == 'hebrew' else decreasing_family_en,
+                           'inf': increasing_family if glbs.LANGUAGE == 'hebrew' else increasing_family_en,
+                           'sif': sickness_family if glbs.LANGUAGE == 'hebrew' else sickness_family_en,
+                           'lof': love_family if glbs.LANGUAGE == 'hebrew' else love_family_en,
+                           'nof': noun_family,
+                           'sxf': sex_family_en,
+                           'cuf': cursing_family_en,
+                           'alf': alcohol_family_en,
+                           'skf': smoke_family_en,
                            'e50th': export_50_terms_he,
                            'e50te': export_50_terms_en,
                            'e50tth': export_50_terms_trans_he,
@@ -946,7 +955,7 @@ def get_stylistic_features_vectorizer(feature):
         vectorizers += [TfidfVectorizer(vocabulary=lst)]
         vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[feature], feature)]
 
-    elif feature.lower() == 'krc' or feature.lower() == 'pos':
+    elif feature.lower() == 'frc' or feature.lower() == 'pos':
         return [stylistic_features_dict[feature]()]
 
     # return the values of the features

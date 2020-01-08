@@ -9,6 +9,7 @@ from features import extract_features
 from global_parameters import GlobalParameters, print_message
 from normalization import normalize
 from notification_handler import send_work_done
+from stylistic_features import text_language
 from words_cloud import generate_word_clouds
 from write_results import write_results
 
@@ -27,6 +28,14 @@ def set_global_parameters(configs):
     glbls.MEASURE = config["measure"]
     glbls.STYLISTIC_FEATURES = config["stylistic_features"]
     glbls.SELECTION = config["selection"].items()
+    try:
+        if 'language' in config:
+            glbls.LANGUAGE = config['language']
+        else:
+            path = config["train"] + "\\" + os.listdir(config["train"])[0]
+            glbls.LANGUAGE = text_language(open(path, "r", encoding="utf8", errors='replace').read())
+    except:
+        glbls.LANGUAGE = "english"
 
 
 def print_run_details():

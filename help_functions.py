@@ -128,13 +128,48 @@ def write_result(prediction, classifier, path):
 def regex():
     text = open(r"C:\Users\user\Documents\test\dataset\all.txt", 'r', encoding="utf8", errors='ignore').read()
 
-    result = re.findall(r'\w*חרא\w*', text)
+    result = re.findall(r'\w*מילה\w*', text)
 
     tup = [(word, result.count(word)) for word in set(result)]
     for word in tup:
         print(word[0] + ': ' + str(word[1]))
 
 
+def adapt_other_json(path_from, path_to):
+    """
+    Take JSON cfgs files from one computer and adapt them to different computer
+    :param path_from: the path fo the original files
+    :param path_to: the path do drop the new files
+    :return:
+    """
+    all_dics = []
+    i = 1
+    total_length = str(len([file for file in os.listdir(path_from) if file.endswith('.json')]))
+    for file in os.listdir(path_from):
+        if file.endswith('.json'):
+            with open(path_from + "\\" + file, "r", encoding="utf8", errors='replace') as f:
+                old_dic = json.load(f)
+
+                # For Hill Climbing only!
+                best = ["wc", "cc", "sc", "alw", "als", "aws", "awl", "caf", "lof", "fdf", "thf", "nw"]
+
+                new_dic = {"train": r"C:\Users\user\Documents\test\dataset\training",
+                           "test": r"C:\Users\user\Documents\test\dataset\testing",
+                           "output_csv": r"C:\Users\user\Documents\test\output",
+                           "nargs": "e" if old_dic["nargs"] != "" else "", "features": old_dic["features"],
+                           "results": r"C:\Users\user\Documents\test\results",
+                           "methods": ["lr", "svc", "mlp", "rf", "mnb"],
+                           "measure": ["accuracy_score"],
+                           "stylistic_features": list(set(old_dic["stylistic_features"] + best)), "selection": {}}
+                if new_dic not in all_dics:
+                    all_dics += [new_dic]
+                    with open(path_to + "\\" + file, 'w') as fp:
+                        json.dump(new_dic, fp, indent=4)
+                        print('File ' + str(i) + '/' + total_length)
+                i += 1
+
+
 if __name__ == "__main__":
-    path = r"C:\Users\user\Documents\מחקר - ד''ר קרנר\מחקר הפרעות נפשיות\אנגלית\all"
-    create_dataset(path, output=r"C:\Users\user\Documents\test\100 מול 100 אנגלית")
+    adapt_other_json(
+        r"C:\Users\user\Documents\מחקר - ד''ר קרנר\מחקר הפרעות נפשיות\כללי\‏‏Hill Climbing - English 3\Step 6\cfgs",
+        r"C:\Users\user\Documents\test\cfgs")
