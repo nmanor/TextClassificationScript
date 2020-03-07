@@ -84,6 +84,7 @@ def get_vectorizer(feature):
             lowercase=False,
             use_idf=tfidf,
         )
+   
 
     # TODO: לבדוק איך משלבים את 2 הוקטורים ביחד
     else:
@@ -150,6 +151,8 @@ def extract_features(train_dir, test_dir=""):
 
     all_features = FeatureUnion(feature_lst)
     train_features = all_features.fit_transform(train_data)
+    if glbs.PRINT_SELECTION:
+        glbs.IDF = dict(all_features.transformer_list)[glbs.FEATURES[0]].idf_
 
     test_features = all_features.transform(test_data)
 

@@ -14,7 +14,7 @@ from global_parameters import GlobalParameters
 from precision_recall_curve import plot_precision_recall_curve
 from roc_curve import plot_roc_curve
 from stylistic_features import text_language
-
+glbs = GlobalParameters()
 
 def corpus_name():
     """
@@ -24,7 +24,7 @@ def corpus_name():
     :param test_labels: the labels of the test corpus
     :return: string, the name of the corpus
     """
-    glbs = GlobalParameters()
+    
     string = "Corpus of "
     labels = glbs.LABELS
     dic = {}
@@ -368,12 +368,15 @@ def write_info_gain(features, name):
         worksheet.write('C'+str(i+3), str(data[1]))
         try:
             worksheet.write('D'+str(i+3), str(data[2]))
+            if len(glbs.IDF) > 0:
+                worksheet.write('E'+str(i+3), str(glbs.IDF[i]))
         except:
-            pass
+            if len(glbs.IDF) > 0:
+                worksheet.write('D'+str(i+3), str(glbs.IDF[i]))
         row = i
 
     worksheet.add_table("A2:D" + str(row + 3), {'columns': [{'header': 'selection type'},
-                                                {'header': "feture name"}, {'header': name}, {'header': "p-value"}],
+                                                {'header': "feture name"}, {'header': name}, {'header': "p-value"},{'header': "tfidf"}],
                                               'style': 'Table Style Light 8'})
     workbook.close()
 

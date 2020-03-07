@@ -28,6 +28,8 @@ class GlobalParameters(metaclass=Singleton):
         self.SELECTION = []
         self.WORDCLOUD = False
         self.LANGUAGE = None
+        self.PRINT_SELECTION = False
+        self.IDF = []
 
 
 def print_message(msg, num_tabs=0):

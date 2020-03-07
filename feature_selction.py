@@ -118,7 +118,7 @@ def get_selected_features(selection, train, tr_labels, test, ts_labels, all_feat
     le.fit(tr_labels)
     ts_labels = le.transform(ts_labels)
     tr_labels = le.transform(tr_labels)
-    if selection[1] == "0":
+    if glbs.PRINT_SELECTION:
         selection_list = get_selection_list(selection[0], train, tr_labels)
         ziped = []
         try:
