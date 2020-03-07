@@ -4,7 +4,7 @@ import re
 from random import shuffle
 
 
-def create_dataset(dir, output, split = 0.33):
+def create_dataset(dir, output, split=0.33):
     """
     :param dir: the directory with all the files (txt & json of anorexia and normal)
     :param output: where to put the merged files
@@ -36,7 +36,8 @@ def create_dataset(dir, output, split = 0.33):
     for file in test:
         with open(dir + "\\" + file, "r+", encoding="utf8", errors='replace') as f:
             dic = json.load(f)
-            text += '\n' + open(dir + "\\" + dic["file_id"], "r", errors='replace', encoding='utf8').read().replace('\n', ' ')
+            text += '\n' + open(dir + "\\" + dic["file_id"], "r", errors='replace', encoding='utf8').read().replace(
+                '\n', ' ')
     with open(output + "\\testing\\anorexia.txt", "w", encoding="utf8", errors='replace') as file:
         file.write(text[1:])
 
@@ -45,7 +46,8 @@ def create_dataset(dir, output, split = 0.33):
     for file in train:
         with open(dir + "\\" + file, "r+", encoding="utf8", errors='replace') as f:
             dic = json.load(f)
-            text += '\n' + open(dir + "\\" + dic["file_id"], "r", errors='replace', encoding='utf8').read().replace('\n', ' ')
+            text += '\n' + open(dir + "\\" + dic["file_id"], "r", errors='replace', encoding='utf8').read().replace(
+                '\n', ' ')
     with open(output + "\\training\\anorexia.txt", "w", encoding="utf8", errors='replace') as file:
         file.write(text[1:])
 
@@ -61,7 +63,8 @@ def create_dataset(dir, output, split = 0.33):
     for file in test:
         with open(dir + "\\" + file, "r+", encoding="utf8", errors='replace') as f:
             dic = json.load(f)
-            text += '\n' + open(dir + "\\" + dic["file_id"], "r", errors='replace', encoding='utf8').read().replace('\n', ' ')
+            text += '\n' + open(dir + "\\" + dic["file_id"], "r", errors='replace', encoding='utf8').read().replace(
+                '\n', ' ')
     with open(output + "\\testing\\normal.txt", "w", encoding="utf8", errors='replace') as file:
         file.write(text[1:])
 
@@ -70,13 +73,13 @@ def create_dataset(dir, output, split = 0.33):
     for file in train:
         with open(dir + "\\" + file, "r+", encoding="utf8", errors='replace') as f:
             dic = json.load(f)
-            text += '\n' + open(dir + "\\" + dic["file_id"], "r", errors='replace', encoding='utf8').read().replace('\n', ' ')
+            text += '\n' + open(dir + "\\" + dic["file_id"], "r", errors='replace', encoding='utf8').read().replace(
+                '\n', ' ')
     with open(output + "\\training\\normal.txt", "w", encoding="utf8", errors='replace') as file:
         file.write(text[1:])
 
     print('Done saving the normal files')
     print('Process done')
-
 
 
 def count_stopwords(path):
@@ -169,7 +172,29 @@ def adapt_other_json(path_from, path_to):
                 i += 1
 
 
+def gen_cfgs_in_range(output_path):
+    i = 500
+    while i <= 10000:
+        features = "ngrams_" + str(i) + "_w_tfidf_1_0"
+        cfgs = {
+            "train": "C:\\Users\\user\\Documents\\test\\dataset\\training",
+            "test": "C:\\Users\\user\\Documents\\test\\dataset\\testing",
+            "output_csv": "C:\\Users\\user\\Documents\\test\\output",
+            "nargs": "",
+            "features": [features],
+            "results": "C:\\Users\\user\\Documents\\test\\results",
+            "methods": ["lr", "svc", "mlp", "rf", "mnb"],
+            "measure": ["accuracy_score"],
+            "stylistic_features": [],
+            "selection": {}
+        }
+
+        with open(output_path + "\\" + str(i) + ".json", 'w') as fp:
+            json.dump(cfgs, fp, indent=4)
+
+        print(i)
+        i += 500
+
+
 if __name__ == "__main__":
-    adapt_other_json(
-        r"C:\Users\user\Documents\מחקר - ד''ר קרנר\מחקר הפרעות נפשיות\כללי\‏‏Hill Climbing - English 3\Step 6\cfgs",
-        r"C:\Users\user\Documents\test\cfgs")
+    gen_cfgs_in_range(r"C:\Users\user\Documents\test\cfgs")

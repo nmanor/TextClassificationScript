@@ -46,6 +46,30 @@ def significance_testing_information(baseline, values, significane=0.05):
     return results, baseline + value
 
 
+def significance_testing_information_dic_version(baseline, values, significane=0.05):
+    value, p = chisquare(values)
+    value = (value/p)*significane
+    maxi = max(values)
+    results = []
+    for v in values:
+        if v == maxi:
+            if baseline + value < v:
+                results.append((v, 'max_sig'))
+            else:
+                results.append((v, 'max_non_sig'))
+        elif v - baseline > value:
+            results.append((v, "bigger_sig"))
+        elif v > baseline:
+            results.append((v, "bigger_non_sig"))
+        elif v - baseline < value:
+            results.append((v, "smaller_sig"))
+        elif v < baseline:
+            results.append((v, "smaller_non_sig"))
+        else:
+            results.append((v, "none"))
+    return dict(results), baseline + value
+
+
 if __name__ == '__main__':
     values = [76.51515152,
               73.63636364,
@@ -299,7 +323,7 @@ if __name__ == '__main__':
               78.03030303,
               78.48484848,
               77.42424242,
-              77.87878788,
+              100.87878788,
               77.87878788,
               81.06060606,
               77.87878788]
