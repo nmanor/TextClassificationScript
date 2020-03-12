@@ -64,3 +64,4 @@ if __name__ == "__main__":
     B = 0.8
     print(A)
     print(proportion_difference_test(B, A, 200))
+

@@ -18,7 +18,7 @@ from stopwords_and_lists import food_family, fat_family, vomiting_family, \
     fat_family_en, ana_family_en, hunger_family_en, me_family_en, vomiting_family_en, pain_family_en, anger_family_en, \
     sleep_family_en, sport_family_en, thinness_family_en, calories_family_en, vulgarity_family_en, decreasing_family_en, \
     increasing_family_en, sickness_family_en, love_family_en, noun_family, sex_family_en, cursing_family_en, \
-    alcohol_family_en, smoke_family_en
+    alcohol_family_en, smoke_family_en, extended_time_expressions_hebrew, extended_time_expressions_english
 from terms_frequency_counts import get_top_n_words
 
 glbs = GlobalParameters()
@@ -935,6 +935,7 @@ stylistic_features_dict = {'cc': chars_count,
                            'inf': increasing_family if glbs.LANGUAGE == 'hebrew' else increasing_family_en,
                            'sif': sickness_family if glbs.LANGUAGE == 'hebrew' else sickness_family_en,
                            'lof': love_family if glbs.LANGUAGE == 'hebrew' else love_family_en,
+                           'xte': extended_time_expressions_hebrew if glbs.LANGUAGE == 'hebrew' else extended_time_expressions_english
                            'nof': noun_family,
                            'sxf': sex_family_en,
                            'cuf': cursing_family_en,
