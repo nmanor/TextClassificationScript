@@ -173,19 +173,31 @@ def adapt_other_json(path_from, path_to):
 
 
 def gen_cfgs_in_range(output_path):
-    i = 500
-    while i <= 10000:
-        features = "ngrams_" + str(i) + "_w_tfidf_1_0"
+    i = 1
+    # REF = ["dw", "tw", "dh", "dx", "tx"]
+    # ACF = ["wc", "cc", "sc", "alw", "als", "aws", "awl"]
+    # WEF = ["ww", "owc", "twc", "ttc"]
+
+    """lst = ["aof", "fdf", "ftf", "anf", "huf", "mef", "vof", "pnf", "anf", "te", "xte", "slf", "spf", "thf", "caf",
+           "vuf", "def", "inf", "sif", "lof", "frc", ["dw", "tw", "dh", "dx", "tx"], ["wc", "cc", "sc", "alw", "als",
+            "aws", "awl"], ["ww", "owc", "twc", "ttc"], "pw", "nw"]"""
+
+    lst = ["aof", "fdf", "ftf", "anf", "huf", "fpe", "spe", "tpe", "nof", "vof", "pnf", "agf", "te", "xte", "slf",
+           "spf", "thf", "caf", "sxf", "cuf", "alf", "skf", "def", "inf", "sif", "lof", "frc", ["dw", "tw", "dh", "dx",
+                                                                                                "tx"],
+           ["wc", "cc", "sc", "alw", "als", "aws", "awl"], ["ww", "owc", "twc", "ttc"], "pw", "nw"]
+
+    for fe in lst:
         cfgs = {
-            "train": "C:\\Users\\user\\Documents\\test\\dataset\\training",
-            "test": "C:\\Users\\user\\Documents\\test\\dataset\\testing",
-            "output_csv": "C:\\Users\\user\\Documents\\test\\output",
+            "train": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset\\training",
+            "test": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset\\testing",
+            "output_csv": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\output",
             "nargs": "",
-            "features": [features],
-            "results": "C:\\Users\\user\\Documents\\test\\results",
+            "features": [],
+            "results": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\results",
             "methods": ["lr", "svc", "mlp", "rf", "mnb"],
             "measure": ["accuracy_score"],
-            "stylistic_features": [],
+            "stylistic_features": fe if isinstance(fe, list) else [fe],
             "selection": {}
         }
 
@@ -193,8 +205,8 @@ def gen_cfgs_in_range(output_path):
             json.dump(cfgs, fp, indent=4)
 
         print(i)
-        i += 500
+        i += 1
 
 
 if __name__ == "__main__":
-    gen_cfgs_in_range(r"C:\Users\user\Documents\test\cfgs")
+    gen_cfgs_in_range(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")

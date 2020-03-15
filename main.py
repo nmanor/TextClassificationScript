@@ -3,6 +3,8 @@ import os
 import shutil
 import traceback
 
+import nltk
+
 from classification import classify
 from feature_selction import get_selected_features
 from features import extract_features
@@ -117,6 +119,7 @@ def divide_results(result):
 
 def main(cfg):
     try:
+        nltk.download('vader_lexicon')
         glbs = GlobalParameters()
         configs = get_cfg_files(cfg)
         results = {}
@@ -176,6 +179,6 @@ def clean_backup_files():
 if __name__ == "__main__":
     cfg_dir = r"C:\Users\Mickey\Documents\kerner\textclassificationscript\cfgs"
     if not os.path.exists(cfg_dir):
-        cfg_dir = r"C:\Users\user\Documents\test\cfgs"
+        cfg_dir = r"C:\Users\natan\OneDrive\מסמכים\test\cfgs"
     main(cfg_dir)
 
