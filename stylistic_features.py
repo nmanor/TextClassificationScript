@@ -18,7 +18,10 @@ from stopwords_and_lists import food_family, fat_family, vomiting_family, \
     fat_family_en, ana_family_en, hunger_family_en, me_family_en, vomiting_family_en, pain_family_en, anger_family_en, \
     sleep_family_en, sport_family_en, thinness_family_en, calories_family_en, vulgarity_family_en, decreasing_family_en, \
     increasing_family_en, sickness_family_en, love_family_en, noun_family, sex_family_en, cursing_family_en, \
-    alcohol_family_en, smoke_family_en, extended_time_expressions_hebrew, extended_time_expressions_english
+    alcohol_family_en, smoke_family_en, extended_time_expressions_hebrew, extended_time_expressions_english, \
+    first_person_expressions_hebrew, first_person_expressions_english, second_person_expressions_hebrew, \
+    second_person_expressions_english, third_person_expressions_hebrew, third_person_expressions_english, \
+    time_expressions_hebrew, time_expressions_english
 from terms_frequency_counts import get_top_n_words
 
 glbs = GlobalParameters()
@@ -872,12 +875,14 @@ class StylisticFeaturesTransformer(TransformerMixin, BaseEstimator):
 
 
 #################################################################
+# dic of all supported stylistic features
+# DO NOT USE THIS DICTIONARY BEFORE YOU ACTIVATE initialization_features_dict
+stylistic_features_dict = {}
 
 
-def get_stylistic_features_vectorizer(feature):
-    vectorizers = []
-
-    # dic of all supported stylistic features
+# Initialize dictionary by global properties
+def initialize_features_dict():
+    global stylistic_features_dict
     stylistic_features_dict = {'cc': chars_count,
                                'wc': words_count,
                                'sc': sentence_count,
@@ -893,12 +898,16 @@ def get_stylistic_features_vectorizer(feature):
                                'dex': decreasing_expressions,
                                'nw': negative_words,
                                'pw': positive_words,
-                               'te': time_expressions,
+                               # 'te': time_expressions,
+                               'te': time_expressions_hebrew if glbs.LANGUAGE == 'hebrew' else time_expressions_english,
                                'de': doubt_expressions,
                                'ee': emotion_expressions,
-                               'fpe': first_person_expressions,
-                               'spe': second_person_expressions,
-                               'tpe': third_person_expressions,
+                               # 'fpe': first_person_expressions,
+                               # 'spe': second_person_expressions,
+                               # 'tpe': third_person_expressions,
+                               'fpe': first_person_expressions_hebrew if glbs.LANGUAGE == 'hebrew' else first_person_expressions_english,
+                               'spe': second_person_expressions_hebrew if glbs.LANGUAGE == 'hebrew' else second_person_expressions_english,
+                               'tpe': third_person_expressions_hebrew if glbs.LANGUAGE == 'hebrew' else third_person_expressions_english,
                                'ine': inclusion_expressions,
                                'p1': power1,
                                'p2': power2,
@@ -948,6 +957,12 @@ def get_stylistic_features_vectorizer(feature):
                                'e50te': export_50_terms_en,
                                'e50tth': export_50_terms_trans_he,
                                'e50tte': export_50_terms_trans_en}
+    return stylistic_features_dict
+
+
+def get_stylistic_features_vectorizer(feature):
+    initialize_features_dict()
+    vectorizers = []
 
     # return the CountVectorizer of lists of words
     if isinstance(stylistic_features_dict[feature], list):

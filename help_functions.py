@@ -178,16 +178,28 @@ def gen_cfgs_in_range(output_path):
     # ACF = ["wc", "cc", "sc", "alw", "als", "aws", "awl"]
     # WEF = ["ww", "owc", "twc", "ttc"]
 
-    """lst = ["aof", "fdf", "ftf", "anf", "huf", "mef", "vof", "pnf", "anf", "te", "xte", "slf", "spf", "thf", "caf",
+    # HE
+    """lst = ["aof", "fdf", "ftf", "anf", "huf", "mef", "vof", "pnf", "agf", "te", "xte", "slf", "spf", "thf", "caf",
            "vuf", "def", "inf", "sif", "lof", "frc", ["dw", "tw", "dh", "dx", "tx"], ["wc", "cc", "sc", "alw", "als",
-            "aws", "awl"], ["ww", "owc", "twc", "ttc"], "pw", "nw"]"""
-
-    lst = ["aof", "fdf", "ftf", "anf", "huf", "fpe", "spe", "tpe", "nof", "vof", "pnf", "agf", "te", "xte", "slf",
+            "aws", "awl"], ["ww", "owc", "twc", "ttc"], "pw", "nw", "e50th", "e50tth"]"""
+    # EN
+    """lst = ["aof", "fdf", "ftf", "anf", "huf", "fpe", "spe", "tpe", "nof", "vof", "pnf", "agf", "te", "xte", "slf",
            "spf", "thf", "caf", "sxf", "cuf", "alf", "skf", "def", "inf", "sif", "lof", "frc", ["dw", "tw", "dh", "dx",
-                                                                                                "tx"],
-           ["wc", "cc", "sc", "alw", "als", "aws", "awl"], ["ww", "owc", "twc", "ttc"], "pw", "nw"]
+            "tx"], ["wc", "cc", "sc", "alw", "als", "aws", "awl"], ["ww", "owc", "twc", "ttc"], "pw", "nw", "e50te",
+             "e50tte"]"""
+
+    # EN top 10
+    lst = ["TPE", "E50TE", "FDF", "INF", "VOF", "CAF", "E50TTE", ["wc", "cc", "sc", "alw", "als", "aws", "awl"],
+           "FTF", ["ww", "owc", "twc", "ttc"]]
+
+    # HE Top 10
+    """lst = ["FDF", "E50TH", "E50TTH", "HUF", "MEF", "ANF", "AOF", "FTF", "XTE", ["wc", "cc", "sc", "alw", "als", "aws",
+            "awl"]]"""
+
+    h_lst = []
 
     for fe in lst:
+        h_lst += [fe.lower()] if isinstance(fe, str) else fe
         cfgs = {
             "train": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset\\training",
             "test": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset\\testing",
@@ -197,7 +209,8 @@ def gen_cfgs_in_range(output_path):
             "results": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\results",
             "methods": ["lr", "svc", "mlp", "rf", "mnb"],
             "measure": ["accuracy_score"],
-            "stylistic_features": fe if isinstance(fe, list) else [fe],
+            # "stylistic_features": fe if isinstance(fe, list) else [fe],
+            "stylistic_features": h_lst,
             "selection": {}
         }
 
