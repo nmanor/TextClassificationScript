@@ -1,20 +1,19 @@
 import os
 import pickle
-from datetime import datetime
 import sys
+from datetime import datetime
+
 import matplotlib.pyplot as plt
 import xlsxwriter
-
-from os import path
-
-from PIL import Image
 
 from confusion_matrix import plot_confusion_matrix
 from global_parameters import GlobalParameters
 from precision_recall_curve import plot_precision_recall_curve
 from roc_curve import plot_roc_curve
-from stylistic_features import text_language
+from stylistic_features import text_language, initialize_features_dict
+
 glbs = GlobalParameters()
+
 
 def corpus_name():
     """
@@ -191,9 +190,15 @@ def new_write_file_content(pickle_file_path, measure, results_path):
 
         # Stylistic Features data
         stylistic_features = ''
+        num_of_features = 0
+        stylistic_features_dict = initialize_features_dict()
         for styl_feature in value['stylistic_features']:
             stylistic_features += styl_feature.upper() + '  '
+            num_of_features += 1
+            if isinstance(stylistic_features_dict[styl_feature], list):
+                num_of_features += len(stylistic_features_dict[styl_feature])
         worksheet.write(row, 5, stylistic_features[:-2], cell_format)
+        worksheet.write_number(row, 0, num_of_features, cell_format)
 
         # Pre Processing and Stop Words data
         cell_format = workbook.add_format()
@@ -251,6 +256,10 @@ def new_write_file_content(pickle_file_path, measure, results_path):
 
         row += 1
 
+    # write the max result of each classification
+    for i in range(40, row + 1):
+        worksheet.write_formula('O' + str(i), '=_xlfn.MAX(I' + str(i) + ':N' + str(i) + ')', cell_format)
+
     worksheet.write('A19', 'Colors', bold_gray)
     good = workbook.add_format({'bold': True, 'font_color': 'blue'})
     good.set_align('center')
@@ -288,21 +297,22 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     worksheet.write('A21', 'The best result in all classification', good)
     bold = workbook.add_format({'bold': True})
     worksheet.write('A39', 'Results', bold)
-    worksheet.add_table("A40:N" + str(row), {'columns': [{'header': 'Number'},
-                                                {'header': 'Type'},
-                                                {'header': 'N-GRAMS'},
-                                                {'header': 'TF'},
-                                                {'header': 'Skips'},
-                                                {'header': 'Stylistic Features'},
-                                                {'header': 'Pre Processing'},
-                                                {'header': 'Stop Words'},
-                                                {'header': 'svc'},
-                                                {'header': 'rf'},
-                                                {'header': 'mlp'},
-                                                {'header': 'lr'},
-                                                {'header': 'mnb'},
-                                                {'header': 'rnn'}],
-                                              'style': 'Table Style Light 8'})
+    worksheet.add_table("A40:O" + str(row), {'columns': [{'header': 'Number'},
+                                                         {'header': 'Type'},
+                                                         {'header': 'N-GRAMS'},
+                                                         {'header': 'TF'},
+                                                         {'header': 'Skips'},
+                                                         {'header': 'Stylistic Features'},
+                                                         {'header': 'Pre Processing'},
+                                                         {'header': 'Stop Words'},
+                                                         {'header': 'svc'},
+                                                         {'header': 'rf'},
+                                                         {'header': 'mlp'},
+                                                         {'header': 'lr'},
+                                                         {'header': 'mnb'},
+                                                         {'header': 'rnn'},
+                                                         {'header': 'Max Method'}, ],
+                                             'style': 'Table Style Light 8'})
 
     worksheet.write('A1', 'Classification results: ' + measure.replace("_", " "), extra_big)
 

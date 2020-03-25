@@ -18,7 +18,10 @@ from stopwords_and_lists import food_family, fat_family, vomiting_family, \
     fat_family_en, ana_family_en, hunger_family_en, me_family_en, vomiting_family_en, pain_family_en, anger_family_en, \
     sleep_family_en, sport_family_en, thinness_family_en, calories_family_en, vulgarity_family_en, decreasing_family_en, \
     increasing_family_en, sickness_family_en, love_family_en, noun_family, sex_family_en, cursing_family_en, \
-    alcohol_family_en, smoke_family_en
+    alcohol_family_en, smoke_family_en, extended_time_expressions_hebrew, extended_time_expressions_english, \
+    first_person_expressions_hebrew, first_person_expressions_english, second_person_expressions_hebrew, \
+    second_person_expressions_english, third_person_expressions_hebrew, third_person_expressions_english, \
+    time_expressions_hebrew, time_expressions_english
 from terms_frequency_counts import get_top_n_words
 
 glbs = GlobalParameters()
@@ -872,81 +875,93 @@ class StylisticFeaturesTransformer(TransformerMixin, BaseEstimator):
 
 
 #################################################################
-
-
 # dic of all supported stylistic features
-stylistic_features_dict = {'cc': chars_count,
-                           'wc': words_count,
-                           'sc': sentence_count,
-                           'emc': exclamation_mark_count,
-                           'qsmc': question_mark_count,
-                           'scc': special_characters_count,
-                           'qtmc': quotation_mark_count,
-                           'alw': average_letters_word,
-                           'als': average_letters_sentence,
-                           'aws': average_words_sentence,
-                           'awl': average_word_length,
-                           'ie': increasing_expressions,
-                           'dex': decreasing_expressions,
-                           'nw': negative_words,
-                           'pw': positive_words,
-                           'te': time_expressions,
-                           'de': doubt_expressions,
-                           'ee': emotion_expressions,
-                           'fpe': first_person_expressions,
-                           'spe': second_person_expressions,
-                           'tpe': third_person_expressions,
-                           'ine': inclusion_expressions,
-                           'p1': power1,
-                           'p2': power2,
-                           'p3': power3,
-                           'pm1': power_minus1,
-                           'pm2': power_minus2,
-                           'pm3': power_minus3,
-                           'pm4': power_minus4,
-                           'ap': all_powers,
-                           'frc': known_repeated_chars,
-                           'pos': get_pos_transformer,
-                           'rc': repeated_chars,
-                           'dw': doubled_words,
-                           'tw': tripled_words,
-                           'dh': doubled_hyphen,
-                           'dx': doubled_exclamation,
-                           'tx': tripled_exclamation,
-                           'ww': words_wealth,
-                           'owc': once_words,
-                           'twc': twice_words,
-                           'ttc': three_times_words,
-                           'aof': anorexia_family if glbs.LANGUAGE == 'hebrew' else anorexia_family_en,
-                           'fdf': food_family if glbs.LANGUAGE == 'hebrew' else food_family_en,
-                           'ftf': fat_family if glbs.LANGUAGE == 'hebrew' else fat_family_en,
-                           'anf': ana_family if glbs.LANGUAGE == 'hebrew' else ana_family_en,
-                           'huf': hunger_family if glbs.LANGUAGE == 'hebrew' else hunger_family_en,
-                           'mef': me_family if glbs.LANGUAGE == 'hebrew' else me_family_en,
-                           'vof': vomiting_family if glbs.LANGUAGE == 'hebrew' else vomiting_family_en,
-                           'pnf': pain_family if glbs.LANGUAGE == 'hebrew' else pain_family_en,
-                           'agf': anger_family if glbs.LANGUAGE == 'hebrew' else anger_family_en,
-                           'slf': sleep_family if glbs.LANGUAGE == 'hebrew' else sleep_family_en,
-                           'spf': sport_family if glbs.LANGUAGE == 'hebrew' else sport_family_en,
-                           'thf': thinness_family if glbs.LANGUAGE == 'hebrew' else thinness_family_en,
-                           'caf': calories_family if glbs.LANGUAGE == 'hebrew' else calories_family_en,
-                           'vuf': vulgarity_family if glbs.LANGUAGE == 'hebrew' else vulgarity_family_en,
-                           'def': decreasing_family if glbs.LANGUAGE == 'hebrew' else decreasing_family_en,
-                           'inf': increasing_family if glbs.LANGUAGE == 'hebrew' else increasing_family_en,
-                           'sif': sickness_family if glbs.LANGUAGE == 'hebrew' else sickness_family_en,
-                           'lof': love_family if glbs.LANGUAGE == 'hebrew' else love_family_en,
-                           'nof': noun_family,
-                           'sxf': sex_family_en,
-                           'cuf': cursing_family_en,
-                           'alf': alcohol_family_en,
-                           'skf': smoke_family_en,
-                           'e50th': export_50_terms_he,
-                           'e50te': export_50_terms_en,
-                           'e50tth': export_50_terms_trans_he,
-                           'e50tte': export_50_terms_trans_en}
+# DO NOT USE THIS DICTIONARY BEFORE YOU ACTIVATE initialization_features_dict
+stylistic_features_dict = {}
+
+
+# Initialize dictionary by global properties
+def initialize_features_dict():
+    global stylistic_features_dict
+    stylistic_features_dict = {'cc': chars_count,
+                               'wc': words_count,
+                               'sc': sentence_count,
+                               'emc': exclamation_mark_count,
+                               'qsmc': question_mark_count,
+                               'scc': special_characters_count,
+                               'qtmc': quotation_mark_count,
+                               'alw': average_letters_word,
+                               'als': average_letters_sentence,
+                               'aws': average_words_sentence,
+                               'awl': average_word_length,
+                               'ie': increasing_expressions,
+                               'dex': decreasing_expressions,
+                               'nw': negative_words,
+                               'pw': positive_words,
+                               # 'te': time_expressions,
+                               'te': time_expressions_hebrew if glbs.LANGUAGE == 'hebrew' else time_expressions_english,
+                               'de': doubt_expressions,
+                               'ee': emotion_expressions,
+                               # 'fpe': first_person_expressions,
+                               # 'spe': second_person_expressions,
+                               # 'tpe': third_person_expressions,
+                               'fpe': first_person_expressions_hebrew if glbs.LANGUAGE == 'hebrew' else first_person_expressions_english,
+                               'spe': second_person_expressions_hebrew if glbs.LANGUAGE == 'hebrew' else second_person_expressions_english,
+                               'tpe': third_person_expressions_hebrew if glbs.LANGUAGE == 'hebrew' else third_person_expressions_english,
+                               'ine': inclusion_expressions,
+                               'p1': power1,
+                               'p2': power2,
+                               'p3': power3,
+                               'pm1': power_minus1,
+                               'pm2': power_minus2,
+                               'pm3': power_minus3,
+                               'pm4': power_minus4,
+                               'ap': all_powers,
+                               'frc': known_repeated_chars,
+                               'pos': get_pos_transformer,
+                               'rc': repeated_chars,
+                               'dw': doubled_words,
+                               'tw': tripled_words,
+                               'dh': doubled_hyphen,
+                               'dx': doubled_exclamation,
+                               'tx': tripled_exclamation,
+                               'ww': words_wealth,
+                               'owc': once_words,
+                               'twc': twice_words,
+                               'ttc': three_times_words,
+                               'aof': anorexia_family if glbs.LANGUAGE == 'hebrew' else anorexia_family_en,
+                               'fdf': food_family if glbs.LANGUAGE == 'hebrew' else food_family_en,
+                               'ftf': fat_family if glbs.LANGUAGE == 'hebrew' else fat_family_en,
+                               'anf': ana_family if glbs.LANGUAGE == 'hebrew' else ana_family_en,
+                               'huf': hunger_family if glbs.LANGUAGE == 'hebrew' else hunger_family_en,
+                               'mef': me_family if glbs.LANGUAGE == 'hebrew' else me_family_en,
+                               'vof': vomiting_family if glbs.LANGUAGE == 'hebrew' else vomiting_family_en,
+                               'pnf': pain_family if glbs.LANGUAGE == 'hebrew' else pain_family_en,
+                               'agf': anger_family if glbs.LANGUAGE == 'hebrew' else anger_family_en,
+                               'slf': sleep_family if glbs.LANGUAGE == 'hebrew' else sleep_family_en,
+                               'spf': sport_family if glbs.LANGUAGE == 'hebrew' else sport_family_en,
+                               'thf': thinness_family if glbs.LANGUAGE == 'hebrew' else thinness_family_en,
+                               'caf': calories_family if glbs.LANGUAGE == 'hebrew' else calories_family_en,
+                               'vuf': vulgarity_family if glbs.LANGUAGE == 'hebrew' else vulgarity_family_en,
+                               'def': decreasing_family if glbs.LANGUAGE == 'hebrew' else decreasing_family_en,
+                               'inf': increasing_family if glbs.LANGUAGE == 'hebrew' else increasing_family_en,
+                               'sif': sickness_family if glbs.LANGUAGE == 'hebrew' else sickness_family_en,
+                               'lof': love_family if glbs.LANGUAGE == 'hebrew' else love_family_en,
+                               'xte': extended_time_expressions_hebrew if glbs.LANGUAGE == 'hebrew' else extended_time_expressions_english,
+                               'nof': noun_family,
+                               'sxf': sex_family_en,
+                               'cuf': cursing_family_en,
+                               'alf': alcohol_family_en,
+                               'skf': smoke_family_en,
+                               'e50th': export_50_terms_he,
+                               'e50te': export_50_terms_en,
+                               'e50tth': export_50_terms_trans_he,
+                               'e50tte': export_50_terms_trans_en}
+    return stylistic_features_dict
 
 
 def get_stylistic_features_vectorizer(feature):
+    initialize_features_dict()
     vectorizers = []
 
     # return the CountVectorizer of lists of words

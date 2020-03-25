@@ -565,8 +565,58 @@ decreasing_expressions_english = ['barely', 'dwarf', 'poor', 'pinch', 'foolish',
 
 time_expressions_hebrew = ['אחרי', 'אתמול', 'משך', 'מהירות', 'מוקדם', 'איטיות', 'מהלך', 'חודש', 'חודשיים', 'לאחר',
                            'לאט', 'מהר', 'אחרי זה', 'לפני זה', 'לפני כן', 'אחרי זמן מה']
-time_expressions_english = ['after', 'yesterday', 'duration', 'speed', 'early', 'slowness', 'during', 'month',
-                            'two months', 'slowly', 'fast', 'after that', 'before that', 'beforehand', 'after a while']
+time_expressions_english = ['afternoon', 'afternoons', 'birthday', 'day', 'days', 'evening', 'evenings', 'everyday',
+                            'holiday', 'month', 'months', 'morning', 'mornings', 'night', 'nights', 'now', 'today',
+                            'tomorrow', 'tonight', 'week', 'weeks', 'year', 'years', 'yesterday']
+
+extended_time_expressions_hebrew = ['אביב', 'אז', 'אחר הצהריים', 'אתמול', 'באביב', 'באופן קבוע', 'באופן תדיר', 'בבוקר',
+                                    'בבקרים', 'בדקה', 'בדקות', 'בדרך כלל', 'בהווה', 'בוקר', 'בזמן', 'בחג', 'בחודש',
+                                    'בחודשים', 'בחורף', 'בחמישי', 'ביום', 'ביום הולדת', 'בימים', 'בכל יום', 'בלילה',
+                                    'בלילות', 'במהלך', 'בנקודה', 'בסתיו', 'בעבר', 'בעוד', 'בערב', 'בערבים', 'בעתיד',
+                                    'בקיץ', 'בקרים', 'בראשון', 'ברביעי', 'ברגע', 'ברגעים', 'בשבוע', 'בשבועות', 'בשבת',
+                                    'בשישי', 'בשלישי', 'בשנה', 'בשני', 'בשניות', 'בשנייה', 'בשנים', 'בשעה', 'בשעות',
+                                    'בתאריך', 'בתאריכים', 'בתקופה', 'בתקופות', 'דקה', 'דקות', 'האביב', 'הבוקר',
+                                    'הבקרים', 'הדקה', 'הדקות', 'ההווה', 'הווה', 'הזמן', 'החג', 'החודש', 'החודשים',
+                                    'החורף', 'החמישי', 'היום', 'היום הולדת', 'הימים', 'הלילה', 'הלילות', 'המחר',
+                                    'הנפוץ', 'הנקודה', 'הסתיו', 'העבר', 'הערב', 'הערבים', 'העתיד', 'הקיץ', 'הראשון',
+                                    'הרביעי', 'הרגע', 'הרגעים', 'השבוע', 'השבועות', 'השבת', 'השישי', 'השלישי', 'השנה',
+                                    'השני', 'השניות', 'השנייה', 'השנים', 'השעה', 'השעות', 'התאריך', 'התאריכים',
+                                    'התקופה', 'התקופות', 'ואביב', 'ואז', 'ואחר הצהריים', 'ואתמול', 'ובאופן קבוע',
+                                    'ובאופן תדיר', 'ובדרך כלל', 'ובוקר', 'ובמהלך', 'ובעוד', 'ובקרים', 'ודקה', 'ודקות',
+                                    'והווה', 'וזמן', 'וחג', 'וחודש', 'וחודשים', 'וחורף', 'וחמישי', 'ויום',
+                                    'ויום הולדת', 'וימים', 'וכאשר', 'וכל יום', 'ולילה', 'ולילות', 'ולעיתים',
+                                    'ולעיתים רחוקות', 'ולעתים קרובות', 'ולפעמים', 'ומחר', 'ונכון לעכשיו', 'ונפוץ',
+                                    'ונקודה', 'וסתיו', 'ועבר', 'ועד', 'ועכשיו', 'וערב', 'וערבים', 'ועתיד', 'וקיץ',
+                                    'וראשון', 'ורביעי', 'ורגע', 'ורגעים', 'ושבוע', 'ושבועות', 'ושבת', 'ושישי', 'ושלישי',
+                                    'ושנה', 'ושני', 'ושניות', 'ושנייה', 'ושנים', 'ושעה', 'ושעות', 'ותאריך', 'ותאריכים',
+                                    'ותקופה', 'ותקופות', 'זמן', 'חג', 'חודש', 'חודשים', 'חורף', 'חמישי', 'יום',
+                                    'יום הולדת', 'ימים', 'כאשר', 'כל יום', 'לאביב', 'לאז', 'לאחר הצהריים', 'לבוקר',
+                                    'לבמהלך', 'לבקרים', 'לדקה', 'לדקות', 'להווה', 'לזמן', 'לחג', 'לחודש', 'לחודשים',
+                                    'לחורף', 'לחמישי', 'ליום', 'ליום הולדת', 'לילה', 'לילות', 'לימים', 'לכאשר',
+                                    'לכל יום', 'ללילה', 'ללילות', 'למחר', 'לנקודה', 'לסתיו', 'לעבר', 'לעד', 'לעיתים',
+                                    'לעיתים רחוקות', 'לעכשיו', 'לערב', 'לערבים', 'לעתיד', 'לעתים קרובות', 'לפעמים',
+                                    'לקיץ', 'לראשון', 'לרביעי', 'לרגע', 'לרגעים', 'לשבוע', 'לשבועות', 'לשבת', 'לשישי',
+                                    'לשלישי', 'לשנה', 'לשני', 'לשניות', 'לשנייה', 'לשנים', 'לשעה', 'לתאריך', 'לתאריכים',
+                                    'לתקופה', 'לתקופות', 'מחר', 'נכון לעכשיו', 'נפוץ', 'נקודה', 'סתיו', 'עבר', 'עד',
+                                    'עכשיו', 'ערב', 'ערבים', 'עתיד', 'קיץ', 'ראשון', 'רביעי', 'רגע', 'רגעים', 'שאז',
+                                    'שאחר הצהריים', 'שאתמול', 'שבאופן קבוע', 'שבאופן תדיר', 'שבדרך כלל', 'שבוע',
+                                    'שבועות', 'שבמהלך', 'שבעוד', 'שבקרים', 'שבת', 'שדקה', 'שדקות', 'שהווה', 'שזמן',
+                                    'שחג', 'שחודש', 'שחודשים', 'שחורף', 'שחמישי', 'שיום', 'שיום הולדת', 'שימים',
+                                    'שישי', 'שכאשר', 'שכל יום', 'שלילה', 'שלילות', 'שלישי', 'שלעיתים', 'שלעיתים רחוקות',
+                                    'שלעתים קרובות', 'שלפעמים', 'שמחר', 'שנה', 'שני', 'שניות', 'שנייה', 'שנים',
+                                    'שנכון לעכשיו', 'שנפוץ', 'שנקודה', 'שסתיו', 'שעבר', 'שעד', 'שעה', 'שעות',
+                                    'שעכשיו', 'שערב', 'שערבים', 'שעתיד', 'שקיץ', 'שראשון', 'שרביעי', 'שרגע', 'שרגעים',
+                                    'ששבוע', 'ששעה', 'ששעות', 'שתאריך', 'שתאריכים', 'שתקופה', 'שתקופות', 'תאריך',
+                                    'תאריכים', 'תקופה', 'תקופות']
+extended_time_expressions_english = ['afternoon', 'afternoons', 'birthday', 'commonly', 'constantly', 'current',
+                                     'currently', 'date', 'dates', 'day', 'days', 'during', 'evening', 'evenings',
+                                     'everyday', 'frequent', 'frequently', 'friday', 'future', 'generally', 'holiday',
+                                     'hour', 'hours', 'infrequently', 'minute', 'minutes', 'moment', 'moments',
+                                     'monday', 'month', 'months', 'morning', 'mornings', 'night', 'nights', 'now',
+                                     'past', 'period', 'periods', 'present', 'rarely', 'regularly', 'saturday',
+                                     'second', 'seconds', 'seldom', 'summer', 'sunday', 'then', 'thursday', 'time',
+                                     'today', 'tomorrow', 'tonight', 'tuesday', 'until', 'usually', 'wednesday', 'week',
+                                     'weeks', 'when', 'while', 'winter', 'year', 'years', 'yesterday']
 
 doubt_expressions_hebrew = ['בערך', 'אני חושבת', 'למיטב הבנתי', 'אני מאמינה', 'איני בטוחה', 'איני זוכרת',
                             'אני לא זוכרת', 'אני לא בטוחה']
@@ -581,7 +631,8 @@ emotion_expressions_english = ['disappointment', 'crying', 'disappointed', 'argu
 
 first_person_expressions_hebrew = ["אני", "אנחנו"]
 first_person_expressions_english = ['I', "I'm", "I'll", "I'd", "I've", 'me', 'myself', 'me', 'my', 'mine', 'we',
-                                    "we're", "we'll", "we'd", "we've", 'us', 'our', 'ours', 'ourselves', 'personally']
+                                    "we're", "we'll", "we'd", "we've", 'us', 'our', 'ours', 'ourselves', 'personally',
+                                    'im']
 
 second_person_expressions_hebrew = ["את ", "אתה ", "אתם", "אתן"]
 second_person_expressions_english = ['you', 'your', 'yours', 'yourself', 'yourselves', "you're", "you'll", "you've",
@@ -624,11 +675,11 @@ powerm4_expressions_english = ['disaster', 'despair', 'depression', 'suffering',
                                'terrible']
 
 # lists of words for classification by families of words
-anorexia_family = ['באנורקסיה', 'אנורקסיה', 'אנורקסית', 'לאנורקסיה', 'האנורקס', 'אנורקסיה', 'מהאנורקסיות', 'שאנורקסיה',
-                   'האנורקסיה', 'אנורקסיתתתתתתתתתת', 'אונרקסית', 'האנורקסיה', 'באנורקסיה', 'אנורקסיות', 'אנורקסיות',
-                   'מאנורקסיה', 'האנורקס', 'אנורקסית', 'לאנורקסיה', 'שאנורקסיות', 'אנורקסיים', 'מהאנורקסיות',
-                   'שאנורקסיות', 'שאנורקסיה', 'אנרוקסיה', 'מאנורקסיה', 'הבולמוס', 'בולמוסון', 'בולמוס', 'הבולמוסים',
-                   'בבולמוס', 'בולמוסים', 'לבולמוס', 'לבולמוסים']
+anorexia_family = ['באנורקסיה', 'אנורקסיה', 'אנורקסית', 'לאנורקסיה', 'האנורקס', 'אנורקטי', 'אנורקטית', 'אנורקטיות',
+                   'מהאנורקסיות', 'שאנורקסיה', 'האנורקסיה', 'אנורקסיתתתתתתתתתת', 'אונרקסית', 'האנורקסיה', 'באנורקסיה',
+                   'אנורקסיות', 'אנורקסיות', 'מאנורקסיה', 'האנורקס', 'אנורקסית', 'לאנורקסיה', 'שאנורקסיות', 'אנורקסיים',
+                   'מהאנורקסיות', 'שאנורקסיות', 'שאנורקסיה', 'אנרוקסיה', 'מאנורקסיה', 'בולימיה', 'בולימית', 'בולימיות',
+                   'בולימיות', 'הבולימית', 'הבולימיות', 'הפרעת אכילה', 'הפרעות אכילה']
 anorexia_family_en = ['anorexia', 'aenorexia', 'anorexic', 'aenorexic', 'nervosa', 'anorexics', 'ED', 'eating disorder',
                       'spree', 'rage', 'mania']
 
@@ -651,7 +702,7 @@ food_family_en = ['eat', 'eats', 'eaten', 'eater', 'ate', 'eating', 'eater', 'fo
                   'drinking', 'sip', 'sips', 'sipping', 'slurp', 'slurps', 'slurping', 'lunchtime', 'dinnertime',
                   'suppertime', 'nourishment', 'nutrition', 'nutriment', 'nutriments', 'chow', 'cook', 'cooks',
                   'cooker', 'cooking', 'cuisine', 'groceries', 'victuals', 'grub', 'water', 'meal', 'meals', 'coffee',
-                  'coffees', 'coke', 'cokes', 'soda', 'sodas', 'pop', 'sugar', 'sugars', 'saccharine', ' taste',
+                  'coffees', 'coke', 'cokes', 'soda', 'sodas', 'pop', 'sugar', 'sugars', 'saccharine', 'taste',
                   'tastes', 'tasting', 'taster', 'tasty', 'tasteless', 'drop', 'mouthful', 'stuff', 'stuffs',
                   'stuffing', 'stuffer', 'junk food', 'soda pop', 'gulp', 'gulps', 'gulping', 'wolf', 'wolfed', 'wolfs',
                   'wolfing', 'guzzle', 'guzzles', 'guzzling guzzled', 'guzzler', 'devour', 'devours', 'devoured',
@@ -671,12 +722,12 @@ fat_family_en = ['fat', 'fatter', 'fattest', 'overweight', 'plump', 'plumper', '
 ana_family = ['לאנה', 'אנות', 'אננה', 'האנה', 'פרואנה', 'מפראנה', 'לפראנה', 'פראני', 'הפראני', 'שאנה', 'אנה', 'מיות',
               'למיה', 'מיה', 'פרו- אנה', 'הפרו אנה', 'פרו אנורקסיה', 'פרו מיה', 'מפרו אנה', 'פרו-אנה', 'ופרו מיה',
               'לפרו-אנורקסיה', 'פרו מה', 'פרואנה', 'פרו-מיה', 'מהפרו אנה', 'פרו אנה', 'ופרו אנה']
-ana_family_en = ['ano', 'ana', '', 'anna', 'pro-ano', 'proano', 'pro-ana', 'proana', 'pro-anna', 'proanna', 'mia',
+ana_family_en = ['ano', 'ana', 'anna', 'pro-ano', 'proano', 'pro-ana', 'proana', 'pro-anna', 'proanna', 'mia',
                  'pro-anorexia', 'proanorexia', 'thinspo', 'thinspiration']
 
 hunger_family = ['הרעב', 'שהרעבה', 'מורעבת1', 'רעבה', 'להרעבות', 'ההרעבות', 'תרעיבי', 'רעבים', 'מרעב', 'לרעוב', 'רעב',
                  'להרעיב', 'ההרעבה', 'הרעבה', 'ברעב', 'מרעיבה', 'מהרעב', 'מהרעבה', 'רררררררררעעבה', 'כשרעבים', 'הרעבתי',
-                 'הצמא']
+                 'הצמא', 'הבולמוס', 'בולמוסון', 'בולמוס', 'הבולמוסים', 'בבולמוס', 'בולמוסים', 'לבולמוס', 'לבולמוסים']
 hunger_family_en = ['hunger', 'hungers', 'hungering', 'hungered', 'hungry', 'hungryy', 'hungryyy', 'hungrier',
                     'hungriest', 'starve', 'starves', 'starved', 'starving', 'appetite', 'starvation', 'craving',
                     'cravings', 'crave', 'craved', 'hungriness', 'ravenous', 'famished', 'famishment', 'empty',
@@ -715,7 +766,7 @@ pain_family = ['וכאבים', 'שכואב', 'להכאיב', 'שכאבו', 'כא
 pain_family_en = ['pain', 'pains', 'hurt', 'hurts', 'hurting', 'ache', 'aches', 'ached', 'aching', 'weak', 'weaker',
                   'weakest', 'weakness', 'weaknesses', 'difficulty', 'difficult', 'suffer', 'sufferer', 'suffers',
                   'suffered', 'suffering', 'discomfort', 'discomforts', 'soreness', 'throb ', 'throbs', 'throbbing',
-                  ' throbbings', 'hard', 'harder', 'hardest', 'tough', 'tougher', 'toughest', 'cry', 'cried', 'cries',
+                  'throbbings', 'hard', 'harder', 'hardest', 'tough', 'tougher', 'toughest', 'cry', 'cried', 'cries',
                   'crying', 'crier', 'weep', 'weeps', 'wept', 'weeper', 'weeping', 'tear', 'tears', 'tired', 'tireder',
                   'tiredest', 'terrible', 'horrible', 'awful', 'terribly', 'awfully', 'horribly', 'fall', 'fell',
                   'falling', 'faint', 'faints', 'fainted', 'fainting', 'break down', 'broke down', 'breaking down',
@@ -737,15 +788,15 @@ anger_family_en = ['anger', 'angry', 'angrier', 'angriest', 'sad', 'sadder', 'sa
                    'maddest', 'depress', 'depresses', 'depressing', 'depressingly', 'depressed', 'depression',
                    'depressions', 'dejected', 'unhappy', 'unhappier', 'unhappiest', 'miserable', 'dejected', 'low',
                    'lower', 'lowest', 'fear', 'fears', 'feared', 'fearing', 'fearful', 'frightened', 'frightening',
-                   'afraid scared', '', 'terrified', 'anxious', 'anxiety', 'fright', 'frightful', 'distress',
+                   'afraid scared', 'terrified', 'anxious', 'anxiety', 'fright', 'frightful', 'distress',
                    'distressed', 'panic', 'panicked', 'panicky', 'alarm', 'alarmed', 'anxieties', 'worry', 'worries',
                    'trouble', 'troubling', 'disturb', 'disturbs', 'disturbed', 'disturbing', 'worrier', 'coward',
                    'cowards', 'suicide', 'suicides', 'suicidal', 'fed up', 'sickened', 'revolted', 'apprehension',
                    'apprehensions', 'lazy', 'lazier', 'laziest', 'laziness', 'lethargic', 'despairing', 'hopeless',
                    'despondent', 'in despair', 'stress', 'stressed', 'stressful', 'tension', 'pathetic', 'pitiable',
                    'cruel', 'crueler', 'cruelest', 'cruelly', 'cruelty', 'crushed', 'die', 'dying', 'died', 'dies',
-                   'death', ' lose', 'loses', 'losing', 'lost', 'loser', 'fail', 'fails', 'failed', 'failing',
-                   'failure', 'fiasco', 'disappointment', 'letdown', ' botch', 'flop', 'lonely', 'lonelier',
+                   'death', 'lose', 'loses', 'losing', 'lost', 'loser', 'fail', 'fails', 'failed', 'failing',
+                   'failure', 'fiasco', 'disappointment', 'letdown', 'botch', 'flop', 'lonely', 'lonelier',
                    'loneliest', 'lonesome', 'alone', 'abandoned ', 'guilt', 'guilty', 'guiltier', 'guiltiest', 'blame',
                    'blames', 'blamed', 'blaming', 'kill', 'killing', 'killed', 'kills', 'hate', 'hates', 'hated',
                    'hating', 'narcissism', 'alienation', 'antidepressants', 'trainwreck', 'train wreck', 'pathetic',
@@ -760,12 +811,12 @@ sleep_family_en = ['sleep', 'sleeps', 'slept', 'sleeping', 'sleeper', 'sleepy', 
                    'asleep', 'go to sleep', 'went to sleep', 'fall asleep', 'fell asleep', 'bed', 'beds', 'went to bed',
                    'go to bed', 'nap', 'naps', 'napping', 'napped', 'snooze', 'doze', 'dozing', 'slumber']
 
-sport_family = ['מרוצים', 'במירוץ', 'וריצה', 'רצו', 'רצה', 'ריצה', 'רצתי', 'שרציתי', 'לרוץ', 'הלתכי', 'שהולכת', 'הולכת',
-                'תהליך', 'הלכאות', 'כשהלכתי', 'שהלכתי', 'והלך', 'ההליכה', 'הולך', 'הלכנו', 'מהלך', 'והליכה', 'הולכות',
-                'שהולך', 'במהלך', 'הלכה', 'הולכים', 'הלכתי', 'והולכת', 'הלכו', 'שהלך', 'והלכתי', 'להליכה', 'הלך',
-                'שהלכנו', 'הליכה', 'לספורט', 'והספורט', 'הספורט', 'ספורטאית', 'שספורט', 'ספורטאי', 'וספורט', 'ספורט',
-                'כושר', 'הכושר', 'האימונים', 'להיתאמן', 'לאימונים', 'האימון', 'מתאמנת', 'לאימון', 'אתאמן', 'אימון',
-                'להתאמן', 'במאמנת', 'שהאימונים']
+sport_family = ['מירוץ', 'מרוץ', 'מרוצים', 'במרוץ', 'במירוץ', 'וריצה', 'רצו', 'רצה', 'ריצה', 'רצתי', 'שרציתי', 'לרוץ',
+                'הלתכי', 'שהולכת', 'הולכת', 'תהליך', 'הלכאות', 'כשהלכתי', 'שהלכתי', 'והלך', 'ההליכה', 'הולך', 'הלכנו',
+                'מהלך', 'והליכה', 'הולכות', 'שהולך', 'במהלך', 'הלכה', 'הולכים', 'הלכתי', 'והולכת', 'הלכו', 'שהלך',
+                'והלכתי', 'להליכה', 'הלך', 'שהלכנו', 'הליכה', 'לספורט', 'והספורט', 'הספורט', 'ספורטאית', 'שספורט',
+                'ספורטאי', 'וספורט', 'ספורט', 'כושר', 'הכושר', 'האימונים', 'להיתאמן', 'לאימונים', 'האימון', 'מתאמנת',
+                'לאימון', 'אתאמן', 'אימון', 'להתאמן', 'במאמנת', 'שהאימונים']
 sport_family_en = ['race', 'raced', 'racing', 'racer', 'run', 'runs', 'ran', 'running', 'runner', 'walk', 'walked',
                    'walking', 'walker', 'sport', 'exercise', 'sports', 'exercise', 'exercising', 'sportsman',
                    'sporting', 'fitness', 'calisthenics', 'gymnastics', 'workout', 'workouts', 'working out',
@@ -777,15 +828,14 @@ thinness_family = ['רזון', 'לרזות', 'רזות', 'רזיתי', 'לרזה
                    'לרזון', 'הרזים', 'הרזון', 'רזתה', 'ורזה', 'דקיקה', 'דקה', 'דק', 'דקות', 'דקיקות', 'לדקה', 'מקל',
                    'עצמות הלחיים', 'עצמות האגן', 'עצמות בולטות', 'עצמות הבריח', 'עצם', 'העצמות', 'ועצמות', 'יבלוט',
                    'הבולטות', 'בלטו', 'בולטות', 'לבלוט', 'שבולט', 'בזוית', 'זוויותיות', 'זוויות', 'שדופות', 'שדוף',
-                   'גוף', 'בטן', 'פנים', 'תחת', 'ראש', 'החזה', 'צלע', 'צלעות', 'הצלעות', 'עצמות', 'רזה', 'רזון',
-                   'להרזות', 'דיאטה', 'דיאטנית', 'לרדת', 'להוריד', 'צמוד', 'צמודה', 'שצמוד', 'צמודד', 'צמודות', 'שטוחה',
-                   'השטוחה']
+                   'גוף', 'בטן', 'פנים', 'תחת', 'ראש', 'החזה', 'צלע', 'צלעות', 'הצלעות', 'עצמות', 'להרזות', 'דיאטה',
+                   'דיאטנית', 'לרדת', 'להוריד', 'צמוד', 'צמודה', 'שצמוד', 'צמודד', 'צמודות', 'שטוחה', 'השטוחה']
 thinness_family_en = ['thin', 'thinness', 'thinner', 'thinnest', 'gaunt', 'skinny', 'skinniness', 'skinnier  skinniest',
                       'slim', 'slimness', 'slimmer', 'slimmest', 'slender', 'slenderer', 'slenderest', 'emaciated',
                       'lose weight', 'losing weight', 'lost weight', 'slight', 'delicate', 'boney', 'bonier', 'boniest',
                       'bone', 'bones', 'skin and bones', 'body', 'bodies', 'stomach', 'sticking out', 'stick out',
                       'sticks out', 'stuck out', 'angular', 'rib', 'ribs', 'ribcage', 'hip', 'hips', 'hipbones', 'face',
-                      'facial', 'chest', 'backside', 'rear', 'rear end', 'skeleton', 'tummy', '', 'undernourished',
+                      'facial', 'chest', 'backside', 'rear', 'rear end', 'skeleton', 'tummy', 'undernourished',
                       'diet', 'diets', 'dieting', 'go on a diet', 'dietician', 'tight', 'tightest', 'flat', 'flatter',
                       'flattest', 'skeletal', 'lean', 'lanky', 'belly', 'butt', 'butts', 'ass', 'behind', 'waist',
                       'goal weight', 'GW', 'target', 'collar']
@@ -852,14 +902,14 @@ increasing_family_en = ['long', 'genius', 'geniuses', 'also', 'enough', 'promine
                         'amazing', 'wonderful', 'astounding', 'great', 'greater', 'greatest', 'really great', 'giant',
                         'as much', 'so much', 'fast', 'faster', 'fastest', 'not a little', 'ultimate', 'absolute',
                         'absolutely', 'total', 'totally', 'fave', 'favorite', 'top', 'serious', 'seriously', 'real',
-                        'really', 'actual', 'actuallyhonestly', 'much', 'most', 'many', 'both', ' several',
+                        'really', 'actual', 'actually', 'honestly', 'much', 'most', 'many', 'both', 'several',
                         'completely', 'often']
 
-sickness_family = ['חולה', 'מחלה', 'חולים', 'החולים', 'רופא', 'הרופא', 'לרופא', 'והרופא', 'האחות', 'אישפזו', 'אישפוז',
-                   'לאישפוז', 'מהאישפוז', 'במיון', 'למיון', 'פסיכאטר', 'פסיכאטרים', 'פסיכאטרי', 'בפסיכיאטרית',
-                   'פסיכולוג', 'הפסיכולוג', 'פסיכולוגים', 'פסיכולוגי', 'פסיכולוגי?', 'בפסיכולוג', 'לפסיכולוג',
-                   'לפסיכולוג!', 'לפסיכולוגית', 'הפסיכולוגית', 'והפסיכולוגית', 'שהפסיכולוגית', 'ניתוח', 'הניתוח',
-                   'מהניתוח']
+sickness_family = ['חולה', 'החולה', 'וחולה', 'חולנית', 'מחלה', 'חולים', 'החולים', 'מחלה', 'ומחלה', 'והמחלה', 'רופא',
+                   'הרופא', 'לרופא', 'והרופא', 'האחות', 'אישפזו', 'אישפוז', 'לאישפוז', 'מהאישפוז', 'במיון', 'למיון',
+                   'פסיכאטר', 'פסיכאטרים', 'פסיכאטרי', 'בפסיכיאטרית', 'פסיכולוג', 'הפסיכולוג', 'פסיכולוגים',
+                   'פסיכולוגי', 'פסיכולוגי?', 'בפסיכולוג', 'לפסיכולוג', 'לפסיכולוג!', 'לפסיכולוגית', 'הפסיכולוגית',
+                   'והפסיכולוגית', 'שהפסיכולוגית', 'ניתוח', 'הניתוח', 'מהניתוח', 'והניתוח']
 sickness_family_en = ['sick', 'sicker', 'sickest', 'ill', 'illness', 'disease', 'disorder', 'doctor', 'doctors',
                       'physician', 'physicians', 'nurse', 'nurses', 'nursing', 'hospital', 'hospitals',
                       'hospitalization', 'hospitalizations', 'emergency room', 'ER', 'trauma', 'trauma room',
@@ -871,12 +921,13 @@ sickness_family_en = ['sick', 'sicker', 'sickest', 'ill', 'illness', 'disease', 
                       'psychologist!', 'operation', 'operations', 'procedure', 'procedures', 'exam', 'examination',
                       'therapist', 'counsellor', 'counselling']
 
-love_family = ['אהבה', 'באהבה', 'כאהבה', 'לאהבה', 'האהבה', 'ואהבה', 'לאהוב', 'שאוהבים', 'נאהבת']
+love_family = ['אהבה', 'באהבה', 'כאהבה', 'לאהבה', 'האהבה', 'ואהבה', 'לאהוב', 'שאוהבים', 'נאהבת', 'אהבתי', 'אוהבת',
+               'ואהבתי', 'ואוהבת', 'חום', 'חיבה', 'בחיבה', 'מחבבת', 'חום', 'בחום', 'חמימות', 'בחמימות']
 love_family_en = ['love', 'loves', 'loved', 'loving', 'warmth', 'affection', 'fondness', 'care', 'cares', 'caring',
                   'cared', 'lovelies']
 
 noun_family = ['woman', 'women', 'man', 'men', 'people', 'person', 'persons', 'male', 'males', 'female', 'females',
-               'individual', 'individuals', 'party', 'parties', ' other', 'others', 'boy', 'boys', 'girl', 'girls',
+               'individual', 'individuals', 'party', 'parties', 'other', 'others', 'boy', 'boys', 'girl', 'girls',
                'fellow', 'fellows', 'guy', 'guys', 'gal', 'gals', 'one', "one's", 'one another', 'each other']
 
 sex_family_en = ['sex', 'lay', 'lays', 'laid', 'sleep with', 'sleeping with', 'slept with', 'sleep together',
@@ -887,7 +938,7 @@ sex_family_en = ['sex', 'lay', 'lays', 'laid', 'sleep with', 'sleeping with', 's
 cursing_family_en = ['fuck', 'fuck you', 'fucks', 'fucking', 'fucker', 'mother fucker', 'fuckton', 'damn', 'hell',
                      'shit', 'curse', 'curses', 'cursed', 'cursing', 'curser', 'curse words', 'dumb', 'dummy', 'idiot',
                      'moron', 'imbecile', 'maniac', 'ugly', 'uglier', 'ugliest', 'disgusting', 'disgusting!',
-                     'disgusting!!', ' revolting', 'turn off', '  lose it', 'losing it', 'lost it', 'garbage',
+                     'disgusting!!', 'revolting', 'turn off', 'lose it', 'losing it', 'lost it', 'garbage',
                      'piece of garbage', 'piece of shit', 'shitty', 'shithead', 'asshole', 'bastard', 'son of a bitch',
                      'bitch', 'crap', 'frigging', 'twat', 'xxx', 'stupid', 'dumb', 'suck', 'sucks', 'worthless',
                      'crackers', 'icky', 'ickier', 'ickiest', 'crazy', 'psycho', 'nuts', 'destroy', 'ugh', 'evil',
