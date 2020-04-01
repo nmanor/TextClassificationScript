@@ -65,6 +65,8 @@ from stopwords_and_lists import (
     third_person_expressions_english,
     time_expressions_hebrew,
     time_expressions_english,
+    positive_list_hebrew,
+    negative_list_hebrew,
 )
 from terms_frequency_counts import get_top_n_words
 
@@ -1046,8 +1048,10 @@ def initialize_features_dict():
         "awl": average_word_length,
         "ie": increasing_expressions,
         "dex": decreasing_expressions,
-        "nw": negative_words,
-        "pw": positive_words,
+        # 'nw': negative_words,
+        # 'pw': positive_words,
+        "nw": negative_list_hebrew if glbs.LANGUAGE == "hebrew" else negative_words,
+        "pw": positive_list_hebrew if glbs.LANGUAGE == "hebrew" else positive_words,
         # 'te': time_expressions,
         "te": time_expressions_hebrew
         if glbs.LANGUAGE == "hebrew"
@@ -1129,11 +1133,15 @@ def get_stylistic_features_vectorizer(feature):
     if isinstance(stylistic_features_dict[feature.lower()], list):
         lst = set(stylistic_features_dict[feature.lower()])
         vectorizers += [TfidfVectorizer(vocabulary=lst)]
-        vectorizers += [
-            StylisticFeaturesTransformer(
-                stylistic_features_dict[feature.lower()], feature
-            )
-        ]
+        if (
+            feature != "e50th"
+            and feature != "e50te"
+            and feature != "e50tth"
+            and feature != "e50tte"
+        ):
+            vectorizers += [
+                StylisticFeaturesTransformer(stylistic_features_dict[feature], feature)
+            ]
 
     elif feature.lower() == "frc" or feature.lower() == "pos":
         return [stylistic_features_dict[feature]()]
