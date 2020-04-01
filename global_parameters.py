@@ -39,10 +39,4 @@ def print_message(msg, num_tabs=0):
 
 
 if __name__ == "__main__":
-    a1 = GlobalParameters()
-    a2 = GlobalParameters()
-    a3 = GlobalParameters()
-    print(a1)
-    print(a2)
-    a2.RESULTS_PATH = 5
-    print(a3)
+    pass
