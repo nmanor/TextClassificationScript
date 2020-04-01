@@ -189,12 +189,12 @@ def gen_cfgs_in_range(output_path):
              "e50tte"]"""
 
     # EN top 10
-    lst = ["TPE", "E50TE", "FDF", "INF", "VOF", "CAF", "E50TTE", ["wc", "cc", "sc", "alw", "als", "aws", "awl"],
-           "FTF", ["ww", "owc", "twc", "ttc"]]
+    """lst = ["FDF", "INF", ["wc", "cc", "sc", "alw", "als", "aws", "awl"], "VOF", "CAF", "TPE", "E50TE", "E50TTE", "CUF",
+           "DEF"]"""
 
     # HE Top 10
-    """lst = ["FDF", "E50TH", "E50TTH", "HUF", "MEF", "ANF", "AOF", "FTF", "XTE", ["wc", "cc", "sc", "alw", "als", "aws",
-            "awl"]]"""
+    # lst = ["FDF", "E50TH", "E50TTH", "HUF", "MEF", "ANF", "AOF", "FTF", "TE", "XTE"]
+    lst = ['FDF', 'HUF', 'MEF', 'ANF', 'AOF', 'FTF', 'XTE', 'THF', 'VUF', 'SIF']
 
     h_lst = []
 
@@ -221,5 +221,50 @@ def gen_cfgs_in_range(output_path):
         i += 1
 
 
+def random_groups(output_path):
+    # HE
+    # lst = ["fdf", "e50th", "e50tth", "huf", "mef", "anf", "aof", "ftf"]
+
+    # EN
+    lst = ["fdf", "inf", "vof", "e50te", "caf", "e50tte", "tpe", "ftf", "cuf", "fpe", "te", "xte",
+           ["wc", "cc", "sc", "alw", "als", "aws", "awl"], ["ww", "owc", "twc", "ttc"]]
+
+    se = []
+
+    lst = ["pnf", "ftf", "fdf", "frc", "aof", "anf", "xte"]
+    lst = ["ftf", "fdf", "mef", "frc", "anf"]
+    x = len(lst)
+    for i in range(1 << x):
+        temp = [lst[j] for j in range(x) if (i & (1 << j))]
+        if len(temp) > 1:
+            se += [temp]
+    print(len(se))
+
+    i = 1
+    for fe in se:
+        x1 = []
+        for x2 in fe:
+            x1 += x2 if isinstance(x2, list) else [x2]
+        cfgs = {
+            "train": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset\\training",
+            "test": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset\\testing",
+            "output_csv": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\output",
+            "nargs": "",
+            "features": [],
+            "results": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\results",
+            "methods": ["lr", "svc", "mlp", "rf", "mnb"],
+            "measure": ["accuracy_score"],
+            "stylistic_features": x1,
+            "selection": {}
+        }
+
+        with open(output_path + "\\" + str(i) + ".json", 'w') as fp:
+            json.dump(cfgs, fp, indent=4)
+
+        print(i)
+        i += 1
+
+
 if __name__ == "__main__":
-    gen_cfgs_in_range(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
+    random_groups(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
+    # gen_cfgs_in_range(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")

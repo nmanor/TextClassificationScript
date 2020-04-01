@@ -954,21 +954,32 @@ export_50_terms_he = ['גוף', 'ריסון', 'משקל', 'פחד', 'משלשל�
          'דיאטנית', 'אנה', 'מענישה', 'אוכל', 'פרו אנה', 'דימוי גוף', 'שליטה', 'גשמי', 'טוהר', 'קטן',
          'למות', 'אנורקסיה', 'תת משקל', 'כמויות', 'טכניקות', 'בליסה', 'רזה', 'רזון', 'שטוחה', 'בולטות',
          'זוויתית', 'עצמות', 'ידחפו', 'להקיא', 'גרון', 'פיתוי', 'בולסת', 'עצמות בריח', 'עודף', 'דיאטה']
-export_50_terms_en = ['pro-ana', 'fasting', 'starve', 'to punish', 'strong', 'meal plan', 'ana-food', 'relapse', 'recover',
-         'worthless', 'valid', 'jealous', 'GW', 'UGW', 'pain', 'doubt', 'crashing', 'tube', 'depressed', 'intake',
-         'gained', 'force', 'dietician', 'consumed', 'cut', 'hipbones', 'boney', 'waist', 'puke', 'ed', 'unit', 'scale',
-         'tight', 'desire', 'crunches', 'caved', 'disgusting', 'full', 'fade', 'stashed', 'resist', 'triggering',
-         'temptation', 'binged', 'exercise', 'restricting', 'mess', 'gluttony', 'cope', 'obsession']
-export_50_terms_trans_he = ['גוף', 'ריסון', 'משקל', 'פחד', 'משלשלים', 'ספורט', 'קלוריות', 'ויתור', 'כישלון', 'הקאה', 'מצוקה', 'אסלה',
-          'בהמה', 'בולמוס', 'צמתי', 'תסכול', 'לרדת במשקל', 'התקף חרדה', 'הרעבה', 'תפריט', 'דיאטנית', 'אנה', 'מענישה',
-          'אוכל', 'פרו אנה', 'דימוי גוף', 'שליטה', 'גשמי', 'טוהר', 'קטן', 'למות', 'אנורקסיה', 'תת משקל', 'כמויות',
-          'טכניקות', 'בליסה', 'רזה', 'רזון', 'שטוחה', 'בולטות', 'זוויתית', 'עצמות', 'ידחפו', 'להקיא', 'גרון', 'פיתוי',
-          'בולסת', 'עצמות בריח', 'עודף', 'דיאטה']
-export_50_terms_trans_en = ['body', 'restraint', 'weight', 'fear', 'laxatives', 'sport', 'calories', 'concession', 'failure ', 'vomiting ',
-          'distress', 'toilet bowl', 'animal', 'binge', 'i was fasting', 'frustration ', 'lose weight', 'panic attack',
-          'starving', 'menu', 'dietician', 'anna', 'punishable', 'food', 'pro anna', 'body image', 'control',
-          'materialistic ', 'purity', 'small', 'die', 'anorexia ', 'underweight', 'quantity', 'technique', 'gluttony',
-          'thin', 'thinness', 'flat', 'sticking out', 'angular', 'bones', 'will push', 'vomit', 'throat', 'temptation',
-          'to overeat', 'collarbones', 'over', 'diet']
-
-
+export_50_terms_en = ['pro-ana', 'fasting', 'starve', 'to punish', 'strong', 'meal plan', 'ana-food', 'relapse',
+                      'recover',
+                      'worthless', 'valid', 'jealous', 'GW', 'UGW', 'pain', 'doubt', 'crashing', 'tube', 'depressed',
+                      'intake',
+                      'gained', 'force', 'dietician', 'consumed', 'cut', 'hipbones', 'boney', 'waist', 'puke', 'ed',
+                      'unit', 'scale',
+                      'tight', 'desire', 'crunches', 'caved', 'disgusting', 'full', 'fade', 'stashed', 'resist',
+                      'triggering',
+                      'temptation', 'binged', 'exercise', 'restricting', 'mess', 'gluttony', 'cope', 'obsession']
+export_50_terms_trans_he = ['פרו-אנה', 'צום', 'מרעב', 'להעניש', 'חזק', 'תוכנית ארוחות', 'אנה-אוכל', 'הישנות', 'להחלים',
+                            'חסר ערך',
+                            'תקף', 'מקנא', 'משקל מטרה', 'משקל יעד סופי', 'כאב', 'ספק', 'מתרסק', 'צינור', 'מדוכא',
+                            'צריכת', 'צבר',
+                            'כוח', 'דיאטנית', 'נצרך', 'חתך', 'עצמות ירך', 'בוני', 'מותן', 'פוק', 'אד', 'יחידה', 'סולם',
+                            'הדוק',
+                            'תשוקה', 'כפיפות בטן', 'מרווח', 'מגעיל', 'מלא', 'דוהה', 'מנותק', 'מתנגד', 'מפעיל', 'פיתוי',
+                            'מקושטש',
+                            'תרגיל', 'מגביל', 'בלגן', 'גרגרנות', 'להתמודד', 'אובססיה']
+export_50_terms_trans_en = ['body', 'restraint', 'weight', 'fear', 'laxatives', 'sport', 'calories', 'concession',
+                            'failure ', 'vomiting ',
+                            'distress', 'toilet bowl', 'animal', 'binge', 'i was fasting', 'frustration ',
+                            'lose weight', 'panic attack',
+                            'starving', 'menu', 'dietician', 'anna', 'punishable', 'food', 'pro anna', 'body image',
+                            'control',
+                            'materialistic ', 'purity', 'small', 'die', 'anorexia ', 'underweight', 'quantity',
+                            'technique', 'gluttony',
+                            'thin', 'thinness', 'flat', 'sticking out', 'angular', 'bones', 'will push', 'vomit',
+                            'throat', 'temptation',
+                            'to overeat', 'collarbones', 'over', 'diet']

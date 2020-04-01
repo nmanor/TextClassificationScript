@@ -21,7 +21,7 @@ from stopwords_and_lists import food_family, fat_family, vomiting_family, \
     alcohol_family_en, smoke_family_en, extended_time_expressions_hebrew, extended_time_expressions_english, \
     first_person_expressions_hebrew, first_person_expressions_english, second_person_expressions_hebrew, \
     second_person_expressions_english, third_person_expressions_hebrew, third_person_expressions_english, \
-    time_expressions_hebrew, time_expressions_english
+    time_expressions_hebrew, time_expressions_english, positive_list_hebrew, negative_list_hebrew
 from terms_frequency_counts import get_top_n_words
 
 glbs = GlobalParameters()
@@ -896,8 +896,10 @@ def initialize_features_dict():
                                'awl': average_word_length,
                                'ie': increasing_expressions,
                                'dex': decreasing_expressions,
-                               'nw': negative_words,
-                               'pw': positive_words,
+                               # 'nw': negative_words,
+                               # 'pw': positive_words,
+                               'nw': negative_list_hebrew if glbs.LANGUAGE == 'hebrew' else negative_words,
+                               'pw': positive_list_hebrew if glbs.LANGUAGE == 'hebrew' else positive_words,
                                # 'te': time_expressions,
                                'te': time_expressions_hebrew if glbs.LANGUAGE == 'hebrew' else time_expressions_english,
                                'de': doubt_expressions,
@@ -956,7 +958,7 @@ def initialize_features_dict():
                                'e50th': export_50_terms_he,
                                'e50te': export_50_terms_en,
                                'e50tth': export_50_terms_trans_he,
-                               'e50tte': export_50_terms_trans_en}
+                               'e50tte': export_50_terms_trans_en, }
     return stylistic_features_dict
 
 
@@ -968,7 +970,8 @@ def get_stylistic_features_vectorizer(feature):
     if isinstance(stylistic_features_dict[feature], list):
         lst = set(stylistic_features_dict[feature])
         vectorizers += [TfidfVectorizer(vocabulary=lst)]
-        vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[feature], feature)]
+        if feature != 'e50th' and feature != 'e50te' and feature != 'e50tth' and feature != 'e50tte':
+            vectorizers += [StylisticFeaturesTransformer(stylistic_features_dict[feature], feature)]
 
     elif feature.lower() == 'frc' or feature.lower() == 'pos':
         return [stylistic_features_dict[feature]()]

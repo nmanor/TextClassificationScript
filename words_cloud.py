@@ -77,7 +77,8 @@ def generate_and_save(freq, max_words, result_path, stop_words, title):
                           stopwords=stop_words,
                           color_func=Random_color,
                           min_font_size=10,
-                          font_path=r"C:\WINDOWS\FONTS\HEEBO-MEDIUM.TTF").generate_from_frequencies(freq)
+                          font_path=r"C:\Users\natan\AppData\Local\Microsoft\Windows\Fonts\HEEBO-MEDIUM.TTF").generate_from_frequencies(
+        freq)
 
     # plot the WordCloud image
     plt.figure(figsize=(17, 10), facecolor=None)
