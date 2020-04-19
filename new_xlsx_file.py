@@ -4,15 +4,21 @@ import sys
 from datetime import datetime
 
 import matplotlib.pyplot as plt
+import numpy as np
 import xlsxwriter
 
 from confusion_matrix import plot_confusion_matrix
 from global_parameters import GlobalParameters
 from precision_recall_curve import plot_precision_recall_curve
 from roc_curve import plot_roc_curve
+from statistical_significance import differences_significance
 from stylistic_features import text_language, initialize_features_dict, get_stylistic_features_vectorizer
 
 glbs = GlobalParameters()
+
+
+def avg(lst):
+    return np.mean(lst)
 
 
 def corpus_name():
@@ -39,7 +45,7 @@ def corpus_name():
     for label, number in dic.items():
         string += str(number) + " " + label + ", "
 
-    language = text_language(glbs.TRAIN_DATA[0])
+    language = text_language(glbs.DATASET_DATA[0])
     string = string[:-2] + " in " + language[0].upper() + language[1:]
 
     # Replace the last , with &
@@ -128,6 +134,11 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     worksheet.write("D12", "H - Hebrew stop words", gray)
     worksheet.write("D13", "X - Extended Hebrew stop words", gray)
 
+    # Write differences significance option
+    worksheet.write("L10", "Statistical Significance Options", bold_gray)
+    worksheet.write("L11", "V - Significantly larger than the baseline", gray)
+    worksheet.write("L12", "* - Significantly smaller than the baseline", gray)
+
     # Write stylistic features option
     worksheet.write("F19", "Stylistic Features Options", bold_gray)
     worksheet.write("F20", "CC - chars count", gray)
@@ -185,7 +196,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     kind = {"w": "Words", "c": "Chars"}
     ngrams = {"1": "Unigrams", "2": "Bigrams", "3": "Trigrams"}
     tf = {"tf": "TF", "tfidf": "TF-IDF"}
-    methods = {"svc": 8, "rf": 9, "mlp": 10, "lr": 11, "mnb": 12, "rnn": 13}
+    methods = {"svc": 10, "rf": 11, "mlp": 12, "lr": 13, "mnb": 14, "rnn": 15}
 
     if measure == "accuracy_&_confusion_matrix":
         maxes = {
@@ -217,23 +228,24 @@ def new_write_file_content(pickle_file_path, measure, results_path):
         cell_format.set_align("vcenter")
         cell_format.set_align("center")
         features = value["featurs"]
-        count = ""
-        type = ""
-        tfidf = ""
-        grams = ""
-        skips = ""
-        for feature in features:
-            feature = feature.split("_")
-            count += feature[1] + "\n"
-            type += kind[feature[2]] + "\n"
-            tfidf += tf[feature[3]] + "\n"
-            grams += ngrams[feature[4]] + "\n"
-            skips += feature[5] + "\n"
-        worksheet.write(row, 0, str(count[:-1]), cell_format)
-        worksheet.write(row, 1, type[:-1], cell_format)
-        worksheet.write(row, 2, grams[:-1], cell_format)
-        worksheet.write(row, 3, tfidf[:-1], cell_format)
-        worksheet.write(row, 4, skips[:-1], cell_format)
+        if features:
+            count = ""
+            type = ""
+            tfidf = ""
+            grams = ""
+            skips = ""
+            for feature in features:
+                feature = feature.split("_")
+                count += feature[1] + "\n"
+                type += kind[feature[2]] + "\n"
+                tfidf += tf[feature[3]] + "\n"
+                grams += ngrams[feature[4]] + "\n"
+                skips += feature[5] + "\n"
+            worksheet.write_number(row, 0, int(count[:-1]), cell_format)
+            worksheet.write(row, 1, type[:-1], cell_format)
+            worksheet.write(row, 2, grams[:-1], cell_format)
+            worksheet.write(row, 3, tfidf[:-1], cell_format)
+            worksheet.write(row, 4, skips[:-1], cell_format)
 
         # Stylistic Features data
         stylistic_features = ""
@@ -247,7 +259,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                 if len(get_stylistic_features_vectorizer(styl_feature)) > 1:
                     num_of_features += 1
         worksheet.write(row, 5, stylistic_features[:-2], cell_format)
-        # worksheet.write_number(row, 0, num_of_features, cell_format)
+        worksheet.write_number(row, 0, num_of_features, cell_format)
 
         # Pre Processing and Stop Words data
         cell_format = workbook.add_format()
@@ -266,11 +278,13 @@ def new_write_file_content(pickle_file_path, measure, results_path):
             stopwords = "NONE"
         worksheet.write(row, 6, normalization, cell_format)
         worksheet.write(row, 7, stopwords, cell_format)
+        worksheet.write(row, 8, value["k_folds"], cell_format)
+        worksheet.write(row, 9, value["iterations"], cell_format)
 
         # ML methods and result data
         for method, result in value["results"].items():
             # confusion matrix
-            if not isinstance(result, float):
+            if not isinstance(result, list):
                 title = measure + str(image_num)
                 if measure == "confusion_matrix":
                     plot_confusion_matrix(result, results_path, title=title)
@@ -303,12 +317,13 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                 image_num += 1
                 continue
 
-            if isinstance(result, float):
-                val = float("{0:.4g}".format(result * 100))
+            if isinstance(result, list):
+                sign = differences_significance(value["baseline_path"], result, measure, value["k_folds"])
+                val = str(float("{0:.4g}".format(avg(result) * 100))) + " " + sign
             else:
                 val = result
 
-            worksheet.write(row, methods[method], val, cell_format)
+            worksheet.write(row, methods[method], str(val), cell_format)
 
             # Check if val bigger then max
             best, maxes = find_maxes_best(best, maxes, method, methods, row, val)
@@ -318,7 +333,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     # write the max result of each classification
     for i in range(40, row + 1):
         worksheet.write_formula(
-            "O" + str(i), "=_xlfn.MAX(I" + str(i) + ":N" + str(i) + ")", cell_format
+            "Q" + str(i), "=_xlfn.MAX(I" + str(i) + ":N" + str(i) + ")", cell_format
         )
 
     worksheet.write("A19", "Colors", bold_gray)
@@ -373,7 +388,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     bold = workbook.add_format({"bold": True})
     worksheet.write("A39", "Results", bold)
     worksheet.add_table(
-        "A40:O" + str(row),
+        "A40:Q" + str(row),
         {
             "columns": [
                 {"header": "Number"},
@@ -384,12 +399,14 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                 {"header": "Stylistic Features"},
                 {"header": "Pre Processing"},
                 {"header": "Stop Words"},
-                {"header": "svc"},
-                {"header": "rf"},
-                {"header": "mlp"},
-                {"header": "lr"},
-                {"header": "mnb"},
-                {"header": "rnn"},
+                {"header": "K-Folds CV"},
+                {"header": "Iterations"},
+                {"header": "SVC"},
+                {"header": "RF"},
+                {"header": "MLP"},
+                {"header": "LR"},
+                {"header": "MNB"},
+                {"header": "RNN"},
                 {"header": "Max Method"},
             ],
             "style": "Table Style Light 8",
@@ -412,19 +429,22 @@ def find_maxes_best(best, maxes, method, methods, row, val):
     if isinstance(val, dict):
         return find_maxes_best_(best, maxes, method, methods, row, val)
     new = [row, methods[method], val]
+    new_val = float(str(val).replace(' V', '').replace(' *', ''))
     for num in maxes[method]:
-        if val > num[2]:
+        prev_val = float(str(num[2]).replace(' V', '').replace(' *', ''))
+        if new_val > prev_val:
             num[0] = row
             num[1] = methods[method]
             num[2] = val
-        if val == num[2] and new not in maxes[method]:
+        if new_val == prev_val and new not in maxes[method]:
             maxes[method] += [new]
     for num in best:
-        if val > num[2]:
+        prev_val = float(str(num[2]).replace('V', '').replace('*', ''))
+        if new_val > prev_val:
             num[0] = row
             num[1] = methods[method]
             num[2] = val
-        if val == num[2] and new not in best:
+        if new_val == prev_val and new not in best:
             best += [new]
     return best, maxes
 

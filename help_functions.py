@@ -183,10 +183,11 @@ def gen_cfgs_in_range(output_path):
            "vuf", "def", "inf", "sif", "lof", "frc", ["dw", "tw", "dh", "dx", "tx"], ["wc", "cc", "sc", "alw", "als",
             "aws", "awl"], ["ww", "owc", "twc", "ttc"], "pw", "nw", "e50th", "e50tth"]"""
     # EN
-    """lst = ["aof", "fdf", "ftf", "anf", "huf", "fpe", "spe", "tpe", "nof", "vof", "pnf", "agf", "te", "xte", "slf",
+    lst = ["aof", "fdf", "ftf", "anf", "huf", "fpe", "spe", "tpe", "nof", "vof", "pnf", "agf", "te", "xte", "slf",
            "spf", "thf", "caf", "sxf", "cuf", "alf", "skf", "def", "inf", "sif", "lof", "frc", ["dw", "tw", "dh", "dx",
-            "tx"], ["wc", "cc", "sc", "alw", "als", "aws", "awl"], ["ww", "owc", "twc", "ttc"], "pw", "nw", "e50te",
-             "e50tte"]"""
+                                                                                                "tx"],
+           ["wc", "cc", "sc", "alw", "als", "aws", "awl"], ["ww", "owc", "twc", "ttc"], "pw", "nw", "e50te",
+           "e50tte"]
 
     # EN top 10
     """lst = ["FDF", "INF", ["wc", "cc", "sc", "alw", "als", "aws", "awl"], "VOF", "CAF", "TPE", "E50TE", "E50TTE", "CUF",
@@ -194,23 +195,24 @@ def gen_cfgs_in_range(output_path):
 
     # HE Top 10
     # lst = ["FDF", "E50TH", "E50TTH", "HUF", "MEF", "ANF", "AOF", "FTF", "TE", "XTE"]
-    lst = ['FDF', 'HUF', 'MEF', 'ANF', 'AOF', 'FTF', 'XTE', 'THF', 'VUF', 'SIF']
+    # lst = ['FDF', 'HUF', 'MEF', 'ANF', 'AOF', 'FTF', 'XTE', 'THF', 'VUF', 'SIF']
 
     h_lst = []
 
     for fe in lst:
         h_lst += [fe.lower()] if isinstance(fe, str) else fe
         cfgs = {
-            "train": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset\\training",
-            "test": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset\\testing",
-            "output_csv": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\output",
+            "dataset": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset",
+            "baseline_path": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\baseline",
+            "export_as_baseline": False,
+            "k_folds_cv": 5,
+            "iterations": 20,
             "nargs": "",
             "features": [],
-            "results": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\results",
+            "results": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\results",
             "methods": ["lr", "svc", "mlp", "rf", "mnb"],
-            "measure": ["accuracy_score"],
-            # "stylistic_features": fe if isinstance(fe, list) else [fe],
-            "stylistic_features": h_lst,
+            "measure": ["accuracy"],
+            "stylistic_features": fe if isinstance(fe, list) else [fe],
             "selection": {}
         }
 
@@ -265,6 +267,31 @@ def random_groups(output_path):
         i += 1
 
 
+def compere_corpus(anorexia100_path, normal100_path, corpus2_path):
+    full_corpus = open(corpus2_path + r"\testing\anorexia.txt", "r", encoding="utf8", errors='replace').read().replace(
+        '\n', '').replace(' ', '')
+    full_corpus += open(corpus2_path + r"\training\anorexia.txt", "r", encoding="utf8",
+                        errors='replace').read().replace(
+        '\n', '').replace(' ', '')
+    for file in os.listdir(anorexia100_path):
+        if file.endswith('.txt'):
+            with open(anorexia100_path + "\\" + file, "r", encoding="utf8", errors='replace') as f:
+                post = f.read().replace('\n', '').replace(' ', '')
+                if post not in full_corpus:
+                    print(file, "not in corpus")
+
+    full_corpus = open(corpus2_path + r"\testing\normal.txt", "r", encoding="utf8", errors='replace').read().replace(
+        '\n', '').replace(' ', '')
+    full_corpus += open(corpus2_path + r"\training\normal.txt", "r", encoding="utf8",
+                        errors='replace').read().replace(
+        '\n', '').replace(' ', '')
+    for file in os.listdir(normal100_path):
+        if file.endswith('.txt'):
+            with open(normal100_path + "\\" + file, "r", encoding="utf8", errors='replace') as f:
+                post = f.read().replace('\n', '').replace(' ', '')
+                if post not in full_corpus:
+                    print(file, "not in corpus")
+
+
 if __name__ == "__main__":
-    random_groups(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
-    # gen_cfgs_in_range(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
+    gen_cfgs_in_range(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")

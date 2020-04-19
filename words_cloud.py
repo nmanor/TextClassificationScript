@@ -19,7 +19,7 @@ def Random_color(*args, **kwargs):
 
 def generate_word_clouds(max_words=200):
     glbs = GlobalParameters()
-    training_path = glbs.TRAIN_DIR
+    training_path = glbs.DATASET_DIR
     testing_path = glbs.TEST_DIR
     result_path = glbs.RESULTS_PATH + r"\Words Clouds"
 

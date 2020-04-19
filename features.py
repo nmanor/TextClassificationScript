@@ -1,39 +1,24 @@
 import os
 import random
 
-import numpy as np
-
-from pickle import dump, load
 from sklearn.feature_extraction.text import (
-    CountVectorizer,
-    TfidfTransformer,
     TfidfVectorizer,
 )
-from scipy.sparse import hstack, vstack
-from sklearn.svm import LinearSVC
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neural_network import MLPClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.pipeline import FeatureUnion, Pipeline
-from sklearn.feature_selection import SelectFromModel
-
+from sklearn.pipeline import FeatureUnion
 
 # region helpful functions
-import system_config
 from global_parameters import print_message, GlobalParameters
 from skipgrams_vectorizer import SkipGramVectorizer
 from stylistic_features import get_stylistic_features_vectorizer
-
 
 glbs = GlobalParameters()
 
 
 def read_dataset(path):
     data = []
-    for category in os.listdir(path):
+    for category in sorted(os.listdir(path)):
         with open(
-            path + "\\" + category, "r+", encoding="utf8", errors="ignore"
+                path + "\\" + category, "r+", encoding="utf8", errors="ignore"
         ) as read:
             for example in read:
                 record = example.rstrip("\n")
@@ -129,12 +114,12 @@ def add_feature(feature_dict, feature_name, feature):
     return feature_dict
 
 
-def extract_features(train_dir, test_dir=""):
+def extract_features(dataset_dir):
     print_message("Extracting Features")
 
-    train_data, train_labels, test_data, test_labels = get_data(test_dir, train_dir)
-    glbs.LABELS = train_labels + test_labels
-    glbs.TRAIN_DATA = train_data
+    X, y = get_data(dataset_dir)
+    glbs.LABELS = y
+    glbs.DATASET_DATA = X
 
     feature_lst = []
     # add all the N-Grams feature to the list
@@ -150,25 +135,15 @@ def extract_features(train_dir, test_dir=""):
     # convert the list to one vectoriazer using FeatureUnion
 
     all_features = FeatureUnion(feature_lst)
-    train_features = all_features.fit_transform(train_data)
+    train_features = all_features.fit_transform(X)
     if glbs.PRINT_SELECTION:
         glbs.IDF = dict(all_features.transformer_list)[glbs.FEATURES[0]].idf_
 
-    test_features = all_features.transform(test_data)
-
-    return train_features, train_labels, test_features, test_labels, all_features
+    return train_features, y, all_features
 
 
-def get_data(test_dir, train_dir):
-    train_data = read_dataset(train_dir)
-    random.shuffle(train_data)
-    train_data, train_labels = zip(*train_data)
-    if glbs.TEST_DIR == "":
-        train_data, train_labels, test_data, test_labels = split_train(
-            system_config.TEST_SPLIT, train_labels, train_data
-        )
-    else:
-        test_data = read_dataset(test_dir)
-        random.shuffle(test_data)
-        test_data, test_labels = zip(*test_data)
-    return train_data, train_labels, test_data, test_labels
+def get_data(dataset_dir):
+    dataset_data = read_dataset(dataset_dir)
+    random.Random(4).shuffle(dataset_data)
+    X, y = zip(*dataset_data)
+    return X, y

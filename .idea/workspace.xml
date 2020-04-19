@@ -3,10 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="b334214f-f085-4185-b9cf-111af0088f3b" name="Default" comment="Displays the number of features in stylistic features as well">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classification.py" beforeDir="false" afterPath="$PROJECT_DIR$/classification.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features.py" beforeDir="false" afterPath="$PROJECT_DIR$/features.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global_parameters.py" beforeDir="false" afterPath="$PROJECT_DIR$/global_parameters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/help_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/help_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/new_xlsx_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_xlsx_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stopwords_and_lists.py" beforeDir="false" afterPath="$PROJECT_DIR$/stopwords_and_lists.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stylistic_features.py" beforeDir="false" afterPath="$PROJECT_DIR$/stylistic_features.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/normalization.py" beforeDir="false" afterPath="$PROJECT_DIR$/normalization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statistical_significance.py" beforeDir="false" afterPath="$PROJECT_DIR$/statistical_significance.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/words_cloud.py" beforeDir="false" afterPath="$PROJECT_DIR$/words_cloud.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,6 +32,9 @@
     <SUITE FILE_PATH="coverage/TCProg$classification.coverage" NAME="classification Coverage Results" MODIFIED="1534874710486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TCProg$config_generator.coverage" NAME="config_generator Coverage Results" MODIFIED="1532203620323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/config_files_creator" />
     <SUITE FILE_PATH="coverage/TCProg$main.coverage" NAME="main Coverage Results" MODIFIED="1536746757928" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="TextClassificationScript" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -56,9 +63,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/main.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -84,6 +92,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/config_files_creator/config_generator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="cross_validation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TCProg" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cross_validation.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -134,27 +163,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="new_xlsx_file" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="TCProg" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/new_xlsx_file.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="statistical_significance" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="TCProg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -178,9 +186,9 @@
     </configuration>
     <list>
       <item itemvalue="Python.config_generator" />
+      <item itemvalue="Python.cross_validation" />
       <item itemvalue="Python.help_functions" />
       <item itemvalue="Python.main" />
-      <item itemvalue="Python.new_xlsx_file" />
       <item itemvalue="Python.statistical_significance" />
     </list>
     <recent_temporary>
@@ -188,8 +196,8 @@
         <item itemvalue="Python.main" />
         <item itemvalue="Python.help_functions" />
         <item itemvalue="Python.statistical_significance" />
+        <item itemvalue="Python.cross_validation" />
         <item itemvalue="Python.config_generator" />
-        <item itemvalue="Python.new_xlsx_file" />
       </list>
     </recent_temporary>
   </component>
@@ -390,17 +398,14 @@
       <option name="presentableId" value="LOCAL‎00030" />
       <updated>1584444145753</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL‎00031" summary="Displays the number of features in stylistic features as well">
+      <created>1585757326006</created>
+      <option name="number" value="LOCAL‎00031" />
+      <option name="presentableId" value="LOCAL‎00031" />
+      <updated>1585757326007</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -437,70 +442,74 @@
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="440" y="10" key="CommitChangelistDialog2" timestamp="1584444144764">
+    <state x="440" y="10" key="CommitChangelistDialog2" timestamp="1585757325324">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="440" y="10" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584444144764" />
-    <state width="1534" height="440" key="DebuggerActiveHint" timestamp="1584440798256">
+    <state x="440" y="10" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585757325324" />
+    <state width="1534" height="440" key="DebuggerActiveHint" timestamp="1587119419593">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1534" height="440" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1584440798256" />
+    <state width="1534" height="440" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1587119419593" />
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585758415044">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1585758415044" />
     <state x="548" y="189" key="FileChooserDialogImpl" timestamp="1584295897025">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="189" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1584295897025" />
-    <state width="1515" height="268" key="GridCell.Tab.0.bottom" timestamp="1585739585211">
+    <state width="1515" height="315" key="GridCell.Tab.0.bottom" timestamp="1587125515911">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="268" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585739585211" />
-    <state width="1515" height="268" key="GridCell.Tab.0.center" timestamp="1585739585211">
+    <state width="1515" height="315" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587125515911" />
+    <state width="1515" height="315" key="GridCell.Tab.0.center" timestamp="1587125515911">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="268" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585739585211" />
-    <state width="1515" height="268" key="GridCell.Tab.0.left" timestamp="1585739585211">
+    <state width="1515" height="315" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587125515911" />
+    <state width="1515" height="315" key="GridCell.Tab.0.left" timestamp="1587125515911">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="268" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585739585211" />
-    <state width="1515" height="268" key="GridCell.Tab.0.right" timestamp="1585739585211">
+    <state width="1515" height="315" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587125515911" />
+    <state width="1515" height="315" key="GridCell.Tab.0.right" timestamp="1587125515911">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="268" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585739585211" />
-    <state width="1515" height="268" key="GridCell.Tab.1.bottom" timestamp="1585739585212">
+    <state width="1515" height="315" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587125515911" />
+    <state width="1515" height="315" key="GridCell.Tab.1.bottom" timestamp="1587125515912">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="268" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585739585212" />
-    <state width="1515" height="268" key="GridCell.Tab.1.center" timestamp="1585739585211">
+    <state width="1515" height="315" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587125515912" />
+    <state width="1515" height="315" key="GridCell.Tab.1.center" timestamp="1587125515912">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="268" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1585739585211" />
-    <state width="1515" height="268" key="GridCell.Tab.1.left" timestamp="1585739585211">
+    <state width="1515" height="315" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1587125515912" />
+    <state width="1515" height="315" key="GridCell.Tab.1.left" timestamp="1587125515912">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="268" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1585739585211" />
-    <state width="1515" height="268" key="GridCell.Tab.1.right" timestamp="1585739585211">
+    <state width="1515" height="315" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1587125515912" />
+    <state width="1515" height="315" key="GridCell.Tab.1.right" timestamp="1587125515912">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="268" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1585739585211" />
+    <state width="1515" height="315" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1587125515912" />
     <state x="279" y="57" key="SettingsEditor" timestamp="1584295957126">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="279" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1584295957126" />
-    <state x="361" y="148" key="Vcs.Push.Dialog.v2" timestamp="1584444147764">
+    <state x="361" y="148" key="Vcs.Push.Dialog.v2" timestamp="1585757327847">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="148" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1584444147764" />
-    <state width="775" height="419" key="XDebugger.FullValuePopup" timestamp="1584299908794">
+    <state x="361" y="148" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585757327847" />
+    <state width="775" height="419" key="XDebugger.FullValuePopup" timestamp="1587119419586">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="775" height="419" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1584299908794" />
-    <state x="477" y="239" key="com.intellij.ide.util.TipDialog" timestamp="1585757157515">
+    <state width="775" height="419" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1587119419586" />
+    <state x="477" y="239" key="com.intellij.ide.util.TipDialog" timestamp="1587286850336">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="477" y="239" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585757157515" />
-    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584102488537">
+    <state x="477" y="239" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1587286850336" />
+    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585758370427">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1584102488537" />
+    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1585758370427" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

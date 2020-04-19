@@ -15,13 +15,11 @@ class GlobalParameters(metaclass=Singleton):
         self.FILE_NAME = ""
         self.FEATURES = []
         self.NORMALIZATION = ""
-        self.OUTPUT_DIR = ""
         self.METHODS = ""
-        self.TRAIN_DIR = ""
-        self.TEST_DIR = ""
+        self.DATASET_DIR = ""
         self.NORM_PATH = ""
         self.RESULTS_PATH = ""
-        self.TRAIN_DATA = ["1"]
+        self.DATASET_DATA = ["1"]
         self.LABELS = []
         self.MEASURE = []
         self.STYLISTIC_FEATURES = []
@@ -30,6 +28,10 @@ class GlobalParameters(metaclass=Singleton):
         self.LANGUAGE = None
         self.PRINT_SELECTION = False
         self.IDF = []
+        self.K_FOLDS = 3
+        self.ITERATIONS = 1
+        self.BASELINE_PATH = ""
+        self.EXPORT_AS_BASELINE = False
 
 
 def print_message(msg, num_tabs=0):

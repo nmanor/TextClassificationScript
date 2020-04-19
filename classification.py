@@ -3,10 +3,8 @@
 # from keras.preprocessing import sequence
 # from keras.preprocessing.text import Tokenizer
 import os
-
 import pickle
 
-from array import array
 from keras import Sequential
 from keras.layers import (
     Embedding,
@@ -17,40 +15,24 @@ from keras.layers import (
     Dense,
     Dropout,
 )
-import matplotlib.pyplot as plt
-from keras_preprocessing.sequence import pad_sequences
-from sklearn.svm import LinearSVC
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import f1_score
-from sklearn.metrics import roc_curve
-from sklearn.metrics import roc_auc_score
-from sklearn.metrics import recall_score
 from sklearn.metrics import precision_score
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neural_network import MLPClassifier
-from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import recall_score
+from sklearn.metrics import roc_auc_score
+from sklearn.model_selection import cross_validate
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import LabelEncoder
-from tensorflow import one_hot
+from sklearn.svm import LinearSVC
 
 from confusion_matrix import accuracy_confusion_matrix
-from features import get_data
 from global_parameters import print_message, GlobalParameters
-from help_functions import write_result
 from precision_recall_curve import precision_recall
 from roc_curve import roc_curve_data
-from sklearn.feature_selection import (
-    chi2,
-    mutual_info_classif,
-    f_classif,
-    RFECV,
-    mutual_info_regression,
-    SelectKBest,
-)
-from sklearn.model_selection import StratifiedKFold
-from sklearn.preprocessing import LabelEncoder
-from new_xlsx_file import write_info_gain
 
 glbs = GlobalParameters()
 
@@ -64,7 +46,6 @@ methods = {
 
 
 def get_results(ts_labels, prediction, decision):
-    # ( "multilabel_confusion_matrix",   multilabel_confusion_matrix(ts_labels, prediction)),
     measures = {
         "accuracy_score": accuracy_score(ts_labels, prediction),
         "f1_score": f1_score(ts_labels, prediction),
@@ -82,45 +63,34 @@ def get_results(ts_labels, prediction, decision):
     # return stats
 
 
-def classify(train, tr_labels, test, ts_labels, all_features, num_iteration=1):
+def classify(X, y, k_fold, num_iteration=1):
     results = {}
-    result = []
     le = LabelEncoder()
-    le.fit(tr_labels)
-    ts_labels = le.transform(ts_labels)
-    tr_labels = le.transform(tr_labels)
+    le.fit(y)
+    y = le.transform(y)
     print_message("Classifying")
 
-    # if os.path.exists(temp_file_path):
-    #  results = load_backup_file(temp_file_path)
     for classifier in glbs.METHODS:
         print_message("running " + str(classifier), num_tabs=1)
-        if classifier in results.keys():
-            continue
+        if classifier not in results.keys():
+            results[classifier] = {}
 
         if classifier == "rnn":
-            clf = get_rnn_model(train)
-            clf.fit(train, tr_labels, epochs=3, batch_size=64)
-        # scores = clf.evaluate(test, ts_labels, verbose=0)
-        # acc_score += scores[1]
+            # clf = get_rnn_model(X)
+            continue
         else:
             clf = methods[classifier]
-            clf.fit(train, tr_labels)
-            prediction = clf.predict(test)
-            decision = []
-            try:
-                decision = clf.decision_function(test)
-            except:
-                decision = clf.predict_proba(test)
-                decision = decision[:, 1]
 
-            result = get_results(ts_labels, prediction, decision)
+        for i in range(num_iteration):
+            print_message("iteration " + str(i + 1) + "\\" + str(num_iteration), 2)
+            scores = cross_validate(clf, X, y, cv=k_fold, scoring=glbs.MEASURE)
+            for measure in glbs.MEASURE:
+                if measure in results[classifier].keys():
+                    results[classifier][measure] += list(scores['test_' + measure])
+                else:
+                    results[classifier][measure] = list(scores['test_' + measure])
 
         del clf
-
-        results[classifier] = result
-        # save_backup_file(results, temp_file_path)
-    # print(results)
     return results
 
 

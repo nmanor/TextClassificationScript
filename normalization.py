@@ -1,19 +1,17 @@
 import json
 import os
-
 import re
 import shutil
 import string
 
+from autocorrect import spell
 from nltk import WordNetLemmatizer, SnowballStemmer
 
-from global_parameters import print_message,GlobalParameters
-from stopwords_and_lists import stopwords
+from global_parameters import print_message, GlobalParameters
 from stopwords_and_lists import hebrew_stopwords
 from stopwords_and_lists import hebrew_stopwords_ex
-from autocorrect import spell
+from stopwords_and_lists import stopwords
 from system_config import DICTIONARY_PATH
-
 
 glbs = GlobalParameters()
 
@@ -32,7 +30,6 @@ class Dictionary:
 
 
 # region helpful function
-import global_parameters
 
 
 def is_nargs_empty(nargs):
@@ -300,9 +297,9 @@ def normal(word, nargs):
 def normalize(test=False):
 	init_tools()
 	n = glbs.NORMALIZATION
-	if not test:
-		i = glbs.TRAIN_DIR
-		print_message("Normalizing")
+    if not test:
+        i = glbs.DATASET_DIR
+        print_message("Normalizing")
 	else:
 		i = glbs.TEST_DIR
 		print_message("Normalizing test dataset")

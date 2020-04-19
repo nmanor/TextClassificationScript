@@ -1,12 +1,13 @@
+import datetime
 import json
 import os
 import shutil
 import traceback
 
 import nltk
+import numpy as np
 
 from classification import classify
-from feature_selction import get_selected_features
 from features import extract_features
 from global_parameters import GlobalParameters, print_message
 from normalization import normalize
@@ -22,19 +23,21 @@ def set_global_parameters(configs):
     glbls.FILE_NAME = configs[0]
     glbls.FEATURES = config["features"]
     glbls.NORMALIZATION = "".join(sorted(config["nargs"].upper()))
-    glbls.OUTPUT_DIR = config["output_csv"]
     glbls.METHODS = config["methods"]
-    glbls.TRAIN_DIR = config["train"]
-    glbls.TEST_DIR = config["test"]
+    glbls.DATASET_DIR = config["dataset"]
     glbls.RESULTS_PATH = config["results"]
     glbls.MEASURE = config["measure"]
     glbls.STYLISTIC_FEATURES = config["stylistic_features"]
     glbls.SELECTION = config["selection"].items()
+    glbls.K_FOLDS = config["k_folds_cv"]
+    glbls.ITERATIONS = config["iterations"]
+    glbls.BASELINE_PATH = config["baseline_path"]
+    glbls.EXPORT_AS_BASELINE = config["export_as_baseline"]
     try:
         if 'language' in config:
             glbls.LANGUAGE = config['language']
         else:
-            path = config["train"] + "\\" + os.listdir(config["train"])[0]
+            path = config["dataset"] + "\\" + os.listdir(config["dataset"])[0]
             glbls.LANGUAGE = text_language(open(path, "r", encoding="utf8", errors='replace').read())
     except:
         glbls.LANGUAGE = "english"
@@ -45,57 +48,49 @@ def print_run_details():
     print(
         """
 	---------------------------------------
-	Training path: {}
-	Testing Path: {}
+	Dataset path: {}
 	Features: {}
 	Stylistic Features: {}
 	Normalization: {}
 	Methods: {}
 	Measure: {}
-	Output Path: {}
+	Export as baseline: {}
 	Results Path: {}
 	---------------------------------------
 	""".format(
-            glbs.TRAIN_DIR,
-            glbs.TEST_DIR,
+            glbs.DATASET_DIR,
             glbs.FEATURES,
             glbs.STYLISTIC_FEATURES,
             glbs.NORMALIZATION,
             glbs.METHODS,
             glbs.MEASURE,
-            glbs.OUTPUT_DIR,
+            glbs.EXPORT_AS_BASELINE,
             glbs.RESULTS_PATH,
         )
     )
 
 
-def add_results(old_results):
-    glbs = GlobalParameters()
+def add_results(old_results, glbs):
     temp = {}
     temp["results"] = old_results[glbs.FILE_NAME]
     temp["featurs"] = glbs.FEATURES
     temp["normalization"] = glbs.NORMALIZATION
     temp["stylistic_features"] = glbs.STYLISTIC_FEATURES
+    temp["k_folds"] = glbs.K_FOLDS
+    temp["iterations"] = glbs.ITERATIONS
+    temp["baseline_path"] = glbs.BASELINE_PATH
     old_results[glbs.FILE_NAME] = temp
     return old_results
 
 
 def divide_results(result):
-    new_result = {
-        "accuracy_score": {},
-        "f1_score": {},
-        "precision_score": {},
-        "recall_score": {},
-        "roc_auc_score": {},
-        "confusion_matrix": {},
-        "roc_curve": {},
-        "precision_recall_curve": {},
-        "accuracy_&_confusion_matrix": {},
-    }
+    new_result = {}
 
     for config_name, dic in result.items():
         for method, score in dic["results"].items():
             for measure, value in score.items():
+                if measure not in new_result.keys():
+                    new_result[measure] = {}
                 new_result[measure][config_name] = {}
                 new_result[measure][config_name]["results"] = {}
 
@@ -105,9 +100,10 @@ def divide_results(result):
                 new_result[measure][config_name]["results"][method] = value
                 new_result[measure][config_name]["featurs"] = dic["featurs"]
                 new_result[measure][config_name]["normalization"] = dic["normalization"]
-                new_result[measure][config_name]["stylistic_features"] = dic[
-                    "stylistic_features"
-                ]
+                new_result[measure][config_name]["stylistic_features"] = dic["stylistic_features"]
+                new_result[measure][config_name]["k_folds"] = dic["k_folds"]
+                new_result[measure][config_name]["iterations"] = dic["iterations"]
+                new_result[measure][config_name]["baseline_path"] = dic["baseline_path"]
 
     return_results = {}
     for measure, data in new_result.items():
@@ -117,47 +113,72 @@ def divide_results(result):
     return return_results
 
 
+def export_as_baseline(result, config):
+    name = "Baseline " + datetime.datetime.now().strftime("%d.%m.%Y") + " -"
+    for feature in config["features"]:
+        name += " " + feature
+    for feature in config["stylistic_features"]:
+        name += " " + feature
+
+    main_measure = config["measure"][0]
+    best_method = list(result.keys())[0]
+    best_score = result[best_method]
+
+    for method in result:
+        mean = np.mean(result[method][main_measure])
+        if np.mean(best_score[main_measure]) < mean:
+            best_score = result[method]
+            best_method = method
+
+    baseline = {
+        "run_date": datetime.datetime.now().strftime("%d.%m.%Y %H:%M"),
+        "best_method": best_method,
+        "best_score": best_score,
+        "all_scores": result,
+        "original_config": config
+    }
+
+    if config["baseline_path"].endswith(".json"):
+        config["baseline_path"] = '\\'.join(config["baseline_path"].split('\\')[:-1])
+
+    with open(config["baseline_path"] + "\\" + name + ".json", "w") as file:
+        json.dump(baseline, file, indent=6)
+
+
 def main(cfg):
     try:
         nltk.download('vader_lexicon')
         glbs = GlobalParameters()
         configs = get_cfg_files(cfg)
         results = {}
-        n_test_dir = ""
         total_files = len(configs)
         for i, config in enumerate(configs):
             print_message("Running config {}/{}".format(i + 1, total_files))
             set_global_parameters(config)
             print_run_details()
-            n_train_dir = normalize()
-            if glbs.TEST_DIR != "":
-                n_test_dir = normalize(test=True)
-            train, tr_labels, test, ts_labels, all_features = extract_features(
-                n_train_dir, n_test_dir
-            )
-            for selection in glbs.SELECTION:
+            dataset_dir = normalize()
+            X, y, all_features = extract_features(dataset_dir)
+            """for selection in glbs.SELECTION:
                 try:
-                    train, test = get_selected_features(
-                        selection, train, tr_labels, test, ts_labels, all_features
+                    X, test = get_selected_features(
+                        selection, X, y, test, ts_labels, all_features
                     )
                 except:
-                    pass
-            results[glbs.FILE_NAME] = classify(
-                train, tr_labels, test, ts_labels, all_features
-            )
-            results = add_results(results)
+                    pass"""
+            config_result = classify(X, y, glbs.K_FOLDS, glbs.ITERATIONS)
+            results[glbs.FILE_NAME] = config_result
+            results = add_results(results, glbs)
+            if glbs.EXPORT_AS_BASELINE:
+                export_as_baseline(config_result, config[1])
         if glbs.WORDCLOUD:
             print_message("Generating word clouds (long processes)")
             generate_word_clouds()
         write_results(divide_results(results))
-        send_work_done(glbs.TRAIN_DIR)
+        send_work_done(glbs.DATASET_DIR)
         print_message("Done!")
-        # clean_backup_files()
     except Exception as e:
         traceback.print_exc()
-        send_work_done(
-            glbs.TRAIN_DIR, "", error=str(e), traceback=str(traceback.format_exc())
-        )
+        send_work_done(glbs.DATASET_DIR, "", error=str(e), traceback=str(traceback.format_exc()))
 
 
 def get_cfg_files(dir):
@@ -181,4 +202,3 @@ if __name__ == "__main__":
     if not os.path.exists(cfg_dir):
         cfg_dir = r"C:\Users\natan\OneDrive\מסמכים\test\cfgs"
     main(cfg_dir)
-
