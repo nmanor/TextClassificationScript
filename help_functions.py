@@ -1,3 +1,4 @@
+import itertools
 import json
 import os
 import re
@@ -224,23 +225,11 @@ def gen_cfgs_in_range(output_path):
 
 
 def random_groups(output_path):
-    # HE
-    # lst = ["fdf", "e50th", "e50tth", "huf", "mef", "anf", "aof", "ftf"]
-
-    # EN
-    lst = ["fdf", "inf", "vof", "e50te", "caf", "e50tte", "tpe", "ftf", "cuf", "fpe", "te", "xte",
-           ["wc", "cc", "sc", "alw", "als", "aws", "awl"], ["ww", "owc", "twc", "ttc"]]
-
     se = []
 
-    lst = ["pnf", "ftf", "fdf", "frc", "aof", "anf", "xte"]
-    lst = ["ftf", "fdf", "mef", "frc", "anf"]
-    x = len(lst)
-    for i in range(1 << x):
-        temp = [lst[j] for j in range(x) if (i & (1 << j))]
-        if len(temp) > 1:
-            se += [temp]
-    print(len(se))
+    lst = ['e50th', 'fdf', 'anf', 'huf', 'ftf', 'aof', 'vof', 'mef', 'caf', 'def',
+           ['wc', 'cc', 'sc', 'alw', 'als', 'aws', 'awl'], 'frc', 'vuf']
+    x = list(itertools.combinations(lst, 12))
 
     i = 1
     for fe in se:
@@ -294,4 +283,4 @@ def compere_corpus(anorexia100_path, normal100_path, corpus2_path):
 
 
 if __name__ == "__main__":
-    gen_cfgs_in_range(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
+    random_groups(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")

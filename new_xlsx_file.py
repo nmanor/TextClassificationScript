@@ -222,6 +222,9 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     for key in sorted(pickle_file_content):
         value = pickle_file_content[key]
 
+        # Gather all the results
+        all_averages = []
+
         # N-Grams data
         cell_format = workbook.add_format()
         cell_format.set_text_wrap()
@@ -251,15 +254,16 @@ def new_write_file_content(pickle_file_path, measure, results_path):
         stylistic_features = ""
         num_of_features = 0
         stylistic_features_dict = initialize_features_dict()
-        for styl_feature in value["stylistic_features"]:
-            stylistic_features += styl_feature.upper() + "  "
-            num_of_features += 1
-            if isinstance(stylistic_features_dict[styl_feature], list):
-                num_of_features += len(stylistic_features_dict[styl_feature]) - 1
-                if len(get_stylistic_features_vectorizer(styl_feature)) > 1:
-                    num_of_features += 1
-        worksheet.write(row, 5, stylistic_features[:-2], cell_format)
-        worksheet.write_number(row, 0, num_of_features, cell_format)
+        if value["stylistic_features"]:
+            for styl_feature in value["stylistic_features"]:
+                stylistic_features += styl_feature.upper() + "  "
+                num_of_features += 1
+                if isinstance(stylistic_features_dict[styl_feature], list):
+                    num_of_features += len(stylistic_features_dict[styl_feature]) - 1
+                    if len(get_stylistic_features_vectorizer(styl_feature)) > 1:
+                        num_of_features += 1
+            worksheet.write(row, 5, stylistic_features[:-2], cell_format)
+            worksheet.write_number(row, 0, num_of_features, cell_format)
 
         # Pre Processing and Stop Words data
         cell_format = workbook.add_format()
@@ -320,6 +324,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
             if isinstance(result, list):
                 sign = differences_significance(value["baseline_path"], result, measure, value["k_folds"])
                 val = str(float("{0:.4g}".format(avg(result) * 100))) + " " + sign
+                all_averages += [float("{0:.4g}".format(avg(result) * 100))]
             else:
                 val = result
 
@@ -328,13 +333,9 @@ def new_write_file_content(pickle_file_path, measure, results_path):
             # Check if val bigger then max
             best, maxes = find_maxes_best(best, maxes, method, methods, row, val)
 
+        # write the max result of each classification
+        worksheet.write_number("Q" + str(row + 1), max(all_averages), cell_format)
         row += 1
-
-    # write the max result of each classification
-    for i in range(40, row + 1):
-        worksheet.write_formula(
-            "Q" + str(i), "=_xlfn.MAX(I" + str(i) + ":N" + str(i) + ")", cell_format
-        )
 
     worksheet.write("A19", "Colors", bold_gray)
     good = workbook.add_format({"bold": True, "font_color": "blue"})

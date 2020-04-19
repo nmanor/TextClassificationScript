@@ -296,20 +296,20 @@ def normal(word, nargs):
 
 def normalize(test=False):
 	init_tools()
-	n = glbs.NORMALIZATION
+    n = glbs.NORMALIZATION
     if not test:
         i = glbs.DATASET_DIR
         print_message("Normalizing")
-	else:
-		i = glbs.TEST_DIR
-		print_message("Normalizing test dataset")
-	if not is_nargs_empty(n):
-		# the normalized folder
-		parent_dir = i + "@" + n
-		# create the dir if does not exist
-		if not os.path.exists(parent_dir):
-			os.mkdir(parent_dir)
-			for category in os.listdir(i):
+    else:
+        i = glbs.TEST_DIR
+        print_message("Normalizing test dataset")
+    if not is_nargs_empty(n):
+        # the normalized folder
+        parent_dir = i + "@" + n
+        # create the dir if does not exist
+        if not os.path.exists(parent_dir):
+            os.mkdir(parent_dir)
+            for category in os.listdir(i):
 				with open(i + "\\" + category, 'r', encoding='utf8', errors='ignore') as read:
 					n_lines = []
 					for line in read:
