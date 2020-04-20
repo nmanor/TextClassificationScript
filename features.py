@@ -1,15 +1,14 @@
 import os
 import random
 
-from sklearn.feature_extraction.text import (
-    TfidfVectorizer,
-)
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import FeatureUnion
 
 # region helpful functions
 from global_parameters import print_message, GlobalParameters
 from skipgrams_vectorizer import SkipGramVectorizer
 from stylistic_features import get_stylistic_features_vectorizer
+from feature_selction import get_selected_features
 
 glbs = GlobalParameters()
 
@@ -18,7 +17,7 @@ def read_dataset(path):
     data = []
     for category in sorted(os.listdir(path)):
         with open(
-                path + "\\" + category, "r+", encoding="utf8", errors="ignore"
+            path + "\\" + category, "r+", encoding="utf8", errors="ignore"
         ) as read:
             for example in read:
                 record = example.rstrip("\n")
@@ -69,7 +68,6 @@ def get_vectorizer(feature):
             lowercase=False,
             use_idf=tfidf,
         )
-   
 
     # TODO: לבדוק איך משלבים את 2 הוקטורים ביחד
     else:
@@ -136,10 +134,11 @@ def extract_features(dataset_dir):
 
     all_features = FeatureUnion(feature_lst)
     train_features = all_features.fit_transform(X)
-    if glbs.PRINT_SELECTION:
-        glbs.IDF = dict(all_features.transformer_list)[glbs.FEATURES[0]].idf_
 
-    return train_features, y, all_features
+    if glbs.SELECTION != []:
+        train_features = get_selected_features(train_features, y, all_features)
+
+    return train_features, y
 
 
 def get_data(dataset_dir):

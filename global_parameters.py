@@ -27,6 +27,7 @@ class GlobalParameters(metaclass=Singleton):
         self.WORDCLOUD = False
         self.LANGUAGE = None
         self.PRINT_SELECTION = False
+        self.RESULTS = {}
         self.IDF = []
         self.K_FOLDS = 3
         self.ITERATIONS = 1

@@ -34,11 +34,13 @@ def set_global_parameters(configs):
     glbls.BASELINE_PATH = config["baseline_path"]
     glbls.EXPORT_AS_BASELINE = config["export_as_baseline"]
     try:
-        if 'language' in config:
-            glbls.LANGUAGE = config['language']
+        if "language" in config:
+            glbls.LANGUAGE = config["language"]
         else:
             path = config["dataset"] + "\\" + os.listdir(config["dataset"])[0]
-            glbls.LANGUAGE = text_language(open(path, "r", encoding="utf8", errors='replace').read())
+            glbls.LANGUAGE = text_language(
+                open(path, "r", encoding="utf8", errors="replace").read()
+            )
     except:
         glbls.LANGUAGE = "english"
 
@@ -100,7 +102,9 @@ def divide_results(result):
                 new_result[measure][config_name]["results"][method] = value
                 new_result[measure][config_name]["featurs"] = dic["featurs"]
                 new_result[measure][config_name]["normalization"] = dic["normalization"]
-                new_result[measure][config_name]["stylistic_features"] = dic["stylistic_features"]
+                new_result[measure][config_name]["stylistic_features"] = dic[
+                    "stylistic_features"
+                ]
                 new_result[measure][config_name]["k_folds"] = dic["k_folds"]
                 new_result[measure][config_name]["iterations"] = dic["iterations"]
                 new_result[measure][config_name]["baseline_path"] = dic["baseline_path"]
@@ -135,11 +139,11 @@ def export_as_baseline(result, config):
         "best_method": best_method,
         "best_score": best_score,
         "all_scores": result,
-        "original_config": config
+        "original_config": config,
     }
 
     if config["baseline_path"].endswith(".json"):
-        config["baseline_path"] = '\\'.join(config["baseline_path"].split('\\')[:-1])
+        config["baseline_path"] = "\\".join(config["baseline_path"].split("\\")[:-1])
 
     with open(config["baseline_path"] + "\\" + name + ".json", "w") as file:
         json.dump(baseline, file, indent=6)
@@ -147,38 +151,32 @@ def export_as_baseline(result, config):
 
 def main(cfg):
     try:
-        nltk.download('vader_lexicon')
+        nltk.download("vader_lexicon")
         glbs = GlobalParameters()
         configs = get_cfg_files(cfg)
-        results = {}
         total_files = len(configs)
         for i, config in enumerate(configs):
             print_message("Running config {}/{}".format(i + 1, total_files))
             set_global_parameters(config)
             print_run_details()
             dataset_dir = normalize()
-            X, y, all_features = extract_features(dataset_dir)
-            """for selection in glbs.SELECTION:
-                try:
-                    X, test = get_selected_features(
-                        selection, X, y, test, ts_labels, all_features
-                    )
-                except:
-                    pass"""
+            X, y = extract_features(dataset_dir)
             config_result = classify(X, y, glbs.K_FOLDS, glbs.ITERATIONS)
-            results[glbs.FILE_NAME] = config_result
-            results = add_results(results, glbs)
+            glbs.RESULTS[glbs.FILE_NAME] = config_result
+            glbs.RESULTS = add_results(glbs.RESULTS, glbs)
             if glbs.EXPORT_AS_BASELINE:
                 export_as_baseline(config_result, config[1])
         if glbs.WORDCLOUD:
             print_message("Generating word clouds (long processes)")
             generate_word_clouds()
-        write_results(divide_results(results))
+        write_results(divide_results(glbs.RESULTS))
         send_work_done(glbs.DATASET_DIR)
         print_message("Done!")
     except Exception as e:
         traceback.print_exc()
-        send_work_done(glbs.DATASET_DIR, "", error=str(e), traceback=str(traceback.format_exc()))
+        send_work_done(
+            glbs.DATASET_DIR, "", error=str(e), traceback=str(traceback.format_exc())
+        )
 
 
 def get_cfg_files(dir):

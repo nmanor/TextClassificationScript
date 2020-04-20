@@ -47,6 +47,8 @@ from sklearn.feature_selection import (
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import LabelEncoder
 from new_xlsx_file import write_info_gain, write_sfm
+from classification import classify
+from main import add_results
 
 glbs = GlobalParameters()
 
@@ -67,8 +69,8 @@ selection_type = {
 }
 
 
-def get_selection_list(selection, features, labels):
-    return selection_type[selection](features, labels)
+def get_selection_list(selection, X, y):
+    return selection_type[selection](X, y)
 
 
 def select_k_best(selection, k):
@@ -113,31 +115,62 @@ def select_rfecv_sfm(selection, features, labels):
         write_sfm(score)
 
 
-def get_selected_features(selection, train, tr_labels, test, ts_labels, all_features):
+def selectionHalfMethod(X, y, all_features):
+    glbs = GlobalParameters()
+    last = (0, 0)
+    nxt = glbs.SELECTION
+    max_last_result = 0
+    max_nxt_result = 0
+    while last != nxt:
+        glbs.FILE_NAME = glbs.FILE_NAME + str(nxt[1])
+        glbs.RESULTS[glbs.FILE_NAME] = classify(X, y, glbs.K_FOLDS, glbs.ITERATIONS)
+        rst = glbs.RESULTS[glbs.FILE_NAME]
+        for method in rst.items():
+            if method[1]["accuracy_score"] > max_nxt_result:
+                max_nxt_result = method[1]["accuracy_score"]
+        glbs.RESULTS = add_results(glbs.RESULTS, glbs)
+        tmp = last
+        last = nxt
+        if max_nxt_result >= max_last_result:
+            nxt = (last[0], int((int(last[1]) + int(tmp[1])) / 2))
+        elif max_nxt_result < max_last_result:
+            nxt = (last[0], int(int(last[1]) / 2) + int(tmp[1]))
+        print(max_last_result)
+        print(max_nxt_result)
+        print(last)
+        print(nxt)
+        max_last_result = max_nxt_result
+
+
+def get_selected_features(X, y, all_features):
     le = LabelEncoder()
-    le.fit(tr_labels)
-    ts_labels = le.transform(ts_labels)
-    tr_labels = le.transform(tr_labels)
-    if glbs.PRINT_SELECTION:
-        selection_list = get_selection_list(selection[0], train, tr_labels)
-        ziped = []
-        try:
-            ziped = zip(
-                all_features.get_feature_names(), selection_list[0], selection_list[1]
-            )
-        except:
-            ziped = zip(all_features.get_feature_names(), selection_list)
-        write_info_gain(ziped, str(selection[0]))
-        return train, test
-    if selection[0] in selection_type.keys():
-        if selection[0] == "rfecv":
-            features = vstack((train, test))
-            select_rfecv_sfm(selection, features, glbs.LABELS)
-        elif selection[0] == "sfm":
-            select_rfecv_sfm(selection, (train, test), (tr_labels, ts_labels))
-        else:
+    le.fit(y)
+    y = le.transform(y)
+    for selection in glbs.SELECTION:
+        if glbs.PRINT_SELECTION:
+            selection_list = get_selection_list(selection[0], X, y)
+            ziped = []
+            try:
+                ziped = zip(
+                    all_features.get_feature_names(),
+                    selection_list[0],
+                    selection_list[1],
+                )
+            except:
+                ziped = zip(all_features.get_feature_names(), selection_list)
+            write_info_gain(ziped, str(selection[0]))
+            return X
+        if selection[0] in selection_type.keys():
+            # if selection[0] == "rfecv":
+            #   features = vstack((train, test))
+            #   select_rfecv_sfm(selection, features, glbs.LABELS)
+            # elif selection[0] == "sfm":
+            #    select_rfecv_sfm(selection, (train, test), (tr_labels, ts_labels))
+            # else:
             select = select_k_best(selection[0], int(selection[1]))
-            return select.fit_transform(train, tr_labels), select.transform(test)
+            if glbs.SELECTION_HALF:
+                selectionHalfMethod(select.fit_transform(X), y, all_features)
+            return select.fit_transform(X)
 
     # write_info_gain(zip(feat_labels, recursive.ranking_), "rfevc " + key)
     # feat_labels = features.get_feature_names()
