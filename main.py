@@ -196,7 +196,7 @@ def clean_backup_files():
 
 
 if __name__ == "__main__":
-    cfg_dir = r"C:\Users\Mickey\Documents\kerner\textclassificationscript\cfgs"
+    cfg_dir = r"C:\Users\Mickey\Documents\kerner\data\cfgs"
     if not os.path.exists(cfg_dir):
         cfg_dir = r"C:\Users\natan\OneDrive\מסמכים\test\cfgs"
     main(cfg_dir)

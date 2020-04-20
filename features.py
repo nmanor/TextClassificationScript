@@ -8,7 +8,7 @@ from sklearn.pipeline import FeatureUnion
 from global_parameters import print_message, GlobalParameters
 from skipgrams_vectorizer import SkipGramVectorizer
 from stylistic_features import get_stylistic_features_vectorizer
-from feature_selction import get_selected_features
+
 
 glbs = GlobalParameters()
 
@@ -136,6 +136,8 @@ def extract_features(dataset_dir):
     train_features = all_features.fit_transform(X)
 
     if glbs.SELECTION != []:
+        from feature_selction import get_selected_features
+
         train_features = get_selected_features(train_features, y, all_features)
 
     return train_features, y

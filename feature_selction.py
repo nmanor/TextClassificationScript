@@ -30,7 +30,6 @@ from sklearn.preprocessing import LabelEncoder
 from tensorflow import one_hot
 
 from confusion_matrix import accuracy_confusion_matrix
-from features import get_data
 from global_parameters import print_message, GlobalParameters
 from help_functions import write_result
 from precision_recall_curve import precision_recall
@@ -169,8 +168,8 @@ def get_selected_features(X, y, all_features):
             # else:
             select = select_k_best(selection[0], int(selection[1]))
             if glbs.SELECTION_HALF:
-                selectionHalfMethod(select.fit_transform(X), y, all_features)
-            return select.fit_transform(X)
+                selectionHalfMethod(select.fit_transform(X, y), y, all_features)
+            return select.fit_transform(X, y)
 
     # write_info_gain(zip(feat_labels, recursive.ranking_), "rfevc " + key)
     # feat_labels = features.get_feature_names()
