@@ -225,27 +225,29 @@ def gen_cfgs_in_range(output_path):
 
 
 def random_groups(output_path):
-    se = []
-
-    lst = ['e50th', 'fdf', 'anf', 'huf', 'ftf', 'aof', 'vof', 'mef', 'caf', 'def',
-           ['wc', 'cc', 'sc', 'alw', 'als', 'aws', 'awl'], 'frc', 'vuf']
-    x = list(itertools.combinations(lst, 12))
+    lst = ['fdf', 'aof', 'vof', ['wc', 'cc', 'sc', 'alw', 'als', 'aws', 'awl'], 'frc', 'anf', 'mef', 'vuf']
+    multy_lst = []
+    for i in range(6, 8):
+        multy_lst += list(itertools.combinations(lst, i))
 
     i = 1
-    for fe in se:
-        x1 = []
-        for x2 in fe:
-            x1 += x2 if isinstance(x2, list) else [x2]
+    for l in multy_lst:
+        flat_lst = []
+        for feature in l:
+            flat_lst += [feature] if isinstance(feature, str) else feature
+
         cfgs = {
-            "train": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset\\training",
-            "test": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset\\testing",
-            "output_csv": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\output",
+            "dataset": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset",
+            "baseline_path": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\baseline",
+            "export_as_baseline": False,
+            "k_folds_cv": 5,
+            "iterations": 20,
             "nargs": "",
             "features": [],
-            "results": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\results",
+            "results": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\results",
             "methods": ["lr", "svc", "mlp", "rf", "mnb"],
-            "measure": ["accuracy_score"],
-            "stylistic_features": x1,
+            "measure": ["accuracy"],
+            "stylistic_features": flat_lst,
             "selection": {}
         }
 

@@ -82,7 +82,7 @@ def classify(X, y, k_fold, num_iteration=1):
             clf = methods[classifier]
 
         for i in range(num_iteration):
-            print_message("iteration " + str(i + 1) + "\\" + str(num_iteration), 2)
+            print_message("iteration " + str(i + 1) + "/" + str(num_iteration), 2)
             scores = cross_validate(clf, X, y, cv=k_fold, scoring=glbs.MEASURE)
             for measure in glbs.MEASURE:
                 if measure in results[classifier].keys():
