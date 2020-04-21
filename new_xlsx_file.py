@@ -12,7 +12,11 @@ from global_parameters import GlobalParameters
 from precision_recall_curve import plot_precision_recall_curve
 from roc_curve import plot_roc_curve
 from statistical_significance import differences_significance
-from stylistic_features import text_language, initialize_features_dict, get_stylistic_features_vectorizer
+from stylistic_features import (
+    text_language,
+    initialize_features_dict,
+    get_stylistic_features_vectorizer,
+)
 
 glbs = GlobalParameters()
 
@@ -196,7 +200,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     kind = {"w": "Words", "c": "Chars"}
     ngrams = {"1": "Unigrams", "2": "Bigrams", "3": "Trigrams"}
     tf = {"tf": "TF", "tfidf": "TF-IDF"}
-    methods = {"svc": 10, "rf": 11, "mlp": 12, "lr": 13, "mnb": 14, "rnn": 15}
+    methods = {"svc": 12, "rf": 13, "mlp": 14, "lr": 15, "mnb": 16, "rnn": 17}
 
     if measure == "accuracy_&_confusion_matrix":
         maxes = {
@@ -262,6 +266,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                     num_of_features += len(stylistic_features_dict[styl_feature]) - 1
                     if len(get_stylistic_features_vectorizer(styl_feature)) > 1:
                         num_of_features += 1
+
             worksheet.write(row, 5, stylistic_features[:-2], cell_format)
             worksheet.write_number(row, 0, num_of_features, cell_format)
 
@@ -280,10 +285,12 @@ def new_write_file_content(pickle_file_path, measure, results_path):
             normalization = "NONE"
         if stopwords == "":
             stopwords = "NONE"
-        worksheet.write(row, 6, normalization, cell_format)
-        worksheet.write(row, 7, stopwords, cell_format)
-        worksheet.write(row, 8, value["k_folds"], cell_format)
-        worksheet.write(row, 9, value["iterations"], cell_format)
+        worksheet.write(row, 6, value["selection"][0][0], cell_format)
+        worksheet.write(row, 7, str(value["selection"][0][1]), cell_format)
+        worksheet.write(row, 8, normalization, cell_format)
+        worksheet.write(row, 9, stopwords, cell_format)
+        worksheet.write(row, 10, value["k_folds"], cell_format)
+        worksheet.write(row, 11, value["iterations"], cell_format)
 
         # ML methods and result data
         for method, result in value["results"].items():
@@ -322,7 +329,9 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                 continue
 
             if isinstance(result, list):
-                sign = differences_significance(value["baseline_path"], result, measure, value["k_folds"])
+                sign = differences_significance(
+                    value["baseline_path"], result, measure, value["k_folds"]
+                )
                 val = str(float("{0:.4g}".format(avg(result) * 100))) + " " + sign
                 all_averages += [float("{0:.4g}".format(avg(result) * 100))]
             else:
@@ -334,7 +343,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
             best, maxes = find_maxes_best(best, maxes, method, methods, row, val)
 
         # write the max result of each classification
-        worksheet.write_number("Q" + str(row + 1), max(all_averages), cell_format)
+        worksheet.write_number("S" + str(row + 1), max(all_averages), cell_format)
         row += 1
 
     worksheet.write("A19", "Colors", bold_gray)
@@ -389,7 +398,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     bold = workbook.add_format({"bold": True})
     worksheet.write("A39", "Results", bold)
     worksheet.add_table(
-        "A40:Q" + str(row),
+        "A40:S" + str(row),
         {
             "columns": [
                 {"header": "Number"},
@@ -398,6 +407,8 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                 {"header": "TF"},
                 {"header": "Skips"},
                 {"header": "Stylistic Features"},
+                {"header": "Selection"},
+                {"header": "Number Selected"},
                 {"header": "Pre Processing"},
                 {"header": "Stop Words"},
                 {"header": "K-Folds CV"},
@@ -430,9 +441,9 @@ def find_maxes_best(best, maxes, method, methods, row, val):
     if isinstance(val, dict):
         return find_maxes_best_(best, maxes, method, methods, row, val)
     new = [row, methods[method], val]
-    new_val = float(str(val).replace(' V', '').replace(' *', ''))
+    new_val = float(str(val).replace(" V", "").replace(" *", ""))
     for num in maxes[method]:
-        prev_val = float(str(num[2]).replace(' V', '').replace(' *', ''))
+        prev_val = float(str(num[2]).replace(" V", "").replace(" *", ""))
         if new_val > prev_val:
             num[0] = row
             num[1] = methods[method]
@@ -440,7 +451,7 @@ def find_maxes_best(best, maxes, method, methods, row, val):
         if new_val == prev_val and new not in maxes[method]:
             maxes[method] += [new]
     for num in best:
-        prev_val = float(str(num[2]).replace('V', '').replace('*', ''))
+        prev_val = float(str(num[2]).replace("V", "").replace("*", ""))
         if new_val > prev_val:
             num[0] = row
             num[1] = methods[method]
@@ -532,4 +543,3 @@ if __name__ == "__main__":
             r"C:\Users\user\Documents\test\results\Pickle files\accuracy_&_confusion_matrix.pickle"
         )
     )
-

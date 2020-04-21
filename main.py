@@ -28,7 +28,7 @@ def set_global_parameters(configs):
     glbls.RESULTS_PATH = config["results"]
     glbls.MEASURE = config["measure"]
     glbls.STYLISTIC_FEATURES = config["stylistic_features"]
-    glbls.SELECTION = config["selection"].items()
+    glbls.SELECTION = list(config["selection"].items())
     glbls.K_FOLDS = config["k_folds_cv"]
     glbls.ITERATIONS = config["iterations"]
     glbls.BASELINE_PATH = config["baseline_path"]
@@ -81,6 +81,7 @@ def add_results(old_results, glbs):
     temp["k_folds"] = glbs.K_FOLDS
     temp["iterations"] = glbs.ITERATIONS
     temp["baseline_path"] = glbs.BASELINE_PATH
+    temp["selection"] = glbs.SELECTION
     old_results[glbs.FILE_NAME] = temp
     return old_results
 
@@ -108,6 +109,7 @@ def divide_results(result):
                 new_result[measure][config_name]["k_folds"] = dic["k_folds"]
                 new_result[measure][config_name]["iterations"] = dic["iterations"]
                 new_result[measure][config_name]["baseline_path"] = dic["baseline_path"]
+                new_result[measure][config_name]["selection"] = dic["selection"]
 
     return_results = {}
     for measure, data in new_result.items():

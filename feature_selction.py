@@ -12,6 +12,7 @@ from keras.layers import (
     Dense,
     Dropout,
 )
+from statistics import mean
 import matplotlib.pyplot as plt
 from keras_preprocessing.sequence import pad_sequences
 from sklearn.svm import LinearSVC
@@ -117,28 +118,29 @@ def select_rfecv_sfm(selection, features, labels):
 def selectionHalfMethod(X, y, all_features):
     glbs = GlobalParameters()
     last = (0, 0)
-    nxt = glbs.SELECTION
+    nxt = glbs.SELECTION[0]
     max_last_result = 0
-    max_nxt_result = 0
+
     while last != nxt:
+
+        max_nxt_result = 0
+        print(nxt[0])
+        print(nxt[1])
         glbs.FILE_NAME = glbs.FILE_NAME + str(nxt[1])
         glbs.RESULTS[glbs.FILE_NAME] = classify(X, y, glbs.K_FOLDS, glbs.ITERATIONS)
         rst = glbs.RESULTS[glbs.FILE_NAME]
         for method in rst.items():
-            if method[1]["accuracy_score"] > max_nxt_result:
-                max_nxt_result = method[1]["accuracy_score"]
+            if mean(method[1]["accuracy"]) > max_nxt_result:
+                max_nxt_result = mean(method[1]["accuracy"])
         glbs.RESULTS = add_results(glbs.RESULTS, glbs)
         tmp = last
         last = nxt
         if max_nxt_result >= max_last_result:
-            nxt = (last[0], int((int(last[1]) + int(tmp[1])) / 2))
+            glbs.SELECTION[0] = (last[0], int((int(last[1]) + int(tmp[1])) / 2))
         elif max_nxt_result < max_last_result:
-            nxt = (last[0], int(int(last[1]) / 2) + int(tmp[1]))
-        print(max_last_result)
-        print(max_nxt_result)
-        print(last)
-        print(nxt)
+            glbs.SELECTION[0] = (last[0], int(int(last[1]) / 2) + int(tmp[1]))
         max_last_result = max_nxt_result
+        nxt = glbs.SELECTION[0]
 
 
 def get_selected_features(X, y, all_features):
