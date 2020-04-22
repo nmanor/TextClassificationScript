@@ -117,30 +117,36 @@ def select_rfecv_sfm(selection, features, labels):
 
 def selectionHalfMethod(X, y, all_features):
     glbs = GlobalParameters()
-    last = (0, 0)
     nxt = glbs.SELECTION[0]
+    nxt = (nxt[0], int(nxt[1]))
     max_last_result = 0
-
-    while last != nxt:
-
+    bottom = (0, 0)
+    top = nxt
+    while top != bottom:
         max_nxt_result = 0
         print(nxt[0])
         print(nxt[1])
         glbs.FILE_NAME = glbs.FILE_NAME + str(nxt[1])
-        glbs.RESULTS[glbs.FILE_NAME] = classify(X, y, glbs.K_FOLDS, glbs.ITERATIONS)
+        select = select_k_best(nxt[0], int(nxt[1]))
+        glbs.RESULTS[glbs.FILE_NAME] = classify(
+            select.fit_transform(X, y), y, glbs.K_FOLDS, glbs.ITERATIONS
+        )
         rst = glbs.RESULTS[glbs.FILE_NAME]
         for method in rst.items():
             if mean(method[1]["accuracy"]) > max_nxt_result:
                 max_nxt_result = mean(method[1]["accuracy"])
         glbs.RESULTS = add_results(glbs.RESULTS, glbs)
-        tmp = last
-        last = nxt
         if max_nxt_result >= max_last_result:
-            glbs.SELECTION[0] = (last[0], int((int(last[1]) + int(tmp[1])) / 2))
+            top = nxt
+            if bottom[1] == 0:
+                nxt = (nxt[0], int(nxt[1] / 2))
+            if bottom[1] != 0:
+                nxt = (nxt[0], int((nxt[1] + bottom[1]) / 2))
         elif max_nxt_result < max_last_result:
-            glbs.SELECTION[0] = (last[0], int(int(last[1]) / 2) + int(tmp[1]))
+            bottom = nxt
+            nxt = (nxt[0], int((top[1] + bottom[1]) / 2))
         max_last_result = max_nxt_result
-        nxt = glbs.SELECTION[0]
+        glbs.SELECTION[0] = nxt
 
 
 def get_selected_features(X, y, all_features):
