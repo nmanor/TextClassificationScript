@@ -285,8 +285,11 @@ def new_write_file_content(pickle_file_path, measure, results_path):
             normalization = "NONE"
         if stopwords == "":
             stopwords = "NONE"
-        worksheet.write(row, 6, value["selection"][0][0], cell_format)
-        worksheet.write(row, 7, str(value["selection"][0][1]), cell_format)
+        try:
+            worksheet.write(row, 6, str(value["selection"][0]), cell_format)
+            worksheet.write(row, 7, str(value["selection"][1]), cell_format)
+        except:
+            pass
         worksheet.write(row, 8, normalization, cell_format)
         worksheet.write(row, 9, stopwords, cell_format)
         worksheet.write(row, 10, value["k_folds"], cell_format)

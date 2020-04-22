@@ -72,7 +72,7 @@ def print_run_details():
     )
 
 
-def add_results(old_results, glbs):
+def add_results(old_results, glbs, selection=None):
     temp = {}
     temp["results"] = old_results[glbs.FILE_NAME]
     temp["featurs"] = glbs.FEATURES
@@ -81,9 +81,13 @@ def add_results(old_results, glbs):
     temp["k_folds"] = glbs.K_FOLDS
     temp["iterations"] = glbs.ITERATIONS
     temp["baseline_path"] = glbs.BASELINE_PATH
-    temp["selection"] = glbs.SELECTION
+    temp["selection"] = selection
     old_results[glbs.FILE_NAME] = temp
     return old_results
+
+
+def add_results_glbs(results, glbs):
+    glbs.RESULTS.update(results)
 
 
 def divide_results(result):
@@ -157,6 +161,7 @@ def main(cfg):
         glbs = GlobalParameters()
         configs = get_cfg_files(cfg)
         total_files = len(configs)
+        results = {}
         for i, config in enumerate(configs):
             print_message("Running config {}/{}".format(i + 1, total_files))
             set_global_parameters(config)
@@ -164,13 +169,14 @@ def main(cfg):
             dataset_dir = normalize()
             X, y = extract_features(dataset_dir)
             config_result = classify(X, y, glbs.K_FOLDS, glbs.ITERATIONS)
-            glbs.RESULTS[glbs.FILE_NAME] = config_result
-            glbs.RESULTS = add_results(glbs.RESULTS, glbs)
+            results[glbs.FILE_NAME] = config_result
+            results = add_results(results, glbs)
             if glbs.EXPORT_AS_BASELINE:
                 export_as_baseline(config_result, config[1])
         if glbs.WORDCLOUD:
             print_message("Generating word clouds (long processes)")
             generate_word_clouds()
+        add_results_glbs(results, glbs)
         write_results(divide_results(glbs.RESULTS))
         send_work_done(glbs.DATASET_DIR)
         print_message("Done!")

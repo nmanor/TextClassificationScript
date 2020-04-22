@@ -48,7 +48,7 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import LabelEncoder
 from new_xlsx_file import write_info_gain, write_sfm
 from classification import classify
-from main import add_results
+from main import add_results, add_results_glbs
 
 glbs = GlobalParameters()
 
@@ -117,6 +117,7 @@ def select_rfecv_sfm(selection, features, labels):
 
 def selectionHalfMethod(X, y, all_features):
     glbs = GlobalParameters()
+    results = {}
     nxt = glbs.SELECTION[0]
     nxt = (nxt[0], int(nxt[1]))
     max_last_result = 0
@@ -128,14 +129,14 @@ def selectionHalfMethod(X, y, all_features):
         print(nxt[1])
         glbs.FILE_NAME = glbs.FILE_NAME + str(nxt[1])
         select = select_k_best(nxt[0], int(nxt[1]))
-        glbs.RESULTS[glbs.FILE_NAME] = classify(
+        results[glbs.FILE_NAME] = classify(
             select.fit_transform(X, y), y, glbs.K_FOLDS, glbs.ITERATIONS
         )
-        rst = glbs.RESULTS[glbs.FILE_NAME]
+        rst = results[glbs.FILE_NAME]
         for method in rst.items():
             if mean(method[1]["accuracy"]) > max_nxt_result:
                 max_nxt_result = mean(method[1]["accuracy"])
-        glbs.RESULTS = add_results(glbs.RESULTS, glbs)
+        results = add_results(results, glbs, nxt)
         if max_nxt_result >= max_last_result:
             top = nxt
             if bottom[1] == 0:
@@ -147,6 +148,7 @@ def selectionHalfMethod(X, y, all_features):
             nxt = (nxt[0], int((top[1] + bottom[1]) / 2))
         max_last_result = max_nxt_result
         glbs.SELECTION[0] = nxt
+    add_results_glbs(results, glbs)
 
 
 def get_selected_features(X, y, all_features):
