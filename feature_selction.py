@@ -143,10 +143,11 @@ def selectionHalfMethod(X, y, all_features):
                 nxt = (nxt[0], int(nxt[1] / 2))
             if bottom[1] != 0:
                 nxt = (nxt[0], int((nxt[1] + bottom[1]) / 2))
+            max_last_result = max_nxt_result
         elif max_nxt_result < max_last_result:
             bottom = nxt
             nxt = (nxt[0], int((top[1] + bottom[1]) / 2))
-        max_last_result = max_nxt_result
+
         glbs.SELECTION[0] = nxt
     add_results_glbs(results, glbs)
 
