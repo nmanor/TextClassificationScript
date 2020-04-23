@@ -149,6 +149,8 @@ def selectionHalfMethod(X, y, all_features):
             nxt = (nxt[0], int((top[1] + bottom[1]) / 2))
 
         glbs.SELECTION[0] = nxt
+        if bottom[1] - top[1] == -1 and bottom == nxt:
+            break
     add_results_glbs(results, glbs)
 
 
