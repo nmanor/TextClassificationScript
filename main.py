@@ -28,7 +28,7 @@ def set_global_parameters(configs):
     glbls.RESULTS_PATH = config["results"]
     glbls.MEASURE = config["measure"]
     glbls.STYLISTIC_FEATURES = config["stylistic_features"]
-    glbls.SELECTION = config["selection"].items()
+    glbls.SELECTION = list(config["selection"].items())
     glbls.K_FOLDS = config["k_folds_cv"]
     glbls.ITERATIONS = config["iterations"]
     glbls.BASELINE_PATH = config["baseline_path"]
@@ -81,9 +81,12 @@ def add_results(old_results, glbs):
     temp["k_folds"] = glbs.K_FOLDS
     temp["iterations"] = glbs.ITERATIONS
     temp["baseline_path"] = glbs.BASELINE_PATH
-    temp["num_of_features"] = glbs.NUM_OF_FEATURE
     old_results[glbs.FILE_NAME] = temp
     return old_results
+
+
+def add_results_glbs(results, glbs):
+    glbs.RESULTS.update(results)
 
 
 def divide_results(result):
@@ -109,7 +112,6 @@ def divide_results(result):
                 new_result[measure][config_name]["k_folds"] = dic["k_folds"]
                 new_result[measure][config_name]["iterations"] = dic["iterations"]
                 new_result[measure][config_name]["baseline_path"] = dic["baseline_path"]
-                new_result[measure][config_name]["num_of_features"] = dic["num_of_features"]
 
     return_results = {}
     for measure, data in new_result.items():
@@ -157,6 +159,7 @@ def main(cfg):
         glbs = GlobalParameters()
         configs = get_cfg_files(cfg)
         total_files = len(configs)
+        results = {}
         for i, config in enumerate(configs):
             print_message("Running config {}/{}".format(i + 1, total_files))
             set_global_parameters(config)
@@ -171,6 +174,7 @@ def main(cfg):
         if glbs.WORDCLOUD:
             print_message("Generating word clouds (long processes)")
             generate_word_clouds()
+        add_results_glbs(results, glbs)
         write_results(divide_results(glbs.RESULTS))
         send_work_done(glbs.DATASET_DIR)
         print_message("Done!")

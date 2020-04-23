@@ -12,6 +12,7 @@ from keras.layers import (
     Dense,
     Dropout,
 )
+from statistics import mean
 import matplotlib.pyplot as plt
 from keras_preprocessing.sequence import pad_sequences
 from sklearn.svm import LinearSVC
@@ -47,7 +48,7 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import LabelEncoder
 from new_xlsx_file import write_info_gain, write_sfm
 from classification import classify
-from main import add_results
+from main import add_results, add_results_glbs
 
 glbs = GlobalParameters()
 
@@ -116,29 +117,41 @@ def select_rfecv_sfm(selection, features, labels):
 
 def selectionHalfMethod(X, y, all_features):
     glbs = GlobalParameters()
-    last = (0, 0)
-    nxt = glbs.SELECTION
+    results = {}
+    nxt = glbs.SELECTION[0]
+    nxt = (nxt[0], int(nxt[1]))
     max_last_result = 0
-    max_nxt_result = 0
-    while last != nxt:
+    bottom = (0, 0)
+    top = nxt
+    while top != bottom:
+        max_nxt_result = 0
+        print(nxt[0])
+        print(nxt[1])
         glbs.FILE_NAME = glbs.FILE_NAME + str(nxt[1])
-        glbs.RESULTS[glbs.FILE_NAME] = classify(X, y, glbs.K_FOLDS, glbs.ITERATIONS)
-        rst = glbs.RESULTS[glbs.FILE_NAME]
+        select = select_k_best(nxt[0], int(nxt[1]))
+        results[glbs.FILE_NAME] = classify(
+            select.fit_transform(X, y), y, glbs.K_FOLDS, glbs.ITERATIONS
+        )
+        rst = results[glbs.FILE_NAME]
         for method in rst.items():
-            if method[1]["accuracy_score"] > max_nxt_result:
-                max_nxt_result = method[1]["accuracy_score"]
-        glbs.RESULTS = add_results(glbs.RESULTS, glbs)
-        tmp = last
-        last = nxt
+            if mean(method[1]["accuracy"]) > max_nxt_result:
+                max_nxt_result = mean(method[1]["accuracy"])
+        results = add_results(results, glbs, nxt)
         if max_nxt_result >= max_last_result:
-            nxt = (last[0], int((int(last[1]) + int(tmp[1])) / 2))
+            top = nxt
+            if bottom[1] == 0:
+                nxt = (nxt[0], int(nxt[1] / 2))
+            if bottom[1] != 0:
+                nxt = (nxt[0], int((nxt[1] + bottom[1]) / 2))
+            max_last_result = max_nxt_result
         elif max_nxt_result < max_last_result:
-            nxt = (last[0], int(int(last[1]) / 2) + int(tmp[1]))
-        print(max_last_result)
-        print(max_nxt_result)
-        print(last)
-        print(nxt)
-        max_last_result = max_nxt_result
+            bottom = nxt
+            nxt = (nxt[0], int((top[1] + bottom[1]) / 2))
+
+        glbs.SELECTION[0] = nxt
+        if bottom[1] - top[1] == -1 and bottom == nxt:
+            break
+    add_results_glbs(results, glbs)
 
 
 def get_selected_features(X, y, all_features):
