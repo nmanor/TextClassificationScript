@@ -12,7 +12,7 @@ from global_parameters import GlobalParameters
 from precision_recall_curve import plot_precision_recall_curve
 from roc_curve import plot_roc_curve
 from statistical_significance import differences_significance
-from stylistic_features import text_language, initialize_features_dict, get_stylistic_features_vectorizer
+from stylistic_features import text_language
 
 glbs = GlobalParameters()
 
@@ -244,7 +244,6 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                 tfidf += tf[feature[3]] + "\n"
                 grams += ngrams[feature[4]] + "\n"
                 skips += feature[5] + "\n"
-            worksheet.write_number(row, 0, int(count[:-1]), cell_format)
             worksheet.write(row, 1, type[:-1], cell_format)
             worksheet.write(row, 2, grams[:-1], cell_format)
             worksheet.write(row, 3, tfidf[:-1], cell_format)
@@ -252,18 +251,13 @@ def new_write_file_content(pickle_file_path, measure, results_path):
 
         # Stylistic Features data
         stylistic_features = ""
-        num_of_features = 0
-        stylistic_features_dict = initialize_features_dict()
         if value["stylistic_features"]:
             for styl_feature in value["stylistic_features"]:
                 stylistic_features += styl_feature.upper() + "  "
-                num_of_features += 1
-                if isinstance(stylistic_features_dict[styl_feature], list):
-                    num_of_features += len(stylistic_features_dict[styl_feature]) - 1
-                    if len(get_stylistic_features_vectorizer(styl_feature)) > 1:
-                        num_of_features += 1
             worksheet.write(row, 5, stylistic_features[:-2], cell_format)
-            worksheet.write_number(row, 0, num_of_features, cell_format)
+
+        # Write the num of features
+        worksheet.write_number(row, 0, value["num_of_features"], cell_format)
 
         # Pre Processing and Stop Words data
         cell_format = workbook.add_format()

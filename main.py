@@ -81,6 +81,7 @@ def add_results(old_results, glbs):
     temp["k_folds"] = glbs.K_FOLDS
     temp["iterations"] = glbs.ITERATIONS
     temp["baseline_path"] = glbs.BASELINE_PATH
+    temp["num_of_features"] = glbs.NUM_OF_FEATURE
     old_results[glbs.FILE_NAME] = temp
     return old_results
 
@@ -108,6 +109,7 @@ def divide_results(result):
                 new_result[measure][config_name]["k_folds"] = dic["k_folds"]
                 new_result[measure][config_name]["iterations"] = dic["iterations"]
                 new_result[measure][config_name]["baseline_path"] = dic["baseline_path"]
+                new_result[measure][config_name]["num_of_features"] = dic["num_of_features"]
 
     return_results = {}
     for measure, data in new_result.items():

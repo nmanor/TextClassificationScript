@@ -4,6 +4,7 @@
 # from keras.preprocessing.text import Tokenizer
 import os
 import pickle
+from threading import Thread
 
 from keras import Sequential
 from keras.layers import (
@@ -70,6 +71,15 @@ def classify(X, y, k_fold, num_iteration=1):
     y = le.transform(y)
     print_message("Classifying")
 
+    def cross_validation(X, classifier, clf, i, k_fold, num_iteration, y):
+        print_message("iteration " + str(i + 1) + "/" + str(num_iteration), 2)
+        scores = cross_validate(clf, X, y, cv=k_fold, scoring=glbs.MEASURE)
+        for measure in glbs.MEASURE:
+            if measure in results[classifier].keys():
+                results[classifier][measure] += list(scores['test_' + measure])
+            else:
+                results[classifier][measure] = list(scores['test_' + measure])
+
     for classifier in glbs.METHODS:
         print_message("running " + str(classifier), num_tabs=1)
         if classifier not in results.keys():
@@ -81,18 +91,20 @@ def classify(X, y, k_fold, num_iteration=1):
         else:
             clf = methods[classifier]
 
-        for i in range(num_iteration):
-            print_message("iteration " + str(i + 1) + "/" + str(num_iteration), 2)
-            scores = cross_validate(clf, X, y, cv=k_fold, scoring=glbs.MEASURE)
-            for measure in glbs.MEASURE:
-                if measure in results[classifier].keys():
-                    results[classifier][measure] += list(scores['test_' + measure])
-                else:
-                    results[classifier][measure] = list(scores['test_' + measure])
+        threads = []
+        if glbs.MULTIPROCESSING:
+            for i in range(num_iteration):
+                threads += [Thread(target=cross_validation, args=(X, classifier, clf, i, k_fold, num_iteration, y))]
+                threads[-1].start()
+        else:
+            for i in range(num_iteration):
+                cross_validation(X, classifier, clf, i, k_fold, num_iteration, y)
+
+        for thread in threads:
+            thread.join()
 
         del clf
     return results
-
 
 def get_rnn_model(tr_features):
     top_words = tr_features.shape[1]
