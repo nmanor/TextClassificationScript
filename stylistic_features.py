@@ -67,7 +67,7 @@ from stopwords_and_lists import (
     time_expressions_english,
     positive_list_hebrew,
     negative_list_hebrew,
-)
+    custom_list)
 from terms_frequency_counts import get_top_n_words
 
 glbs = GlobalParameters()
@@ -1048,8 +1048,6 @@ def initialize_features_dict():
         "awl": average_word_length,
         "ie": increasing_expressions,
         "dex": decreasing_expressions,
-        # 'nw': negative_words,
-        # 'pw': positive_words,
         "nw": negative_list_hebrew if glbs.LANGUAGE == "hebrew" else negative_words,
         "pw": positive_list_hebrew if glbs.LANGUAGE == "hebrew" else positive_words,
         # 'te': time_expressions,
@@ -1058,9 +1056,6 @@ def initialize_features_dict():
         else time_expressions_english,
         "de": doubt_expressions,
         "ee": emotion_expressions,
-        # 'fpe': first_person_expressions,
-        # 'spe': second_person_expressions,
-        # 'tpe': third_person_expressions,
         "fpe": first_person_expressions_hebrew
         if glbs.LANGUAGE == "hebrew"
         else first_person_expressions_english,
@@ -1121,6 +1116,10 @@ def initialize_features_dict():
         "e50te": export_50_terms_en,
         "e50tth": export_50_terms_trans_he,
         "e50tte": export_50_terms_trans_en,
+        "acf": {"wc", "cc", "sc", "alw", "als", "aws", "awl"},
+        "ref": {"dw", "tw", "dh", "dx", "tx"},
+        "wef": {"ww", "owc", "twc", "ttc"},
+        "custom": custom_list
     }
     return stylistic_features_dict
 
@@ -1134,14 +1133,18 @@ def get_stylistic_features_vectorizer(feature):
         lst = set(stylistic_features_dict[feature.lower()])
         vectorizers += [TfidfVectorizer(vocabulary=lst)]
         if (
-            feature != "e50th"
-            and feature != "e50te"
-            and feature != "e50tth"
-            and feature != "e50tte"
+                feature != "e50th"
+                and feature != "e50te"
+                and feature != "e50tth"
+                and feature != "e50tte"
         ):
             vectorizers += [
                 StylisticFeaturesTransformer(stylistic_features_dict[feature], feature)
             ]
+
+    elif isinstance(stylistic_features_dict[feature.lower()], set):
+        for group_feature in stylistic_features_dict[feature.lower()]:
+            vectorizers += get_stylistic_features_vectorizer(group_feature)
 
     elif feature.lower() == "frc" or feature.lower() == "pos":
         return [stylistic_features_dict[feature]()]

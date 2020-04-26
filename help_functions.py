@@ -1,4 +1,3 @@
-import itertools
 import json
 import os
 import re
@@ -180,28 +179,16 @@ def gen_cfgs_in_range(output_path):
     # WEF = ["ww", "owc", "twc", "ttc"]
 
     # HE
-    """lst = ["aof", "fdf", "ftf", "anf", "huf", "mef", "vof", "pnf", "agf", "te", "xte", "slf", "spf", "thf", "caf",
-           "vuf", "def", "inf", "sif", "lof", "frc", ["dw", "tw", "dh", "dx", "tx"], ["wc", "cc", "sc", "alw", "als",
-            "aws", "awl"], ["ww", "owc", "twc", "ttc"], "pw", "nw", "e50th", "e50tth"]"""
+    lst = ["aof", "fdf", "ftf", "anf", "huf", "mef", "vof", "pnf", "agf", "te", "xte", "slf", "spf", "thf", "caf",
+           "vuf", "def", "inf", "sif", "lof", "frc", "ref", "acf", "ref", "pw", "nw", "e50th", "e50tth"]
     # EN
-    lst = ["aof", "fdf", "ftf", "anf", "huf", "fpe", "spe", "tpe", "nof", "vof", "pnf", "agf", "te", "xte", "slf",
+    """lst = ["aof", "fdf", "ftf", "anf", "huf", "fpe", "spe", "tpe", "nof", "vof", "pnf", "agf", "te", "xte", "slf",
            "spf", "thf", "caf", "sxf", "cuf", "alf", "skf", "def", "inf", "sif", "lof", "frc", ["dw", "tw", "dh", "dx",
                                                                                                 "tx"],
            ["wc", "cc", "sc", "alw", "als", "aws", "awl"], ["ww", "owc", "twc", "ttc"], "pw", "nw", "e50te",
-           "e50tte"]
-
-    # EN top 10
-    """lst = ["FDF", "INF", ["wc", "cc", "sc", "alw", "als", "aws", "awl"], "VOF", "CAF", "TPE", "E50TE", "E50TTE", "CUF",
-           "DEF"]"""
-
-    # HE Top 10
-    # lst = ["FDF", "E50TH", "E50TTH", "HUF", "MEF", "ANF", "AOF", "FTF", "TE", "XTE"]
-    # lst = ['FDF', 'HUF', 'MEF', 'ANF', 'AOF', 'FTF', 'XTE', 'THF', 'VUF', 'SIF']
-
-    h_lst = []
+           "e50tte"]"""
 
     for fe in lst:
-        h_lst += [fe.lower()] if isinstance(fe, str) else fe
         cfgs = {
             "dataset": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset",
             "baseline_path": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\baseline",
@@ -217,7 +204,7 @@ def gen_cfgs_in_range(output_path):
             "selection": {}
         }
 
-        with open(output_path + "\\" + str(i) + ".json", 'w') as fp:
+        with open(output_path + "\\" + fe + ".json", 'w') as fp:
             json.dump(cfgs, fp, indent=4)
 
         print(i)
@@ -225,17 +212,13 @@ def gen_cfgs_in_range(output_path):
 
 
 def random_groups(output_path):
-    lst = ['fdf', 'aof', 'vof', ['wc', 'cc', 'sc', 'alw', 'als', 'aws', 'awl'], 'frc', 'anf', 'mef', 'vuf']
-    multy_lst = []
-    for i in range(6, 8):
-        multy_lst += list(itertools.combinations(lst, i))
-
     i = 1
-    for l in multy_lst:
-        flat_lst = []
-        for feature in l:
-            flat_lst += [feature] if isinstance(feature, str) else feature
+    lst = ["ftf", "anf", "pnf", "agf", "te", "xte", "slf", "spf", "thf", "caf",
+           "vuf", "def", "inf", "sif", "lof", "pw", "wef", "nw", "e50tth"]
 
+    best = ["e50th", "fdf", "acf", "vof", "aof", "frc", "huf", "ref", "mef"]
+
+    for fe in lst:
         cfgs = {
             "dataset": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset",
             "baseline_path": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\baseline",
@@ -247,11 +230,11 @@ def random_groups(output_path):
             "results": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\results",
             "methods": ["lr", "svc", "mlp", "rf", "mnb"],
             "measure": ["accuracy"],
-            "stylistic_features": flat_lst,
+            "stylistic_features": [fe] + best,
             "selection": {}
         }
 
-        with open(output_path + "\\" + str(i) + ".json", 'w') as fp:
+        with open(output_path + "\\" + fe + ".json", 'w') as fp:
             json.dump(cfgs, fp, indent=4)
 
         print(i)

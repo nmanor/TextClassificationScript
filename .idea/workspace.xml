@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b334214f-f085-4185-b9cf-111af0088f3b" name="Default" comment="Displays the max result of each config file in XLSX file">
+    <list default="true" id="b334214f-f085-4185-b9cf-111af0088f3b" name="Default" comment="Support multiprocessing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classification.py" beforeDir="false" afterPath="$PROJECT_DIR$/classification.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/help_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/help_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/normalization.py" beforeDir="false" afterPath="$PROJECT_DIR$/normalization.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +69,7 @@
       <recent name="C:\Users\yairi\Desktop\TCProg" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.help_functions">
+  <component name="RunManager" selected="Python.main">
     <configuration name="config_generator" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="TCProg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -187,8 +184,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.help_functions" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.help_functions" />
         <item itemvalue="Python.statistical_significance" />
         <item itemvalue="Python.cross_validation" />
         <item itemvalue="Python.config_generator" />
@@ -404,14 +401,25 @@
       <option name="presentableId" value="LOCAL‎00032" />
       <updated>1587292211832</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL‎00033" summary="Displays the max result of each config file in XLSX file">
+      <created>1587374350809</created>
+      <option name="number" value="LOCAL‎00033" />
+      <option name="presentableId" value="LOCAL‎00033" />
+      <updated>1587374350809</updated>
+    </task>
+    <task id="LOCAL‎00034" summary="Support multiprocessing">
+      <created>1587657742877</created>
+      <option name="number" value="LOCAL‎00034" />
+      <option name="presentableId" value="LOCAL‎00034" />
+      <updated>1587657742877</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added normalization corruption checking and handling.&#10;Added check for saved features to saved computing time in the future.&#10;commented the keras import for faster loading." />
     <MESSAGE value="Added shutdown recovery system" />
     <MESSAGE value="changed from global variables to singleton" />
     <MESSAGE value="The Xlsx file will be sorted by normalization now" />
@@ -436,20 +444,21 @@
     <MESSAGE value="Families changes for Hill Climbing process" />
     <MESSAGE value="Displays the number of features in stylistic features as well" />
     <MESSAGE value="Displays the max result of each config file in XLSX file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Displays the max result of each config file in XLSX file" />
+    <MESSAGE value="Support multiprocessing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Support multiprocessing" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="440" y="10" key="CommitChangelistDialog2" timestamp="1587292210981">
+    <state x="440" y="10" key="CommitChangelistDialog2" timestamp="1587657742108">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="440" y="10" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587292210981" />
-    <state width="1534" height="440" key="DebuggerActiveHint" timestamp="1587373408761">
+    <state x="440" y="10" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587657742108" />
+    <state width="1534" height="440" key="DebuggerActiveHint" timestamp="1587635259667">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1534" height="440" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1587373408761" />
+    <state width="1534" height="440" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1587635259667" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585758415044">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -458,58 +467,66 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="189" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1584295897025" />
-    <state width="1515" height="315" key="GridCell.Tab.0.bottom" timestamp="1587373411769">
+    <state width="1515" height="363" key="GridCell.Tab.0.bottom" timestamp="1587657716578">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="315" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587373411769" />
-    <state width="1515" height="315" key="GridCell.Tab.0.center" timestamp="1587373411769">
+    <state width="1515" height="363" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587657716578" />
+    <state width="1515" height="363" key="GridCell.Tab.0.center" timestamp="1587657716578">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="315" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587373411769" />
-    <state width="1515" height="315" key="GridCell.Tab.0.left" timestamp="1587373411769">
+    <state width="1515" height="363" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587657716578" />
+    <state width="1515" height="363" key="GridCell.Tab.0.left" timestamp="1587657716578">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="315" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587373411769" />
-    <state width="1515" height="315" key="GridCell.Tab.0.right" timestamp="1587373411769">
+    <state width="1515" height="363" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587657716578" />
+    <state width="1515" height="363" key="GridCell.Tab.0.right" timestamp="1587657716578">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="315" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587373411769" />
-    <state width="1515" height="315" key="GridCell.Tab.1.bottom" timestamp="1587373411769">
+    <state width="1515" height="363" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587657716578" />
+    <state width="1515" height="411" key="GridCell.Tab.1.bottom" timestamp="1587647265256">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="315" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587373411769" />
-    <state width="1515" height="315" key="GridCell.Tab.1.center" timestamp="1587373411769">
+    <state width="1515" height="411" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587647265256" />
+    <state width="1515" height="411" key="GridCell.Tab.1.center" timestamp="1587647265256">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="315" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1587373411769" />
-    <state width="1515" height="315" key="GridCell.Tab.1.left" timestamp="1587373411769">
+    <state width="1515" height="411" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1587647265256" />
+    <state width="1515" height="411" key="GridCell.Tab.1.left" timestamp="1587647265256">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="315" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1587373411769" />
-    <state width="1515" height="315" key="GridCell.Tab.1.right" timestamp="1587373411769">
+    <state width="1515" height="411" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1587647265256" />
+    <state width="1515" height="411" key="GridCell.Tab.1.right" timestamp="1587647265256">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="315" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1587373411769" />
+    <state width="1515" height="411" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1587647265256" />
+    <state x="147" y="64" key="MergeDialog" timestamp="1587657963340">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="147" y="64" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1587657963340" />
+    <state x="481" y="129" key="MultipleFileMergeDialog" timestamp="1587657963347">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="481" y="129" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1587657963347" />
     <state x="279" y="57" key="SettingsEditor" timestamp="1584295957126">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="279" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1584295957126" />
-    <state x="361" y="148" key="Vcs.Push.Dialog.v2" timestamp="1587292213567">
+    <state x="361" y="148" key="Vcs.Push.Dialog.v2" timestamp="1587657744448">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="148" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1587292213567" />
-    <state width="775" height="419" key="XDebugger.FullValuePopup" timestamp="1587119419586">
+    <state x="361" y="148" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1587657744448" />
+    <state width="775" height="419" key="XDebugger.FullValuePopup" timestamp="1587463036916">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="775" height="419" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1587119419586" />
-    <state x="477" y="239" key="com.intellij.ide.util.TipDialog" timestamp="1587369899010">
+    <state width="775" height="419" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1587463036916" />
+    <state x="477" y="239" key="com.intellij.ide.util.TipDialog" timestamp="1587654343850">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="477" y="239" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1587369899010" />
-    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585758370427">
+    <state x="477" y="239" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1587654343850" />
+    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587458964191">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1585758370427" />
+    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1587458964191" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -528,11 +545,6 @@
           <url>file://$PROJECT_DIR$/statistical_analysis.py</url>
           <line>330</line>
           <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/help_functions.py</url>
-          <line>232</line>
-          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

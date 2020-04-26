@@ -72,7 +72,7 @@ def print_run_details():
     )
 
 
-def add_results(old_results, glbs, selection=None):
+def add_results(old_results, glbs):
     temp = {}
     temp["results"] = old_results[glbs.FILE_NAME]
     temp["featurs"] = glbs.FEATURES
@@ -81,7 +81,6 @@ def add_results(old_results, glbs, selection=None):
     temp["k_folds"] = glbs.K_FOLDS
     temp["iterations"] = glbs.ITERATIONS
     temp["baseline_path"] = glbs.BASELINE_PATH
-    temp["selection"] = selection
     old_results[glbs.FILE_NAME] = temp
     return old_results
 
@@ -113,7 +112,6 @@ def divide_results(result):
                 new_result[measure][config_name]["k_folds"] = dic["k_folds"]
                 new_result[measure][config_name]["iterations"] = dic["iterations"]
                 new_result[measure][config_name]["baseline_path"] = dic["baseline_path"]
-                new_result[measure][config_name]["selection"] = dic["selection"]
 
     return_results = {}
     for measure, data in new_result.items():
@@ -169,8 +167,8 @@ def main(cfg):
             dataset_dir = normalize()
             X, y = extract_features(dataset_dir)
             config_result = classify(X, y, glbs.K_FOLDS, glbs.ITERATIONS)
-            results[glbs.FILE_NAME] = config_result
-            results = add_results(results, glbs)
+            glbs.RESULTS[glbs.FILE_NAME] = config_result
+            glbs.RESULTS = add_results(glbs.RESULTS, glbs)
             if glbs.EXPORT_AS_BASELINE:
                 export_as_baseline(config_result, config[1])
         if glbs.WORDCLOUD:

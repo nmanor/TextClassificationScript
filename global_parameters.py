@@ -34,12 +34,12 @@ class GlobalParameters(metaclass=Singleton):
         self.ITERATIONS = 1
         self.BASELINE_PATH = ""
         self.EXPORT_AS_BASELINE = False
+        self.NUM_OF_FEATURE = 0
+        self.MULTIPROCESSING = False
 
 
 def print_message(msg, num_tabs=0):
-    if num_tabs > 0:
-        print("\t" * num_tabs, end="")
-    print("{} >> {}".format(datetime.datetime.now(), msg))
+    print("{}{} >> {}".format("\t" * num_tabs, datetime.datetime.now(), msg))
 
 
 if __name__ == "__main__":

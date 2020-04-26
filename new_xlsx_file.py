@@ -12,11 +12,7 @@ from global_parameters import GlobalParameters
 from precision_recall_curve import plot_precision_recall_curve
 from roc_curve import plot_roc_curve
 from statistical_significance import differences_significance
-from stylistic_features import (
-    text_language,
-    initialize_features_dict,
-    get_stylistic_features_vectorizer,
-)
+from stylistic_features import text_language, initialize_features_dict, get_stylistic_features_vectorizer
 
 glbs = GlobalParameters()
 
@@ -200,7 +196,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     kind = {"w": "Words", "c": "Chars"}
     ngrams = {"1": "Unigrams", "2": "Bigrams", "3": "Trigrams"}
     tf = {"tf": "TF", "tfidf": "TF-IDF"}
-    methods = {"svc": 12, "rf": 13, "mlp": 14, "lr": 15, "mnb": 16, "rnn": 17}
+    methods = {"svc": 10, "rf": 11, "mlp": 12, "lr": 13, "mnb": 14, "rnn": 15}
 
     if measure == "accuracy_&_confusion_matrix":
         maxes = {
@@ -261,14 +257,10 @@ def new_write_file_content(pickle_file_path, measure, results_path):
         if value["stylistic_features"]:
             for styl_feature in value["stylistic_features"]:
                 stylistic_features += styl_feature.upper() + "  "
-                num_of_features += 1
-                if isinstance(stylistic_features_dict[styl_feature], list):
-                    num_of_features += len(stylistic_features_dict[styl_feature]) - 1
-                    if len(get_stylistic_features_vectorizer(styl_feature)) > 1:
-                        num_of_features += 1
-
             worksheet.write(row, 5, stylistic_features[:-2], cell_format)
-            worksheet.write_number(row, 0, num_of_features, cell_format)
+
+        # Write the num of features
+        worksheet.write_number(row, 0, value["num_of_features"], cell_format)
 
         # Pre Processing and Stop Words data
         cell_format = workbook.add_format()
@@ -547,3 +539,4 @@ if __name__ == "__main__":
             r"C:\Users\user\Documents\test\results\Pickle files\accuracy_&_confusion_matrix.pickle"
         )
     )
+
