@@ -484,6 +484,7 @@ def find_maxes_best_(best, maxes, method, methods, row, val):
 
 
 def write_info_gain(features, name):
+    glbs = GlobalParameters()
     file_path = (
         GlobalParameters().RESULTS_PATH + "\\" + name + " for hebrew dataset" + ".xlsx"
     )
@@ -497,14 +498,14 @@ def write_info_gain(features, name):
 
         worksheet.write("A" + str(i + 3), data[0].split("_")[0])
         worksheet.write("B" + str(i + 3), data[0].split("_")[-1])
-        worksheet.write("C" + str(i + 3), str(data[1]))
+        worksheet.write_number("C" + str(i + 3), data[1])
         try:
-            worksheet.write("D" + str(i + 3), str(data[2]))
+            worksheet.write_number("D" + str(i + 3), data[2])
             if len(glbs.IDF) > 0:
-                worksheet.write("E" + str(i + 3), str(glbs.IDF[i]))
+                worksheet.write_number("E" + str(i + 3), glbs.IDF[i])
         except:
             if len(glbs.IDF) > 0:
-                worksheet.write("D" + str(i + 3), str(glbs.IDF[i]))
+                worksheet.write_number("D" + str(i + 3), glbs.IDF[i])
         row = i
 
     worksheet.add_table(

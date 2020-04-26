@@ -158,8 +158,12 @@ def get_selected_features(X, y, all_features):
     le = LabelEncoder()
     le.fit(y)
     y = le.transform(y)
+    tfidf = ""
     for selection in glbs.SELECTION:
         if glbs.PRINT_SELECTION:
+            # tfidf = dict(all_features.transformer_list)[glbs.FEATURES[0]].idf_
+            # tfidf = dict(all_features.transformer_list)[glbs.FEATURES[0]].vocabulary_
+
             selection_list = get_selection_list(selection[0], X, y)
             ziped = []
             try:
