@@ -66,44 +66,15 @@ def get_vectorizer(feature):
             ngram_range=(n, n),
             lowercase=False,
             use_idf=tfidf,
+            min_df=3
         )
 
-    # TODO: לבדוק איך משלבים את 2 הוקטורים ביחד
     else:
         vectorizer = SkipGramVectorizer(
-            max_features=count, analyzer=type, n=n, k=k, lowercase=False
+            max_features=count, analyzer=type, n=n, k=k, lowercase=False, min_df=3
         )
 
     return vectorizer
-
-    """if k <= 0:
-        if tfidf == "tfidf":
-            vectorizer = TfidfVectorizer(
-                max_features=count,
-                analyzer=type,
-                ngram_range=(n, n),
-                lowercase=False,
-                use_idf=True,
-            )
-        elif tfidf == "tf":
-            vectorizer = TfidfVectorizer(
-                max_features=count,
-                analyzer=type,
-                ngram_range=(n, n),
-                lowercase=False,
-                use_idf=False,
-            )
-        else:
-            vectorizer = CountVectorizer(
-                max_features=count, analyzer=type, ngram_range=(n, n), lowercase=False
-            )
-
-    else:
-        vectorizer = SkipGramVectorizer(
-            max_features=count, analyzer=type, n=n, k=k, lowercase=False
-        )
-
-    return vectorizer, str(n)"""
 
 
 def add_feature(feature_dict, feature_name, feature):
@@ -117,6 +88,10 @@ def extract_features(dataset_dir):
     X, y = get_data(dataset_dir)
     glbs.LABELS = y
     glbs.DATASET_DATA = X
+
+    ########################################
+    # get_fetuer_by_DF(X)
+    ########################################
 
     feature_lst = []
     # add all the N-Grams feature to the list

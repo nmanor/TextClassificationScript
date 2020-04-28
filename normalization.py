@@ -260,6 +260,14 @@ def stem(text):
     return new_text
 
 
+def remove_apostrophe_and_acronyms(text):
+    text = text.replace("'", "")
+    acronyms = set(re.findall(r"\w\.\w\.\w", text))
+    for acr in acronyms:
+        text = re.sub(acr, acr.replace(".", ""), text)
+    return text
+
+
 def normal(word, nargs):
     if nargs == "" or nargs == "\n":
         return word
@@ -284,6 +292,8 @@ def normal(word, nargs):
         new_line = lemmatize(new_line)
     if 'm' in nargs:
         new_line = stem(new_line)
+    if 'a' in nargs:
+        new_line = remove_apostrophe_and_acronyms(new_line)
 
     # addition: 'b' for Hebrew stopwords and 'x' for extended Hebrew stopwords
     if 'x' in nargs:

@@ -3,6 +3,9 @@ import os
 import re
 from random import shuffle
 
+import xlsxwriter
+from sklearn.feature_extraction.text import CountVectorizer
+
 
 def create_dataset(dir, output, split=0.33):
     """
@@ -182,11 +185,9 @@ def gen_cfgs_in_range(output_path):
     lst = ["aof", "fdf", "ftf", "anf", "huf", "mef", "vof", "pnf", "agf", "te", "xte", "slf", "spf", "thf", "caf",
            "vuf", "def", "inf", "sif", "lof", "frc", "ref", "acf", "ref", "pw", "nw", "e50th", "e50tth"]
     # EN
-    """lst = ["aof", "fdf", "ftf", "anf", "huf", "fpe", "spe", "tpe", "nof", "vof", "pnf", "agf", "te", "xte", "slf",
-           "spf", "thf", "caf", "sxf", "cuf", "alf", "skf", "def", "inf", "sif", "lof", "frc", ["dw", "tw", "dh", "dx",
-                                                                                                "tx"],
-           ["wc", "cc", "sc", "alw", "als", "aws", "awl"], ["ww", "owc", "twc", "ttc"], "pw", "nw", "e50te",
-           "e50tte"]"""
+    lst = ["aof", "fdf", "ftf", "anf", "huf", "fpe", "spe", "tpe", "nof", "vof", "pnf", "agf", "te", "xte", "slf",
+           "spf", "thf", "caf", "sxf", "cuf", "alf", "skf", "def", "inf", "sif", "lof", "frc", "ref", "acf", "wef",
+           "pw", "nw", "e50te", "e50tte"]
 
     for fe in lst:
         cfgs = {
@@ -213,10 +214,11 @@ def gen_cfgs_in_range(output_path):
 
 def random_groups(output_path):
     i = 1
-    lst = ["ftf", "anf", "pnf", "agf", "te", "xte", "slf", "spf", "thf", "caf",
-           "vuf", "def", "inf", "sif", "lof", "pw", "wef", "nw", "e50tth"]
+    lst = ["aof", "fdf", "ftf", "anf", "huf", "fpe", "spe", "tpe", "nof", "vof", "pnf", "agf", "te", "xte", "slf",
+           "spf", "thf", "caf", "sxf", "cuf", "alf", "skf", "def", "sif", "lof", "frc", "ref", "acf", "wef",
+           "pw", "nw", "e50te", "e50tte"]
 
-    best = ["e50th", "fdf", "acf", "vof", "aof", "frc", "huf", "ref", "mef"]
+    best = ["inf"]
 
     for fe in lst:
         cfgs = {
@@ -267,5 +269,42 @@ def compere_corpus(anorexia100_path, normal100_path, corpus2_path):
                     print(file, "not in corpus")
 
 
+def get_fetuer_by_DF(corpus):
+    vec = CountVectorizer(min_df=3).fit(corpus)
+    bag_of_words = vec.transform(corpus)
+    sum_words = bag_of_words.sum(axis=0)
+    words_freq = [[word, sum_words[0, idx], 0] for word, idx in vec.vocabulary_.items()]
+    words_freq = sorted(words_freq, key=lambda x: x[1], reverse=True)
+    for row in range(len(words_freq)):
+        for post in corpus:
+            post = re.findall(r"(?u)\b\w\w+\b", post)
+            if words_freq[row][0] in post:
+                words_freq[row][2] += 1
+    file_path = r"C:\Users\natan\OneDrive\מסמכים\test\words.xlsx"
+    workbook = xlsxwriter.Workbook(file_path)
+    worksheet = workbook.add_worksheet()
+    row = 2
+    for word in words_freq:
+        worksheet.write("A" + str(row + 1), word[0])
+        worksheet.write_number("B" + str(row + 1), word[1])
+        worksheet.write_number("C" + str(row + 1), word[2])
+        row += 1
+
+    worksheet.add_table(
+        "A2:C" + str(row),
+        {
+            "columns": [
+                {"header": "Word"},
+                {"header": "F"},
+                {"header": "DF"}
+            ],
+            "style": "Table Style Light 8",
+        },
+    )
+
+    workbook.close()
+
+
 if __name__ == "__main__":
-    random_groups(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
+    # random_groups(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
+    x = 3
