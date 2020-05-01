@@ -4,7 +4,10 @@ import re
 from random import shuffle
 
 import xlsxwriter
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.model_selection import cross_validate
+from sklearn.pipeline import make_pipeline
+from sklearn.svm import SVC
 
 
 def create_dataset(dir, output, split=0.33):
@@ -307,4 +310,8 @@ def get_fetuer_by_DF(corpus):
 
 if __name__ == "__main__":
     # random_groups(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
-    x = 3
+    X = ["aa bb", "bb cc", "cc dd", "dd ee", "ee ff"]
+    y = ["b", "b", "no b", "no b", "no b"]
+    classifier_pipeline = make_pipeline(TfidfVectorizer(), SVC())
+    scores = cross_validate(classifier_pipeline, X, y, cv=2)
+    print(scores)

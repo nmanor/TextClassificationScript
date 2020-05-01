@@ -12,7 +12,7 @@ from global_parameters import GlobalParameters
 from precision_recall_curve import plot_precision_recall_curve
 from roc_curve import plot_roc_curve
 from statistical_significance import differences_significance
-from stylistic_features import text_language, initialize_features_dict, get_stylistic_features_vectorizer
+from stylistic_features import text_language, initialize_features_dict
 
 glbs = GlobalParameters()
 
@@ -196,7 +196,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
     kind = {"w": "Words", "c": "Chars"}
     ngrams = {"1": "Unigrams", "2": "Bigrams", "3": "Trigrams"}
     tf = {"tf": "TF", "tfidf": "TF-IDF"}
-    methods = {"svc": 10, "rf": 11, "mlp": 12, "lr": 13, "mnb": 14, "rnn": 15}
+    methods = {"svc": 12, "rf": 13, "mlp": 14, "lr": 15, "mnb": 16, "rnn": 17}
 
     if measure == "accuracy_&_confusion_matrix":
         maxes = {

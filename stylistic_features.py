@@ -1131,7 +1131,7 @@ def get_stylistic_features_vectorizer(feature):
     # return the CountVectorizer of lists of words
     if isinstance(stylistic_features_dict[feature.lower()], list):
         lst = set(stylistic_features_dict[feature.lower()])
-        vectorizers += [TfidfVectorizer(vocabulary=lst)]
+        vectorizers += [TfidfVectorizer(vocabulary=lst, stop_words=glbs.STOP_WORDS)]
         if (
                 feature != "e50th"
                 and feature != "e50te"

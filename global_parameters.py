@@ -35,7 +35,9 @@ class GlobalParameters(metaclass=Singleton):
         self.BASELINE_PATH = ""
         self.EXPORT_AS_BASELINE = False
         self.NUM_OF_FEATURE = 0
-        self.MULTIPROCESSING = False
+        self.MULTIPROCESSING = True
+        self.STOP_WORDS = None
+        self.FEATURE_MODEL = None
 
 
 def print_message(msg, num_tabs=0):

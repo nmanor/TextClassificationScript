@@ -4,7 +4,6 @@
 # from keras.preprocessing.text import Tokenizer
 import os
 import pickle
-from threading import Thread
 
 from keras import Sequential
 from keras.layers import (
@@ -27,6 +26,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import cross_validate
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
+from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import LabelEncoder
 from sklearn.svm import LinearSVC
 
@@ -71,14 +71,14 @@ def classify(X, y, k_fold, num_iteration=1):
     y = le.transform(y)
     print_message("Classifying")
 
-    def cross_validation(X, classifier, clf, i, k_fold, num_iteration, y):
+    """def cross_validation(X, classifier, clf, i, k_fold, num_iteration, y):
         print_message("iteration " + str(i + 1) + "/" + str(num_iteration), 2)
         scores = cross_validate(clf, X, y, cv=k_fold, scoring=glbs.MEASURE)
         for measure in glbs.MEASURE:
             if measure in results[classifier].keys():
                 results[classifier][measure] += list(scores['test_' + measure])
             else:
-                results[classifier][measure] = list(scores['test_' + measure])
+                results[classifier][measure] = list(scores['test_' + measure])"""
 
     for classifier in glbs.METHODS:
         print_message("running " + str(classifier), num_tabs=1)
@@ -91,17 +91,21 @@ def classify(X, y, k_fold, num_iteration=1):
         else:
             clf = methods[classifier]
 
-        threads = []
-        if glbs.MULTIPROCESSING:
-            for i in range(num_iteration):
-                threads += [Thread(target=cross_validation, args=(X, classifier, clf, i, k_fold, num_iteration, y))]
-                threads[-1].start()
-        else:
-            for i in range(num_iteration):
-                cross_validation(X, classifier, clf, i, k_fold, num_iteration, y)
+        clf = make_pipeline(glbs.FEATURE_MODEL, clf)
 
-        for thread in threads:
-            thread.join()
+        if glbs.MULTIPROCESSING:
+            n_jobs = -1
+        else:
+            n_jobs = None
+
+        for i in range(num_iteration):
+            print_message("iteration " + str(i + 1) + "/" + str(num_iteration), 2)
+            scores = cross_validate(clf, X, y, cv=k_fold, scoring=glbs.MEASURE, n_jobs=n_jobs)
+            for measure in glbs.MEASURE:
+                if measure in results[classifier].keys():
+                    results[classifier][measure] += list(scores['test_' + measure])
+                else:
+                    results[classifier][measure] = list(scores['test_' + measure])
 
         del clf
     return results

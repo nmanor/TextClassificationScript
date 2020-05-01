@@ -281,7 +281,8 @@ def normal(word, nargs):
     if 'u' in nargs:
         new_line = remove_urls(new_line)
     if 's' in nargs:
-        new_line = remove_stop_words(new_line)
+        # new_line = remove_stop_words(new_line)
+        glbs.STOP_WORDS = {'english'}
     if 'r' in nargs:
         new_line = remove_repetition(new_line)
     if 'c' in nargs:
@@ -297,9 +298,11 @@ def normal(word, nargs):
 
     # addition: 'b' for Hebrew stopwords and 'x' for extended Hebrew stopwords
     if 'x' in nargs:
-        new_line = remove_stop_words_hebrew_extended(new_line)
+        # new_line = remove_stop_words_hebrew_extended(new_line)
+        glbs.STOP_WORDS = hebrew_stopwords
     if 'b' in nargs:
-        new_line = remove_stop_words_hebrew(new_line)
+        # new_line = remove_stop_words_hebrew(new_line)
+        glbs.STOP_WORDS = hebrew_stopwords_ex
 
     return new_line
 

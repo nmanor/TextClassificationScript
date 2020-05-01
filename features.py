@@ -66,12 +66,13 @@ def get_vectorizer(feature):
             ngram_range=(n, n),
             lowercase=False,
             use_idf=tfidf,
-            min_df=3
+            min_df=3,
+            stop_words=glbs.STOP_WORDS
         )
 
     else:
         vectorizer = SkipGramVectorizer(
-            max_features=count, analyzer=type, n=n, k=k, lowercase=False, min_df=3
+            max_features=count, analyzer=type, n=n, k=k, lowercase=False, min_df=3, stop_words=glbs.STOP_WORDS
         )
 
     return vectorizer
@@ -106,7 +107,14 @@ def extract_features(dataset_dir):
             feature_lst = add_feature(feature_lst, feature + str(i), vectorizers[i])
 
     # convert the list to one vectoriazer using FeatureUnion
-    all_features = FeatureUnion(feature_lst)
+    if glbs.MULTIPROCESSING:
+        n_jobs = -1
+    else:
+        n_jobs = None
+    all_features = FeatureUnion(feature_lst, n_jobs=n_jobs)
+
+    glbs.FEATURE_MODEL = all_features
+
     train_features = all_features.fit_transform(X, y)
     glbs.NUM_OF_FEATURE = len(all_features.get_feature_names())
 
@@ -114,11 +122,12 @@ def extract_features(dataset_dir):
         from feature_selction import get_selected_features
         train_features = get_selected_features(train_features, y, all_features)
 
-    return train_features, y
+    return X, y
 
 
 def get_data(dataset_dir):
     dataset_data = read_dataset(dataset_dir)
+    dataset_data.sort(key=lambda doc: doc[0])
     random.Random(4).shuffle(dataset_data)
     X, y = zip(*dataset_data)
     return X, y
