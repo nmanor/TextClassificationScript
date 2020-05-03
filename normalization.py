@@ -282,7 +282,7 @@ def normal(word, nargs):
         new_line = remove_urls(new_line)
     if 's' in nargs:
         # new_line = remove_stop_words(new_line)
-        glbs.STOP_WORDS = {'english'}
+        glbs.STOP_WORDS = 'english'
     if 'r' in nargs:
         new_line = remove_repetition(new_line)
     if 'c' in nargs:

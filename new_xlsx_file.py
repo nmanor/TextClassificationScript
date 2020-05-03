@@ -269,7 +269,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
         normalization = ""
         stopwords = ""
         for char in value["normalization"]:
-            if char in "sbx":
+            if char.lower() in "sbx":
                 stopwords += char.replace("s", "E").replace("b", "H").replace("x", "X")
             else:
                 normalization += char.upper()

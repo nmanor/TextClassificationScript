@@ -42,6 +42,9 @@ def set_global_parameters(configs):
             )
     except:
         glbls.LANGUAGE = "english"
+    glbls.STOP_WORDS = None
+    if 's' in config["nargs"].lower():
+        glbls.STOP_WORDS = "english"
 
 
 def print_run_details():
