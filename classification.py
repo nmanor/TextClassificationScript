@@ -91,7 +91,10 @@ def classify(X, y, k_fold, num_iteration=1):
         else:
             clf = methods[classifier]
 
-        clf = make_pipeline(glbs.FEATURE_MODEL, clf)
+        if glbs.SELECTION:
+            clf = make_pipeline(glbs.FEATURE_MODEL[0], glbs.FEATURE_MODEL[1], clf)
+        else:
+            clf = make_pipeline(glbs.FEATURE_MODEL[0], clf)
 
         if glbs.MULTIPROCESSING:
             n_jobs = -1
@@ -100,15 +103,18 @@ def classify(X, y, k_fold, num_iteration=1):
 
         for i in range(num_iteration):
             print_message("iteration " + str(i + 1) + "/" + str(num_iteration), 2)
-            scores = cross_validate(clf, X, y, cv=k_fold, scoring=glbs.MEASURE, n_jobs=n_jobs)
+            scores = cross_validate(
+                clf, X, y, cv=k_fold, scoring=glbs.MEASURE, n_jobs=n_jobs
+            )
             for measure in glbs.MEASURE:
                 if measure in results[classifier].keys():
-                    results[classifier][measure] += list(scores['test_' + measure])
+                    results[classifier][measure] += list(scores["test_" + measure])
                 else:
-                    results[classifier][measure] = list(scores['test_' + measure])
+                    results[classifier][measure] = list(scores["test_" + measure])
 
         del clf
     return results
+
 
 def get_rnn_model(tr_features):
     top_words = tr_features.shape[1]

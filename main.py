@@ -43,7 +43,7 @@ def set_global_parameters(configs):
     except:
         glbls.LANGUAGE = "english"
     glbls.STOP_WORDS = None
-    if 's' in config["nargs"].lower():
+    if "s" in config["nargs"].lower():
         glbls.STOP_WORDS = "english"
 
 
@@ -81,6 +81,7 @@ def add_results(old_results, glbs):
     temp["normalization"] = glbs.NORMALIZATION
     temp["stylistic_features"] = glbs.STYLISTIC_FEATURES
     temp["k_folds"] = glbs.K_FOLDS
+    temp["selection"] = glbs.SELECTION[0]
     temp["iterations"] = glbs.ITERATIONS
     temp["baseline_path"] = glbs.BASELINE_PATH
     temp["num_of_features"] = glbs.NUM_OF_FEATURE
@@ -109,11 +110,16 @@ def divide_results(result):
                 new_result[measure][config_name]["results"][method] = value
                 new_result[measure][config_name]["featurs"] = dic["featurs"]
                 new_result[measure][config_name]["normalization"] = dic["normalization"]
-                new_result[measure][config_name]["stylistic_features"] = dic["stylistic_features"]
+                new_result[measure][config_name]["stylistic_features"] = dic[
+                    "stylistic_features"
+                ]
                 new_result[measure][config_name]["k_folds"] = dic["k_folds"]
                 new_result[measure][config_name]["iterations"] = dic["iterations"]
                 new_result[measure][config_name]["baseline_path"] = dic["baseline_path"]
-                new_result[measure][config_name]["num_of_features"] = dic["num_of_features"]
+                new_result[measure][config_name]["num_of_features"] = dic[
+                    "num_of_features"
+                ]
+                new_result[measure][config_name]["selection"] = dic["selection"]
 
     return_results = {}
     for measure, data in new_result.items():

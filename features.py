@@ -67,12 +67,18 @@ def get_vectorizer(feature):
             lowercase=False,
             use_idf=tfidf,
             min_df=3,
-            stop_words=glbs.STOP_WORDS
+            stop_words=glbs.STOP_WORDS,
         )
 
     else:
         vectorizer = SkipGramVectorizer(
-            max_features=count, analyzer=type, n=n, k=k, lowercase=False, min_df=3, stop_words=glbs.STOP_WORDS
+            max_features=count,
+            analyzer=type,
+            n=n,
+            k=k,
+            lowercase=False,
+            min_df=3,
+            stop_words=glbs.STOP_WORDS,
         )
 
     return vectorizer
@@ -113,13 +119,14 @@ def extract_features(dataset_dir):
         n_jobs = None
     all_features = FeatureUnion(feature_lst, n_jobs=n_jobs)
 
-    glbs.FEATURE_MODEL = all_features
+    glbs.FEATURE_MODEL.append(all_features)
 
     train_features = all_features.fit_transform(X, y)
     glbs.NUM_OF_FEATURE = len(all_features.get_feature_names())
 
     if glbs.SELECTION:
         from feature_selction import get_selected_features
+
         train_features = get_selected_features(train_features, y, all_features)
 
     return X, y

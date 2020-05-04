@@ -26,7 +26,7 @@ class GlobalParameters(metaclass=Singleton):
         self.SELECTION = []
         self.WORDCLOUD = False
         self.LANGUAGE = None
-        self.PRINT_SELECTION = True
+        self.PRINT_SELECTION = False
         self.SELECTION_HALF = False
         self.RESULTS = {}
         self.IDF = []
@@ -35,9 +35,9 @@ class GlobalParameters(metaclass=Singleton):
         self.BASELINE_PATH = ""
         self.EXPORT_AS_BASELINE = False
         self.NUM_OF_FEATURE = 0
-        self.MULTIPROCESSING = True
+        self.MULTIPROCESSING = False
         self.STOP_WORDS = None
-        self.FEATURE_MODEL = None
+        self.FEATURE_MODEL = []
 
 
 def print_message(msg, num_tabs=0):

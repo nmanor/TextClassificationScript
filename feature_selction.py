@@ -136,7 +136,7 @@ def selectionHalfMethod(X, y, all_features):
         for method in rst.items():
             if mean(method[1]["accuracy"]) > max_nxt_result:
                 max_nxt_result = mean(method[1]["accuracy"])
-        results = add_results(results, glbs, nxt)
+        results = add_results(results, glbs)
         if max_nxt_result >= max_last_result:
             top = nxt
             if bottom[1] == 0:
@@ -184,9 +184,10 @@ def get_selected_features(X, y, all_features):
             #    select_rfecv_sfm(selection, (train, test), (tr_labels, ts_labels))
             # else:
             select = select_k_best(selection[0], int(selection[1]))
-            if glbs.SELECTION_HALF:
-                selectionHalfMethod(select.fit_transform(X, y), y, all_features)
-            return select.fit_transform(X, y)
+            glbs.FEATURE_MODEL.append(select)
+            # if glbs.SELECTION_HALF:
+            #    selectionHalfMethod(select.fit_transform(X, y), y, all_features)
+            # return select.fit_transform(X, y)
 
     # write_info_gain(zip(feat_labels, recursive.ranking_), "rfevc " + key)
     # feat_labels = features.get_feature_names()
