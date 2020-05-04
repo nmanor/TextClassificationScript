@@ -81,7 +81,10 @@ def add_results(old_results, glbs):
     temp["normalization"] = glbs.NORMALIZATION
     temp["stylistic_features"] = glbs.STYLISTIC_FEATURES
     temp["k_folds"] = glbs.K_FOLDS
-    temp["selection"] = glbs.SELECTION[0]
+    try:
+        temp["selection"] = glbs.SELECTION[0]
+    except:
+        pass
     temp["iterations"] = glbs.ITERATIONS
     temp["baseline_path"] = glbs.BASELINE_PATH
     temp["num_of_features"] = glbs.NUM_OF_FEATURE
@@ -119,7 +122,10 @@ def divide_results(result):
                 new_result[measure][config_name]["num_of_features"] = dic[
                     "num_of_features"
                 ]
-                new_result[measure][config_name]["selection"] = dic["selection"]
+                try:
+                    new_result[measure][config_name]["selection"] = dic["selection"]
+                except:
+                    pass
 
     return_results = {}
     for measure, data in new_result.items():
