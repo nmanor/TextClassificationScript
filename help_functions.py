@@ -4,7 +4,8 @@ import re
 from random import shuffle
 
 import xlsxwriter
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import KFold
 
 
 def create_dataset(dir, output, split=0.33):
@@ -270,7 +271,7 @@ def compere_corpus(anorexia100_path, normal100_path, corpus2_path):
 
 
 def get_fetuer_by_DF(corpus):
-    vec = CountVectorizer(min_df=3).fit(corpus)
+    vec = CountVectorizer(min_df=3, lowercase=False).fit(corpus)
     bag_of_words = vec.transform(corpus)
     sum_words = bag_of_words.sum(axis=0)
     words_freq = [[word, sum_words[0, idx], 0] for word, idx in vec.vocabulary_.items()]
@@ -307,6 +308,11 @@ def get_fetuer_by_DF(corpus):
 
 if __name__ == "__main__":
     # random_groups(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
-    vec = TfidfVectorizer(stop_words="english")
-    vec.fit_transform(["an apple beside besides between beyond bill english both"])
-    print(vec.get_feature_names())
+    x = ['a' + str(i) for i in range(3)] + ['b' + str(i) for i in range(3)] + ['c' + str(i) for i in range(4)]
+    print(x)
+    for train, test in KFold().split(x):
+        print(train, test)
+    print()
+    for train, test in KFold().split(x):
+        print(train, test)
+    a = 1

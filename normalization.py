@@ -260,19 +260,22 @@ def stem(text):
     return new_text
 
 
-def remove_apostrophe_and_acronyms(text):
-    text = text.replace("'", "")
-    acronyms = set(re.findall(r"\w\.\w\.\w", text))
-    for acr in acronyms:
+def apostrophe_removal(text):
+    return text.replace("\'", "").replace("'", "").replace("’", "")
+
+
+def acronyms_removal(text):
+    acr = set(re.findall(r"\w\.\w\.\w", text))
+    for acr in acr:
         text = re.sub(acr, acr.replace(".", ""), text)
     return text
 
 
 def normal(word, nargs):
-    if nargs == "" or nargs == "\n":
+    if not nargs:
         return word
 
-    nargs = nargs.lower()
+    nargs = [n.lower() for n in nargs]
     new_line = word
     if 'l' in nargs:
         new_line = new_line.lower()
@@ -293,8 +296,10 @@ def normal(word, nargs):
         new_line = lemmatize(new_line)
     if 'm' in nargs:
         new_line = stem(new_line)
+    if 'ar' in nargs:
+        new_line = apostrophe_removal(new_line)
     if 'a' in nargs:
-        new_line = remove_apostrophe_and_acronyms(new_line)
+        new_line = acronyms_removal(new_line)
 
     # addition: 'b' for Hebrew stopwords and 'x' for extended Hebrew stopwords
     if 'x' in nargs:
@@ -318,9 +323,9 @@ def normalize(test=False):
     else:
         i = glbs.TEST_DIR
         print_message("Normalizing test dataset")
-    if not is_nargs_empty(n):
+    if n:
         # the normalized folder
-        parent_dir = i + "@" + n
+        parent_dir = i + "@" + "".join(n).upper()
         # create the dir if does not exist
         if not os.path.exists(parent_dir):
             os.mkdir(parent_dir)

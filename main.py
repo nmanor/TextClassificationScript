@@ -21,7 +21,7 @@ def set_global_parameters(configs):
     config = configs[1]
     glbls.FILE_NAME = configs[0]
     glbls.FEATURES = config["features"]
-    glbls.NORMALIZATION = "".join(sorted(config["nargs"].upper()))
+    glbls.NORMALIZATION = [n.lower() for n in config["nargs"]]
     glbls.METHODS = config["methods"]
     glbls.DATASET_DIR = config["dataset"]
     glbls.RESULTS_PATH = config["results"]
@@ -43,7 +43,7 @@ def set_global_parameters(configs):
     except:
         glbls.LANGUAGE = "english"
     glbls.STOP_WORDS = None
-    if "s" in config["nargs"].lower():
+    if 's' in config["nargs"]:
         glbls.STOP_WORDS = "english"
 
 
