@@ -43,7 +43,7 @@ def set_global_parameters(configs):
     except:
         glbls.LANGUAGE = "english"
     glbls.STOP_WORDS = None
-    if 's' in config["nargs"]:
+    if "s" in config["nargs"]:
         glbls.STOP_WORDS = "english"
 
 
@@ -74,7 +74,7 @@ def print_run_details():
     )
 
 
-def add_results(old_results, glbs):
+def add_results(old_results, glbs, selection=None):
     temp = {}
     temp["results"] = old_results[glbs.FILE_NAME]
     temp["featurs"] = glbs.FEATURES
@@ -82,7 +82,7 @@ def add_results(old_results, glbs):
     temp["stylistic_features"] = glbs.STYLISTIC_FEATURES
     temp["k_folds"] = glbs.K_FOLDS
     try:
-        temp["selection"] = glbs.SELECTION[0]
+        temp["selection"] = selection
     except:
         pass
     temp["iterations"] = glbs.ITERATIONS

@@ -135,7 +135,7 @@ def selectionHalfMethod(X, y, all_features):
         for method in rst.items():
             if mean(method[1]["accuracy"]) > max_nxt_result:
                 max_nxt_result = mean(method[1]["accuracy"])
-        results = add_results(results, glbs)
+        results = add_results(results, glbs, nxt)
         if max_nxt_result >= max_last_result:
             top = nxt
             if bottom[1] == 0:
