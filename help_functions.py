@@ -1,11 +1,10 @@
 import json
 import os
+import random
 import re
-from random import shuffle
 
 import xlsxwriter
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.model_selection import KFold
 
 
 def create_dataset(dir, output, split=0.33):
@@ -308,11 +307,27 @@ def get_fetuer_by_DF(corpus):
 
 if __name__ == "__main__":
     # random_groups(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
-    x = ['a' + str(i) for i in range(3)] + ['b' + str(i) for i in range(3)] + ['c' + str(i) for i in range(4)]
+
+    def divide_chunks(lst, n_split):
+        splited = []
+        len_l = len(lst)
+        for i in range(n_split):
+            start = int(i * len_l / n_split)
+            end = int((i + 1) * len_l / n_split)
+            splited.append(lst[start:end])
+        return splited
+
+
+    x = list(range(1, 201))
+    y = ['a' if i % 2 == 0 else 'b' for i in x]
+    z = list(zip(x, y))
+    print(z)
+    z = divide_chunks(z, 5)
+    all = []
+    for arr in z:
+        random.Random(4).shuffle(arr)
+        all += arr
+    print(all)
+    x, y = zip(*all)
     print(x)
-    for train, test in KFold().split(x):
-        print(train, test)
-    print()
-    for train, test in KFold().split(x):
-        print(train, test)
-    a = 1
+    print(y)
