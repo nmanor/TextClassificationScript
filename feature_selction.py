@@ -117,6 +117,7 @@ def select_rfecv_sfm(selection, features, labels):
 
 def selectionHalfMethod(X, y, all_features):
     glbs = GlobalParameters()
+    filename = glbs.FILE_NAME
     results = {}
     nxt = glbs.SELECTION[0]
     nxt = (nxt[0], int(nxt[1]))
@@ -146,10 +147,10 @@ def selectionHalfMethod(X, y, all_features):
         elif max_nxt_result < max_last_result:
             bottom = nxt
             nxt = (nxt[0], int((top[1] + bottom[1]) / 2))
-
         glbs.SELECTION[0] = nxt
         if bottom[1] - top[1] == -1 and bottom == nxt:
             break
+    glbs.FILE_NAME = filename
     add_results_glbs(results, glbs)
 
 
