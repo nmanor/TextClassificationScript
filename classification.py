@@ -4,6 +4,7 @@
 # from keras.preprocessing.text import Tokenizer
 import os
 import pickle
+import random
 
 from keras import Sequential
 from keras.layers import (
@@ -102,6 +103,20 @@ def classify(X, y, k_fold, num_iteration=1):
             n_jobs = None
 
         for i in range(num_iteration):
+            # Shuffle  the inner order of the posts within each fold
+            Xy = list(zip(X, y))
+            splited = []
+            len_l = len(Xy)
+            for j in range(k_fold):
+                start = int(j * len_l / k_fold)
+                end = int((j + 1) * len_l / k_fold)
+                splited.append(Xy[start:end])
+            Xy = []
+            for fold in splited:
+                random.Random(num_iteration).shuffle(fold)
+                Xy += fold
+            X, y = zip(*Xy)
+
             print_message("iteration " + str(i + 1) + "/" + str(num_iteration), 2)
             scores = cross_validate(
                 clf, X, y, cv=k_fold, scoring=glbs.MEASURE, n_jobs=n_jobs
