@@ -121,13 +121,13 @@ def extract_features(dataset_dir):
 
     glbs.FEATURE_MODEL.append(all_features)
 
-    train_features = all_features.fit_transform(X, y)
+    all_features.fit(X, y)
     glbs.NUM_OF_FEATURE = len(all_features.get_feature_names())
 
     if glbs.SELECTION:
         from feature_selction import get_selected_features
 
-        train_features = get_selected_features(X, y, all_features)
+        get_selected_features(X, y, all_features)
 
     return X, y
 

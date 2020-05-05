@@ -119,21 +119,20 @@ def selectionHalfMethod(X, y, all_features):
     glbs = GlobalParameters()
     filename = glbs.FILE_NAME
     results = {}
-    nxt = glbs.SELECTION[0]
-    nxt = (nxt[0], int(nxt[1]))
+    # nxt = (glbs.SELECTION[0][0], int(glbs.SELECTION[0][1]))
+    nxt = (glbs.SELECTION[0][0], glbs.NUM_OF_FEATURE)
     max_last_result = 0
     bottom = (0, 0)
     top = nxt
     while top != bottom:
         max_nxt_result = 0
-        print(nxt[0])
-        print(nxt[1])
+        print_message(nxt[0])
+        print_message(nxt[1])
         glbs.FILE_NAME = glbs.FILE_NAME + str(nxt[1])
         select = select_k_best(nxt[0], int(nxt[1]))
         glbs.FEATURE_MODEL[1] = select
         results[glbs.FILE_NAME] = classify(X, y, glbs.K_FOLDS, glbs.ITERATIONS)
-        rst = results[glbs.FILE_NAME]
-        for method in rst.items():
+        for method in results[glbs.FILE_NAME].items():
             if mean(method[1]["accuracy"]) > max_nxt_result:
                 max_nxt_result = mean(method[1]["accuracy"])
         results = add_results(results, glbs, nxt)
@@ -155,16 +154,11 @@ def selectionHalfMethod(X, y, all_features):
 
 
 def get_selected_features(X, y, all_features):
-
     le = LabelEncoder()
     le.fit(y)
     t = le.transform(y)
-    tfidf = ""
     for selection in glbs.SELECTION:
         if glbs.PRINT_SELECTION:
-            # tfidf = dict(all_features.transformer_list)[glbs.FEATURES[0]].idf_
-            # tfidf = dict(all_features.transformer_list)[glbs.FEATURES[0]].vocabulary_
-
             selection_list = get_selection_list(selection[0], X, t)
             ziped = []
             try:
@@ -176,22 +170,11 @@ def get_selected_features(X, y, all_features):
             except:
                 ziped = zip(all_features.get_feature_names(), selection_list)
             write_info_gain(ziped, str(selection[0]))
-            return X
         if selection[0] in selection_type.keys():
-            # if selection[0] == "rfecv":
-            #   features = vstack((train, test))
-            #   select_rfecv_sfm(selection, features, glbs.LABELS)
-            # elif selection[0] == "sfm":
-            #    select_rfecv_sfm(selection, (train, test), (tr_labels, ts_labels))
-            # else:
             select = select_k_best(selection[0], int(selection[1]))
             glbs.FEATURE_MODEL.append(select)
             if glbs.SELECTION_HALF:
                 selectionHalfMethod(X, y, all_features)
-            # return select.fit_transform(X, y)
-
-    # write_info_gain(zip(feat_labels, recursive.ranking_), "rfevc " + key)
-    # feat_labels = features.get_feature_names()
 
 
 if __name__ == "__main__":
