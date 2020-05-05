@@ -129,9 +129,8 @@ def selectionHalfMethod(X, y, all_features):
         print(nxt[1])
         glbs.FILE_NAME = glbs.FILE_NAME + str(nxt[1])
         select = select_k_best(nxt[0], int(nxt[1]))
-        results[glbs.FILE_NAME] = classify(
-            select.fit_transform(X, y), y, glbs.K_FOLDS, glbs.ITERATIONS
-        )
+        glbs.FEATURE_MODEL[1] = select
+        results[glbs.FILE_NAME] = classify(X, y, glbs.K_FOLDS, glbs.ITERATIONS)
         rst = results[glbs.FILE_NAME]
         for method in rst.items():
             if mean(method[1]["accuracy"]) > max_nxt_result:
@@ -155,16 +154,17 @@ def selectionHalfMethod(X, y, all_features):
 
 
 def get_selected_features(X, y, all_features):
+
     le = LabelEncoder()
     le.fit(y)
-    y = le.transform(y)
+    t = le.transform(y)
     tfidf = ""
     for selection in glbs.SELECTION:
         if glbs.PRINT_SELECTION:
             # tfidf = dict(all_features.transformer_list)[glbs.FEATURES[0]].idf_
             # tfidf = dict(all_features.transformer_list)[glbs.FEATURES[0]].vocabulary_
 
-            selection_list = get_selection_list(selection[0], X, y)
+            selection_list = get_selection_list(selection[0], X, t)
             ziped = []
             try:
                 ziped = zip(
@@ -185,8 +185,8 @@ def get_selected_features(X, y, all_features):
             # else:
             select = select_k_best(selection[0], int(selection[1]))
             glbs.FEATURE_MODEL.append(select)
-            # if glbs.SELECTION_HALF:
-            #    selectionHalfMethod(select.fit_transform(X, y), y, all_features)
+            if glbs.SELECTION_HALF:
+                selectionHalfMethod(X, y, all_features)
             # return select.fit_transform(X, y)
 
     # write_info_gain(zip(feat_labels, recursive.ranking_), "rfevc " + key)

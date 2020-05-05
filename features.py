@@ -127,7 +127,7 @@ def extract_features(dataset_dir):
     if glbs.SELECTION:
         from feature_selction import get_selected_features
 
-        train_features = get_selected_features(train_features, y, all_features)
+        train_features = get_selected_features(X, y, all_features)
 
     return X, y
 
