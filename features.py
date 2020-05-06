@@ -97,6 +97,7 @@ def extract_features(dataset_dir):
     glbs.DATASET_DATA = X
 
     ########################################
+    # X, y = zip(*list(zip(X, y))[:160])
     # get_fetuer_by_DF(X)
     ########################################
 

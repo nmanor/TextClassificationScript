@@ -32,6 +32,7 @@ def set_global_parameters(configs):
     glbls.ITERATIONS = config["iterations"]
     glbls.BASELINE_PATH = config["baseline_path"]
     glbls.EXPORT_AS_BASELINE = config["export_as_baseline"]
+    glbls.FEATURE_MODEL = []
     try:
         if "language" in config:
             glbls.LANGUAGE = config["language"]
