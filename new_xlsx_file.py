@@ -111,6 +111,9 @@ def new_write_file_content(pickle_file_path, measure, results_path):
 
     # Write normalization
     worksheet.write("A10", "Pre Processing", bold_gray)
+    """worksheet.write("A11", "A - Acronyms", gray)
+    worksheet.write("A12", "L - Lowercase", gray)
+    worksheet.write("A13", "AR - Apostrophe Removal", gray)"""
     worksheet.write("A11", "C - Spelling Correction", gray)
     worksheet.write("A12", "L - Lowercase", gray)
     worksheet.write("A13", "H - HTML tags", gray)
@@ -270,9 +273,9 @@ def new_write_file_content(pickle_file_path, measure, results_path):
         stopwords = ""
         for char in value["normalization"]:
             if char.lower() in "sbx":
-                stopwords += char.replace("s", "E").replace("b", "H").replace("x", "X")
+                stopwords += char.replace("s", "E").replace("b", "H").replace("x", "X") + " "
             else:
-                normalization += char.upper()
+                normalization += char.upper() + " "
         if normalization == "":
             normalization = "NONE"
         if stopwords == "":

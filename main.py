@@ -171,6 +171,7 @@ def export_as_baseline(result, config):
 def main(cfg):
     try:
         # nltk.download("vader_lexicon")
+        # nltk.download('wordnet')
         glbs = GlobalParameters()
         configs = get_cfg_files(cfg)
         total_files = len(configs)

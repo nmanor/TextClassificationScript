@@ -4,6 +4,7 @@ import re
 import shutil
 import string
 
+import autocorrect
 from autocorrect import spell
 from nltk import WordNetLemmatizer, SnowballStemmer
 
@@ -193,6 +194,8 @@ def remove_repetition(text):
 
 
 def spell_correction(text):
+    return autocorrect.Speller().autocorrect_sentence(text)
+
     buffer = ""
     new_text = ""
 
