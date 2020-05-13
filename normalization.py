@@ -268,9 +268,10 @@ def apostrophe_removal(text):
 
 
 def acronyms_removal(text):
-    acr = set(re.findall(r"\w\.\w\.\w", text))
+    acr = set(re.findall(r"\w\.\w\.\w", text) + re.findall(r"\w+\"\w", text))
     for acr in acr:
         text = re.sub(acr, acr.replace(".", ""), text)
+        text = re.sub(acr, acr.replace("\"", ""), text)
     return text
 
 

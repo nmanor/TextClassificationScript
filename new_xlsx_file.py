@@ -111,16 +111,16 @@ def new_write_file_content(pickle_file_path, measure, results_path):
 
     # Write normalization
     worksheet.write("A10", "Pre Processing", bold_gray)
-    """worksheet.write("A11", "A - Acronyms", gray)
+    worksheet.write("A11", "A - Acronyms", gray)
     worksheet.write("A12", "L - Lowercase", gray)
-    worksheet.write("A13", "AR - Apostrophe Removal", gray)"""
+    """worksheet.write("A13", "AR - Apostrophe Removal", gray)
     worksheet.write("A11", "C - Spelling Correction", gray)
     worksheet.write("A12", "L - Lowercase", gray)
     worksheet.write("A13", "H - HTML tags", gray)
     worksheet.write("A14", "P - Punctuations", gray)
     worksheet.write("A15", "R - Repeated chars", gray)
     worksheet.write("A16", "T - Stemming", gray)
-    worksheet.write("A17", "M - Lemmatizer", gray)
+    worksheet.write("A17", "M - Lemmatizer", gray)"""
 
     # Write learning methods
     worksheet.write("H10", "Learning methods", bold_gray)

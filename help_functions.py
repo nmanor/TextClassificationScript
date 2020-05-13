@@ -1,10 +1,9 @@
+import itertools
 import json
 import os
 import re
 
-import nltk
 import xlsxwriter
-from nltk import WordNetLemmatizer
 from sklearn.feature_extraction.text import CountVectorizer
 
 
@@ -65,10 +64,6 @@ def adapt_other_json(path_from, path_to):
 
 def gen_cfgs_in_range(output_path):
     i = 1
-    # REF = ["dw", "tw", "dh", "dx", "tx"]
-    # ACF = ["wc", "cc", "sc", "alw", "als", "aws", "awl"]
-    # WEF = ["ww", "owc", "twc", "ttc"]
-
     # HE
     lst = ["aof", "fdf", "ftf", "anf", "huf", "mef", "vof", "pnf", "agf", "te", "xte", "slf", "spf", "thf", "caf",
            "vuf", "def", "inf", "sif", "lof", "frc", "ref", "acf", "ref", "pw", "nw", "e50th", "e50tth"]
@@ -84,12 +79,12 @@ def gen_cfgs_in_range(output_path):
             "export_as_baseline": False,
             "k_folds_cv": 5,
             "iterations": 20,
-            "nargs": "",
+            "nargs": ["l"],
             "features": [],
             "results": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\results",
             "methods": ["lr", "svc", "mlp", "rf", "mnb"],
             "measure": ["accuracy"],
-            "stylistic_features": fe if isinstance(fe, list) else [fe],
+            "stylistic_features": [fe],
             "selection": {}
         }
 
@@ -101,13 +96,12 @@ def gen_cfgs_in_range(output_path):
 
 
 def random_groups(output_path):
+    lst = ['a', 'l', 'x', 'b']
+    result = []
+    for i in range(1, len(lst) + 1):
+        result += list(itertools.combinations(lst, i))
+
     i = 1
-
-    lst = ['s', 'ar', 'l', 'a']
-    result = ['m', 't', 'h', 'u', 'r', 'c', 'p']
-    # for i in range(1, len(lst)):
-    #    result += list(itertools.combinations(lst, i))
-
     for count in (100, 500, 1000, 1500, 2000):
         for comb in result:
             cfgs = {
@@ -169,7 +163,4 @@ def get_fetuer_by_DF(corpus):
 
 
 if __name__ == "__main__":
-    # random_groups(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
-    nltk.download('wordnet')
-    wnl = WordNetLemmatizer()
-    print(wnl.lemmatize('dogs'))
+    gen_cfgs_in_range(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
