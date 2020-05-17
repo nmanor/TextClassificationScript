@@ -120,7 +120,7 @@ def selectionHalfMethod(X, y, all_features):
     filename = glbs.FILE_NAME
     results = {}
     # nxt = (glbs.SELECTION[0][0], int(glbs.SELECTION[0][1]))
-    nxt = (glbs.SELECTION[0][0], glbs.NUM_OF_FEATURE)
+    nxt = (glbs.SELECTION[0][0], glbs.SELECTION[0][1])
     max_last_result = 0
     bottom = (0, 0)
     top = nxt
