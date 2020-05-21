@@ -1,0 +1,45 @@
+{
+  "dataset": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\dataset",
+  "baseline_path": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\baseline",
+  "export_as_baseline": false,
+  "k_folds_cv": 5,
+  "iterations": 20,
+  "nargs": [
+    "l"
+  ],
+  "features": [],
+  "results": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\results",
+  "methods": [
+    "lr",
+    "svc",
+    "mlp",
+    "rf",
+    "mnb"
+  ],
+  "measure": [
+    "accuracy"
+  ],
+  "stylistic_features": [
+    "lof",
+    "fdf",
+    "mef",
+    "e50th",
+    "frc",
+    "vof",
+    "acf",
+    "aof",
+    "huf",
+    "caf",
+    "pnf",
+    "agf",
+    "anf",
+    "wef",
+    "te",
+    "e50tth",
+    "pw",
+    "ref",
+    "slf",
+    "nw"
+  ],
+  "selection": {}
+}
