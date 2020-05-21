@@ -119,7 +119,13 @@ def classify(X, y, k_fold, num_iteration=1):
 
             print_message("iteration " + str(i + 1) + "/" + str(num_iteration), 2)
             scores = cross_validate(
-                clf, X, y, cv=k_fold, scoring=glbs.MEASURE, n_jobs=n_jobs
+                clf,
+                X,
+                y,
+                cv=k_fold,
+                scoring=glbs.MEASURE,
+                n_jobs=n_jobs,
+                return_estimator=True,
             )
             for measure in glbs.MEASURE:
                 if measure in results[classifier].keys():
