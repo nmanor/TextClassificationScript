@@ -120,7 +120,7 @@ def selectionHalfMethod(X, y, all_features):
     filename = glbs.FILE_NAME
     results = {}
     # nxt = (glbs.SELECTION[0][0], int(glbs.SELECTION[0][1]))
-    nxt = (glbs.SELECTION[0][0], glbs.SELECTION[0][1])
+    nxt = (glbs.SELECTION[0][0], int(glbs.SELECTION[0][1]))
     max_last_result = 0
     bottom = (0, 0)
     top = nxt
@@ -139,9 +139,9 @@ def selectionHalfMethod(X, y, all_features):
         if max_nxt_result >= max_last_result:
             top = nxt
             if bottom[1] == 0:
-                nxt = (nxt[0], int(nxt[1] / 2))
+                nxt = (nxt[0], int(int(nxt[1]) / 2))
             if bottom[1] != 0:
-                nxt = (nxt[0], int((nxt[1] + bottom[1]) / 2))
+                nxt = (nxt[0], int((int(nxt[1]) + bottom[1]) / 2))
             max_last_result = max_nxt_result
         elif max_nxt_result < max_last_result:
             bottom = nxt
@@ -172,6 +172,7 @@ def get_selected_features(X, y, all_features):
             write_info_gain(ziped, str(selection[0]))
         if selection[0] in selection_type.keys():
             select = select_k_best(selection[0], int(selection[1]))
+
             glbs.FEATURE_MODEL.append(select)
             if glbs.SELECTION_HALF:
                 selectionHalfMethod(X, y, all_features)

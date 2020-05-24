@@ -28,6 +28,7 @@ from sklearn.model_selection import cross_validate
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import make_pipeline
+from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import LabelEncoder
 from sklearn.svm import LinearSVC
 
@@ -91,9 +92,15 @@ def classify(X, y, k_fold, num_iteration=1):
             continue
         else:
             clf = methods[classifier]
-
+        lst = []
         if glbs.SELECTION:
-            clf = make_pipeline(glbs.FEATURE_MODEL[0], glbs.FEATURE_MODEL[1], clf)
+            lst.append(("feture", glbs.FEATURE_MODEL[0]))
+            lst.append(("select", glbs.FEATURE_MODEL[1]))
+            lst.append(("classifier", clf))
+            clf = Pipeline(lst)
+            A = clf.fit(X, y)
+            print(A)
+
         else:
             clf = make_pipeline(glbs.FEATURE_MODEL[0], clf)
 
@@ -119,13 +126,7 @@ def classify(X, y, k_fold, num_iteration=1):
 
             print_message("iteration " + str(i + 1) + "/" + str(num_iteration), 2)
             scores = cross_validate(
-                clf,
-                X,
-                y,
-                cv=k_fold,
-                scoring=glbs.MEASURE,
-                n_jobs=n_jobs,
-                return_estimator=True,
+                clf, X, y, cv=k_fold, scoring=glbs.MEASURE, n_jobs=n_jobs
             )
             for measure in glbs.MEASURE:
                 if measure in results[classifier].keys():
