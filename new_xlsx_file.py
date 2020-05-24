@@ -273,7 +273,9 @@ def new_write_file_content(pickle_file_path, measure, results_path):
         stopwords = ""
         for char in value["normalization"]:
             if char.lower() in "sbx":
-                stopwords += char.replace("s", "E").replace("b", "H").replace("x", "X") + " "
+                stopwords += (
+                    char.replace("s", "E").replace("b", "H").replace("x", "X") + " "
+                )
             else:
                 normalization += char.upper() + " "
         if normalization == "":
@@ -489,7 +491,6 @@ def write_info_gain(features, name):
 
     row = 0
     for i, data in enumerate(features):
-        print(data)
 
         worksheet.write("A" + str(i + 3), data[0].split("_")[0])
         worksheet.write("B" + str(i + 3), data[0].split("_")[-1])
@@ -542,4 +543,3 @@ if __name__ == "__main__":
             r"C:\Users\user\Documents\test\results\Pickle files\accuracy_&_confusion_matrix.pickle"
         )
     )
-
