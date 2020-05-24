@@ -1,4 +1,3 @@
-import itertools
 import json
 import os
 import re
@@ -66,7 +65,7 @@ def gen_cfgs_in_range(output_path):
     i = 1
     # HE
     lst = ["aof", "fdf", "ftf", "anf", "huf", "mef", "vof", "pnf", "agf", "te", "xte", "slf", "spf", "thf", "caf",
-           "vuf", "def", "inf", "sif", "lof", "frc", "ref", "acf", "ref", "pw", "nw", "e50th", "e50tth"]
+           "vuf", "def", "inf", "sif", "lof", "frc", "ref", "acf", "wef", "pw", "nw", "e50th", "e50tth"]
     # EN
     lst = ["aof", "fdf", "ftf", "anf", "huf", "fpe", "spe", "tpe", "nof", "vof", "pnf", "agf", "te", "xte", "slf",
            "spf", "thf", "caf", "sxf", "cuf", "alf", "skf", "def", "inf", "sif", "lof", "frc", "ref", "acf", "wef",
@@ -96,34 +95,35 @@ def gen_cfgs_in_range(output_path):
 
 
 def random_groups(output_path):
-    lst = ['a', 'l', 'x', 'b']
-    result = []
+    """result = []
     for i in range(1, len(lst) + 1):
-        result += list(itertools.combinations(lst, i))
+        result += list(itertools.combinations(lst, i))"""
 
-    i = 1
-    for count in (100, 500, 1000, 1500, 2000):
-        for comb in result:
-            cfgs = {
-                "dataset": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset",
-                "baseline_path": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\baseline",
-                "export_as_baseline": False,
-                "k_folds_cv": 5,
-                "iterations": 20,
-                "nargs": list(comb),
-                "features": ["ngrams_" + str(count) + "_w_tfidf_1_0"],
-                "results": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\results",
-                "methods": ["lr", "svc", "mlp", "rf", "mnb"],
-                "measure": ["accuracy"],
-                "stylistic_features": [],
-                "selection": {}
-            }
+    lst = ["ftf", "xte", "spf", "thf", "vuf", "def", "inf", "sif", "lof"]
 
-            with open(output_path + "\\" + "".join(comb) + str(count) + ".json", 'w') as fp:
-                json.dump(cfgs, fp, indent=4)
+    bests = ["fdf", "mef", "e50th", "frc", "vof", "acf", "aof", "huf", "caf", "pnf", "agf", "anf", "wef", "te",
+             "e50tth", "pw", "ref", "slf", "nw"]
 
-            print(i)
-            i += 1
+    for i, family in enumerate(lst):
+        cfgs = {
+            "dataset": "C:\\Users\\natan\\OneDrive\\מסמכים\\test\\dataset",
+            "baseline_path": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\baseline",
+            "export_as_baseline": False,
+            "k_folds_cv": 5,
+            "iterations": 20,
+            "nargs": ["l"],
+            "features": [],
+            "results": "C:\\Users\\natan\\OneDrive\\\u05de\u05e1\u05de\u05db\u05d9\u05dd\\test\\results",
+            "methods": ["lr", "svc", "mlp", "rf", "mnb"],
+            "measure": ["accuracy"],
+            "stylistic_features": [family] + bests,
+            "selection": {}
+        }
+
+        with open(output_path + "\\" + family + ".json", 'w') as fp:
+            json.dump(cfgs, fp, indent=4)
+
+        print(i)
 
 
 def get_fetuer_by_DF(corpus):
@@ -163,4 +163,4 @@ def get_fetuer_by_DF(corpus):
 
 
 if __name__ == "__main__":
-    gen_cfgs_in_range(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")
+    random_groups(r"C:\Users\natan\OneDrive\מסמכים\test\cfgs")

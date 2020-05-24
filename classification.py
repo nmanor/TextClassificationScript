@@ -41,9 +41,9 @@ glbs = GlobalParameters()
 
 methods = {
     "svc": LinearSVC(),
-    "rf": RandomForestClassifier(),
+    "rf": RandomForestClassifier(n_jobs=-1 if glbs.MULTIPROCESSING else None),
     "mlp": MLPClassifier(),
-    "lr": LogisticRegression(),
+    "lr": LogisticRegression(n_jobs=-1 if glbs.MULTIPROCESSING else None),
     "mnb": MultinomialNB(),
 }
 
