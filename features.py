@@ -98,6 +98,8 @@ def extract_features(dataset_dir):
 
     ########################################
     # X, y = zip(*list(zip(X, y))[:160])
+    # from help_functions import get_fetuer_by_DF
+
     # get_fetuer_by_DF(X)
     ########################################
 
@@ -122,8 +124,8 @@ def extract_features(dataset_dir):
 
     glbs.FEATURE_MODEL.append(all_features)
 
-    all_features.fit(X, y)
-    glbs.NUM_OF_FEATURE = len(all_features.get_feature_names())
+    # all_features.fit(X, y)
+    # glbs.NUM_OF_FEATURE = len(all_features.get_feature_names())
 
     if glbs.SELECTION:
         from feature_selction import get_selected_features

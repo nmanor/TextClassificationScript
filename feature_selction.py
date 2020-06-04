@@ -1,5 +1,6 @@
 import os
 import pickle
+import random
 from array import array
 from keras import Sequential
 from scipy.sparse import hstack, vstack
@@ -39,6 +40,7 @@ from sklearn.feature_selection import (
     chi2,
     mutual_info_classif,
     f_classif,
+    f_regression,
     RFECV,
     mutual_info_regression,
     SelectKBest,
@@ -66,10 +68,13 @@ selection_type = {
     "fc": f_classif,
     "rfecv": RFECV,
     "sfm": SelectFromModel,
+    "fr": f_regression,
 }
 
 
 def get_selection_list(selection, X, y):
+    if selection == "mir" or selection == "mic":
+        return selection_type[selection](X, y, n_neighbors=371)
     return selection_type[selection](X, y)
 
 
@@ -154,12 +159,17 @@ def selectionHalfMethod(X, y, all_features):
 
 
 def get_selected_features(X, y, all_features):
-    le = LabelEncoder()
-    le.fit(y)
-    t = le.transform(y)
     for selection in glbs.SELECTION:
         if glbs.PRINT_SELECTION:
-            selection_list = get_selection_list(selection[0], X, t)
+            # Shuffle  the inner order of the posts within each fold
+            F = X[:160]
+            t = y[:160]
+            le = LabelEncoder()
+            le.fit(t)
+            t = le.transform(t)
+            F = all_features.fit_transform(F)
+
+            selection_list = get_selection_list(selection[0], F, t)
             ziped = []
             try:
                 ziped = zip(

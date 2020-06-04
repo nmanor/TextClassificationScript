@@ -9,22 +9,29 @@ from sklearn.feature_extraction.text import CountVectorizer
 def write_result(prediction, classifier, path):
     dic = {1: "normal", 0: "anorexia"}
     prediction = list(prediction)
-    with open(path + "\\result.txt", "r", encoding="utf8", errors='replace') as file:
+    with open(path + "\\result.txt", "r", encoding="utf8", errors="replace") as file:
         text = file.read()
     for i, predict in enumerate(prediction):
-        text = text.replace('!!' + classifier + str(hex(i)) + '!!', classifier + ': ' + dic[predict])
-    with open(path + "\\result.txt", "w", encoding="utf8", errors='replace') as file:
+        text = text.replace(
+            "!!" + classifier + str(hex(i)) + "!!", classifier + ": " + dic[predict]
+        )
+    with open(path + "\\result.txt", "w", encoding="utf8", errors="replace") as file:
         file.write(text)
 
 
 def regex():
-    text = open(r"C:\Users\user\Documents\test\dataset\all.txt", 'r', encoding="utf8", errors='ignore').read()
+    text = open(
+        r"C:\Users\user\Documents\test\dataset\all.txt",
+        "r",
+        encoding="utf8",
+        errors="ignore",
+    ).read()
 
-    result = re.findall(r'\w*מילה\w*', text)
+    result = re.findall(r"\w*מילה\w*", text)
 
     tup = [(word, result.count(word)) for word in set(result)]
     for word in tup:
-        print(word[0] + ': ' + str(word[1]))
+        print(word[0] + ": " + str(word[1]))
 
 
 def adapt_other_json(path_from, path_to):
@@ -36,40 +43,124 @@ def adapt_other_json(path_from, path_to):
     """
     all_dics = []
     i = 1
-    total_length = str(len([file for file in os.listdir(path_from) if file.endswith('.json')]))
+    total_length = str(
+        len([file for file in os.listdir(path_from) if file.endswith(".json")])
+    )
     for file in os.listdir(path_from):
-        if file.endswith('.json'):
-            with open(path_from + "\\" + file, "r", encoding="utf8", errors='replace') as f:
+        if file.endswith(".json"):
+            with open(
+                path_from + "\\" + file, "r", encoding="utf8", errors="replace"
+            ) as f:
                 old_dic = json.load(f)
 
                 # For Hill Climbing only!
-                best = ["wc", "cc", "sc", "alw", "als", "aws", "awl", "caf", "lof", "fdf", "thf", "nw"]
+                best = [
+                    "wc",
+                    "cc",
+                    "sc",
+                    "alw",
+                    "als",
+                    "aws",
+                    "awl",
+                    "caf",
+                    "lof",
+                    "fdf",
+                    "thf",
+                    "nw",
+                ]
 
-                new_dic = {"train": r"C:\Users\user\Documents\test\dataset\training",
-                           "test": r"C:\Users\user\Documents\test\dataset\testing",
-                           "output_csv": r"C:\Users\user\Documents\test\output",
-                           "nargs": "e" if old_dic["nargs"] != "" else "", "features": old_dic["features"],
-                           "results": r"C:\Users\user\Documents\test\results",
-                           "methods": ["lr", "svc", "mlp", "rf", "mnb"],
-                           "measure": ["accuracy_score"],
-                           "stylistic_features": list(set(old_dic["stylistic_features"] + best)), "selection": {}}
+                new_dic = {
+                    "train": r"C:\Users\user\Documents\test\dataset\training",
+                    "test": r"C:\Users\user\Documents\test\dataset\testing",
+                    "output_csv": r"C:\Users\user\Documents\test\output",
+                    "nargs": "e" if old_dic["nargs"] != "" else "",
+                    "features": old_dic["features"],
+                    "results": r"C:\Users\user\Documents\test\results",
+                    "methods": ["lr", "svc", "mlp", "rf", "mnb"],
+                    "measure": ["accuracy_score"],
+                    "stylistic_features": list(
+                        set(old_dic["stylistic_features"] + best)
+                    ),
+                    "selection": {},
+                }
                 if new_dic not in all_dics:
                     all_dics += [new_dic]
-                    with open(path_to + "\\" + file, 'w') as fp:
+                    with open(path_to + "\\" + file, "w") as fp:
                         json.dump(new_dic, fp, indent=4)
-                        print('File ' + str(i) + '/' + total_length)
+                        print("File " + str(i) + "/" + total_length)
                 i += 1
 
 
 def gen_cfgs_in_range(output_path):
     i = 1
     # HE
-    lst = ["aof", "fdf", "ftf", "anf", "huf", "mef", "vof", "pnf", "agf", "te", "xte", "slf", "spf", "thf", "caf",
-           "vuf", "def", "inf", "sif", "lof", "frc", "ref", "acf", "wef", "pw", "nw", "e50th", "e50tth"]
+    lst = [
+        "aof",
+        "fdf",
+        "ftf",
+        "anf",
+        "huf",
+        "mef",
+        "vof",
+        "pnf",
+        "agf",
+        "te",
+        "xte",
+        "slf",
+        "spf",
+        "thf",
+        "caf",
+        "vuf",
+        "def",
+        "inf",
+        "sif",
+        "lof",
+        "frc",
+        "ref",
+        "acf",
+        "wef",
+        "pw",
+        "nw",
+        "e50th",
+        "e50tth",
+    ]
     # EN
-    lst = ["aof", "fdf", "ftf", "anf", "huf", "fpe", "spe", "tpe", "nof", "vof", "pnf", "agf", "te", "xte", "slf",
-           "spf", "thf", "caf", "sxf", "cuf", "alf", "skf", "def", "inf", "sif", "lof", "frc", "ref", "acf", "wef",
-           "pw", "nw", "e50te", "e50tte"]
+    lst = [
+        "aof",
+        "fdf",
+        "ftf",
+        "anf",
+        "huf",
+        "fpe",
+        "spe",
+        "tpe",
+        "nof",
+        "vof",
+        "pnf",
+        "agf",
+        "te",
+        "xte",
+        "slf",
+        "spf",
+        "thf",
+        "caf",
+        "sxf",
+        "cuf",
+        "alf",
+        "skf",
+        "def",
+        "inf",
+        "sif",
+        "lof",
+        "frc",
+        "ref",
+        "acf",
+        "wef",
+        "pw",
+        "nw",
+        "e50te",
+        "e50tte",
+    ]
 
     for fe in lst:
         cfgs = {
@@ -84,10 +175,10 @@ def gen_cfgs_in_range(output_path):
             "methods": ["lr", "svc", "mlp", "rf", "mnb"],
             "measure": ["accuracy"],
             "stylistic_features": [fe],
-            "selection": {}
+            "selection": {},
         }
 
-        with open(output_path + "\\" + fe + ".json", 'w') as fp:
+        with open(output_path + "\\" + fe + ".json", "w") as fp:
             json.dump(cfgs, fp, indent=4)
 
         print(i)
@@ -101,8 +192,27 @@ def random_groups(output_path):
 
     lst = ["ftf", "xte", "spf", "thf", "vuf", "def", "inf", "sif", "lof"]
 
-    bests = ["fdf", "mef", "e50th", "frc", "vof", "acf", "aof", "huf", "caf", "pnf", "agf", "anf", "wef", "te",
-             "e50tth", "pw", "ref", "slf", "nw"]
+    bests = [
+        "fdf",
+        "mef",
+        "e50th",
+        "frc",
+        "vof",
+        "acf",
+        "aof",
+        "huf",
+        "caf",
+        "pnf",
+        "agf",
+        "anf",
+        "wef",
+        "te",
+        "e50tth",
+        "pw",
+        "ref",
+        "slf",
+        "nw",
+    ]
 
     for i, family in enumerate(lst):
         cfgs = {
@@ -117,10 +227,10 @@ def random_groups(output_path):
             "methods": ["lr", "svc", "mlp", "rf", "mnb"],
             "measure": ["accuracy"],
             "stylistic_features": [family] + bests,
-            "selection": {}
+            "selection": {},
         }
 
-        with open(output_path + "\\" + family + ".json", 'w') as fp:
+        with open(output_path + "\\" + family + ".json", "w") as fp:
             json.dump(cfgs, fp, indent=4)
 
         print(i)
@@ -137,7 +247,7 @@ def get_fetuer_by_DF(corpus):
             post = re.findall(r"(?u)\b\w\w+\b", post)
             if words_freq[row][0] in post:
                 words_freq[row][2] += 1
-    file_path = r"C:\Users\natan\OneDrive\מסמכים\test\words.xlsx"
+    file_path = r"C:\Users\Mickey\Documents\kerner\data\results\words.xlsx"
     workbook = xlsxwriter.Workbook(file_path)
     worksheet = workbook.add_worksheet()
     row = 2
@@ -150,11 +260,7 @@ def get_fetuer_by_DF(corpus):
     worksheet.add_table(
         "A2:C" + str(row),
         {
-            "columns": [
-                {"header": "Word"},
-                {"header": "F"},
-                {"header": "DF"}
-            ],
+            "columns": [{"header": "Word"}, {"header": "F"}, {"header": "DF"}],
             "style": "Table Style Light 8",
         },
     )

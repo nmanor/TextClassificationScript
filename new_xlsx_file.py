@@ -262,7 +262,7 @@ def new_write_file_content(pickle_file_path, measure, results_path):
                 stylistic_features += styl_feature.upper() + "  "
             worksheet.write(row, 5, stylistic_features[:-2], cell_format)
 
-        # Write the num of features
+            # Write the num of features
         worksheet.write_number(row, 0, value["num_of_features"], cell_format)
 
         # Pre Processing and Stop Words data
@@ -483,7 +483,7 @@ def find_maxes_best_(best, maxes, method, methods, row, val):
 def write_info_gain(features, name):
     glbs = GlobalParameters()
     file_path = (
-        GlobalParameters().RESULTS_PATH + "\\" + name + " for hebrew dataset" + ".xlsx"
+        GlobalParameters().RESULTS_PATH + "\\" + name + " for english dataset" + ".xlsx"
     )
     # Create an new Excel file and add a worksheet.
     workbook = xlsxwriter.Workbook(file_path)
@@ -494,9 +494,9 @@ def write_info_gain(features, name):
 
         worksheet.write("A" + str(i + 3), data[0].split("_")[0])
         worksheet.write("B" + str(i + 3), data[0].split("_")[-1])
-        worksheet.write_number("C" + str(i + 3), data[1])
+        worksheet.write("C" + str(i + 3), "{:.2f}".format(data[1]))
         try:
-            worksheet.write_number("D" + str(i + 3), data[2])
+            worksheet.write("D" + str(i + 3), "{:.2f}".format(data[2]))
             if len(glbs.IDF) > 0:
                 worksheet.write_number("E" + str(i + 3), glbs.IDF[i])
         except:
@@ -539,7 +539,9 @@ def write_sfm(score):
 
 if __name__ == "__main__":
     print(
-        open_pickle_content(
-            r"C:\Users\user\Documents\test\results\Pickle files\accuracy_&_confusion_matrix.pickle"
+        new_write_file_content(
+            r"C:\Users\Mickey\Documents\kerner\data\results\Pickle files\accuracy.pickle",
+            "accuracy",
+            r"C:\Users\Mickey\Documents\kerner\data\results\Xlsx files",
         )
     )

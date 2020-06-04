@@ -98,8 +98,6 @@ def classify(X, y, k_fold, num_iteration=1):
             lst.append(("select", glbs.FEATURE_MODEL[1]))
             lst.append(("classifier", clf))
             clf = Pipeline(lst)
-            A = clf.fit(X, y)
-            print(A)
 
         else:
             clf = make_pipeline(glbs.FEATURE_MODEL[0], clf)
