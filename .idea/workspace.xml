@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b334214f-f085-4185-b9cf-111af0088f3b" name="Default" comment="Small bug fixed">
+    <list default="true" id="b334214f-f085-4185-b9cf-111af0088f3b" name="Default" comment="Push anorexia data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classification.py" beforeDir="false" afterPath="$PROJECT_DIR$/classification.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/confusion_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/confusion_matrix.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features.py" beforeDir="false" afterPath="$PROJECT_DIR$/features.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global_parameters.py" beforeDir="false" afterPath="$PROJECT_DIR$/global_parameters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/help_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/help_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_xlsx_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_xlsx_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stopwords_and_lists.py" beforeDir="false" afterPath="$PROJECT_DIR$/stopwords_and_lists.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,20 +64,21 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../targil" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\natan\PycharmProjects\TextClassificationScript" />
+      <recent name="C:\Users\yairi\Desktop\TCProg" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\user\textclassificationscript\word" />
       <recent name="C:\Users\yairi\Desktop\TCProg\words" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\yairi\Desktop\TCProg" />
-    </key>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="config_generator" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="confusion_matrix" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="TCProg" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -80,11 +86,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/config_files_creator" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/config_files_creator/config_generator.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/confusion_matrix.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -178,7 +184,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.config_generator" />
+      <item itemvalue="Python.confusion_matrix" />
       <item itemvalue="Python.cross_validation" />
       <item itemvalue="Python.help_functions" />
       <item itemvalue="Python.main" />
@@ -188,9 +194,9 @@
       <list>
         <item itemvalue="Python.main" />
         <item itemvalue="Python.help_functions" />
+        <item itemvalue="Python.confusion_matrix" />
         <item itemvalue="Python.statistical_significance" />
         <item itemvalue="Python.cross_validation" />
-        <item itemvalue="Python.config_generator" />
       </list>
     </recent_temporary>
   </component>
@@ -469,14 +475,25 @@
       <option name="presentableId" value="LOCAL‎00043" />
       <updated>1589355322776</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL‎00044" summary="Push anorexia data">
+      <created>1590053150893</created>
+      <option name="number" value="LOCAL‎00044" />
+      <option name="presentableId" value="LOCAL‎00044" />
+      <updated>1590053150893</updated>
+    </task>
+    <task id="LOCAL‎00045" summary="Push anorexia data">
+      <created>1590053239156</created>
+      <option name="number" value="LOCAL‎00045" />
+      <option name="presentableId" value="LOCAL‎00045" />
+      <updated>1590053239156</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="precision recall curve" />
     <MESSAGE value="Now supports precision recall curve as a measurement method" />
     <MESSAGE value="Support for integrated accuracy &amp; confusion matrix" />
     <MESSAGE value="Added lists of words for classification by families of words" />
@@ -501,88 +518,93 @@
     <MESSAGE value="The problem with the stop words fixed" />
     <MESSAGE value="Mixing the inner order of the posts within each fold" />
     <MESSAGE value="Small bug fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small bug fixed" />
+    <MESSAGE value="Push anorexia data" />
+    <option name="LAST_COMMIT_MESSAGE" value="Push anorexia data" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="440" y="10" key="CommitChangelistDialog2" timestamp="1590053149025">
+    <state x="497" y="222" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1591555928838">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="440" y="10" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1590053149025" />
-    <state width="1534" height="440" key="DebuggerActiveHint" timestamp="1589880531588">
+    <state x="497" y="222" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1591555928838" />
+    <state x="440" y="10" key="CommitChangelistDialog2" timestamp="1590053268322">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1534" height="440" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1589880531588" />
+    <state x="440" y="10" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1590053268322" />
+    <state width="1534" height="440" key="DebuggerActiveHint" timestamp="1591556288802">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1534" height="440" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1591556288802" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585758415044">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1585758415044" />
-    <state x="548" y="189" key="FileChooserDialogImpl" timestamp="1589651661581">
+    <state x="548" y="189" key="FileChooserDialogImpl" timestamp="1590606311764">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="548" y="189" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589651661581" />
-    <state width="1515" height="489" key="GridCell.Tab.0.bottom" timestamp="1590053226035">
+    <state x="548" y="189" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1590606311764" />
+    <state width="1515" height="341" key="GridCell.Tab.0.bottom" timestamp="1591556835190">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="489" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590053226035" />
-    <state width="1515" height="489" key="GridCell.Tab.0.center" timestamp="1590053226035">
+    <state width="1515" height="341" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1591556835190" />
+    <state width="1515" height="341" key="GridCell.Tab.0.center" timestamp="1591556835189">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="489" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590053226035" />
-    <state width="1515" height="489" key="GridCell.Tab.0.left" timestamp="1590053226035">
+    <state width="1515" height="341" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1591556835189" />
+    <state width="1515" height="341" key="GridCell.Tab.0.left" timestamp="1591556835189">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="489" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590053226035" />
-    <state width="1515" height="489" key="GridCell.Tab.0.right" timestamp="1590053226035">
+    <state width="1515" height="341" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1591556835189" />
+    <state width="1515" height="341" key="GridCell.Tab.0.right" timestamp="1591556835189">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="489" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590053226035" />
-    <state width="1515" height="383" key="GridCell.Tab.1.bottom" timestamp="1589925085700">
+    <state width="1515" height="341" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1591556835189" />
+    <state width="1515" height="341" key="GridCell.Tab.1.bottom" timestamp="1591556835190">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="383" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589925085700" />
-    <state width="1515" height="383" key="GridCell.Tab.1.center" timestamp="1589925085700">
+    <state width="1515" height="341" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1591556835190" />
+    <state width="1515" height="341" key="GridCell.Tab.1.center" timestamp="1591556835190">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="383" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1589925085700" />
-    <state width="1515" height="383" key="GridCell.Tab.1.left" timestamp="1589925085700">
+    <state width="1515" height="341" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1591556835190" />
+    <state width="1515" height="341" key="GridCell.Tab.1.left" timestamp="1591556835190">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="383" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1589925085700" />
-    <state width="1515" height="383" key="GridCell.Tab.1.right" timestamp="1589925085700">
+    <state width="1515" height="341" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1591556835190" />
+    <state width="1515" height="341" key="GridCell.Tab.1.right" timestamp="1591556835190">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="383" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1589925085700" />
-    <state x="147" y="64" key="MergeDialog" timestamp="1588755996758">
+    <state width="1515" height="341" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1591556835190" />
+    <state x="132" y="50" key="MergeDialog" timestamp="1591287381669">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="147" y="64" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1588755996758" />
-    <state x="481" y="129" key="MultipleFileMergeDialog" timestamp="1588755996764">
+    <state x="132" y="50" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1591287381669" />
+    <state x="481" y="129" key="MultipleFileMergeDialog" timestamp="1591287381680">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="481" y="129" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1588755996764" />
-    <state x="279" y="57" key="SettingsEditor" timestamp="1584295957126">
+    <state x="481" y="129" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1591287381680" />
+    <state x="279" y="57" key="SettingsEditor" timestamp="1590095155510">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="279" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1584295957126" />
-    <state x="361" y="148" key="Vcs.Push.Dialog.v2" timestamp="1590053153104">
+    <state x="279" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1590095155510" />
+    <state x="361" y="148" key="Vcs.Push.Dialog.v2" timestamp="1590053275199">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="148" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1590053153104" />
-    <state width="775" height="419" key="XDebugger.FullValuePopup" timestamp="1589880599272">
+    <state x="361" y="148" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1590053275199" />
+    <state width="775" height="419" key="XDebugger.FullValuePopup" timestamp="1591090435664">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="775" height="419" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1589880599272" />
-    <state x="477" y="239" key="com.intellij.ide.util.TipDialog" timestamp="1590048158045">
+    <state width="775" height="419" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1591090435664" />
+    <state x="477" y="239" key="com.intellij.ide.util.TipDialog" timestamp="1591555221739">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="477" y="239" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1590048158045" />
-    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588755957542">
+    <state x="477" y="239" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1591555221739" />
+    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591556196526">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1588755957542" />
+    <state x="580" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1591556196526" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -599,8 +621,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/classification.py</url>
-          <line>104</line>
-          <option name="timeStamp" value="27" />
+          <line>168</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

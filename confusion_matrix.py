@@ -1,12 +1,8 @@
-import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
-
+import numpy as np
 from sklearn import svm, datasets
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score
-from sklearn.utils.multiclass import unique_labels
-
+from sklearn.model_selection import train_test_split
 
 # import some data to play with
 from global_parameters import GlobalParameters
@@ -90,7 +86,7 @@ if __name__ == "__main__":
     np.set_printoptions(precision=2)
 
     # Plot non-normalized confusion matrix
-    #plot_confusion_matrix(y_test, y_pred, classes=class_names, title='Confusion matrix, without normalization')
+    plot_confusion_matrix(y_test, y_pred, classes=class_names, title='Confusion matrix, without normalization')
 
     # Plot normalized confusion matrix
-    # plot_confusion_matrix(y_test, y_pred, classes=class_names, normalize=True, title='Normalized confusion matrix')
+    plot_confusion_matrix(y_test, y_pred, classes=class_names, normalize=True, title='Normalized confusion matrix')

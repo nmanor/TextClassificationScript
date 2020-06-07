@@ -124,8 +124,8 @@ def extract_features(dataset_dir):
 
     glbs.FEATURE_MODEL.append(all_features)
 
-    # all_features.fit(X, y)
-    # glbs.NUM_OF_FEATURE = len(all_features.get_feature_names())
+    all_features.fit(X, y)
+    glbs.NUM_OF_FEATURE = len(all_features.get_feature_names())
 
     if glbs.SELECTION:
         from feature_selction import get_selected_features

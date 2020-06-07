@@ -2,6 +2,7 @@
 # from keras.layers import Embedding, LSTM, Dense, SpatialDropout1D, Conv1D, MaxPooling1D
 # from keras.preprocessing import sequence
 # from keras.preprocessing.text import Tokenizer
+import json
 import os
 import pickle
 import random
@@ -16,6 +17,7 @@ from keras.layers import (
     Dense,
     Dropout,
 )
+from pandas import np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
@@ -27,8 +29,8 @@ from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import cross_validate
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
-from sklearn.pipeline import make_pipeline
 from sklearn.pipeline import Pipeline
+from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import LabelEncoder
 from sklearn.svm import LinearSVC
 
@@ -107,8 +109,64 @@ def classify(X, y, k_fold, num_iteration=1):
         else:
             n_jobs = None
 
+        ####################################################################
+        # Used for parameters tuning
+        from sklearn.model_selection import RandomizedSearchCV
+        # Number of trees in random forest
+        n_estimators = [int(x) for x in np.linspace(start=1000, stop=2000, num=10)]
+        # Number of features to consider at every split
+        max_features = ['auto', 'sqrt']
+        # Maximum number of levels in tree
+        max_depth = [int(x) for x in np.linspace(10, 110, num=11)]
+        max_depth.append(None)
+        # Minimum number of samples required to split a node
+        min_samples_split = [2, 5, 10, 15]
+        # Minimum number of samples required at each leaf node
+        min_samples_leaf = [1, 2, 4, 6]
+        # Method of selecting samples for training each tree
+        bootstrap = [True, False]
+        # Create the random grid
+        random_grid = {'classifier__n_estimators': n_estimators,
+                       'classifier__max_features': max_features,
+                       'classifier__max_depth': max_depth,
+                       'classifier__min_samples_split': min_samples_split,
+                       'classifier__min_samples_leaf': min_samples_leaf,
+                       'classifier__bootstrap': bootstrap}
+        print(random_grid)
+
+        # Use the random grid to search for best hyperparameters
+        # Random search of parameters, using 3 fold cross validation,
+        # search across 100 different combinations, and use all available cores
+        rf_random = RandomizedSearchCV(estimator=clf, param_distributions=random_grid, n_iter=100, cv=k_fold, verbose=2,
+                                       random_state=42, n_jobs=-1)
+
+        print(clf.get_params().keys())
+        # Fit the random search model
+        rf_random.fit(X, y)
+
+        print(rf_random.best_params_)
+        clf = rf_random.best_estimator_
+        with open("best_estimator.json", "w") as file:
+            json.dump(rf_random.best_params_, file, indent=6)
+
+        """best_random = rf_random.best_estimator_
+        scores = cross_validate(best_random, X, y, cv=k_fold, scoring=glbs.MEASURE, n_jobs=n_jobs)
+        random_accuracy = numpy.mean(list(scores["test_accuracy"]))
+
+        base_model = clf
+        scores = cross_validate(base_model, X, y, cv=k_fold, scoring=glbs.MEASURE, n_jobs=n_jobs)
+        base_accuracy = numpy.mean(list(scores["test_accuracy"]))
+
+        print('Base accuracy: {:0.2f}%.'.format(100 * base_accuracy))
+        print('Random accuracy: {:0.2f}%.'.format(100 * random_accuracy))
+
+        print('Improvement of {:0.2f}%.'.format(100 * (random_accuracy - base_accuracy) / base_accuracy))
+
+        stop = "Put breakpoint here"""""
+        ####################################################################
+
         for i in range(num_iteration):
-            # Shuffle  the inner order of the posts within each fold
+            # Shuffle the inner order of the posts within each fold
             Xy = list(zip(X, y))
             splited = []
             len_l = len(Xy)
